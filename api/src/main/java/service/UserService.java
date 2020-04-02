@@ -1,4 +1,4 @@
-package servie;
+package service;
 
 /**
  * @author lenovo

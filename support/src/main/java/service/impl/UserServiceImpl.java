@@ -1,7 +1,7 @@
 package service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import servie.UserService;
+import service.UserService;
 
 /**
  * @author lenovo
