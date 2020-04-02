@@ -10,9 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author lenovo
  */
 @SpringBootApplication
-@EnableDubbo(scanBasePackages = "service")
+@EnableDubbo(scanBasePackages = "com.hrms.api.service")
 public class WebappApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(WebappApplication.class, args);
     }
