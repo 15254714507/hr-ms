@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 /**
- * @author lenovo
+ * @author 孔超
+ * @date 2020/4/2 19:07
  */
 @SpringBootApplication
 @EnableDubbo(scanBasePackages = "com.hrms.api.service")
