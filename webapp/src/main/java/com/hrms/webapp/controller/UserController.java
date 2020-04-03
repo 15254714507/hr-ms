@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 
 /**
  * @author 孔超
@@ -19,9 +21,9 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/")
-    public String findAll(Model model) throws Exception {
+    public String findAll(Model model, HttpSession session) throws Exception {
         User user = userService.getById(1L);
-        model.addAttribute("a", user.getAccount());
+        session.setAttribute("a",user.getAccount());
         return "index";
 
     }
