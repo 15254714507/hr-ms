@@ -1,4 +1,4 @@
-package com.hrms.support;
+package com.hrms.support.manager;
 
 import com.hrms.api.domain.entity.User;
 import com.hrms.api.until.LocalDateTimeFactory;

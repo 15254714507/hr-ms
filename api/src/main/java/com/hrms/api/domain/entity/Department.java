@@ -37,8 +37,4 @@ public class Department {
      * 修改者
      */
     private String updateUser;
-    /**
-     * 是否删除
-     */
-    private Boolean delete;
 }

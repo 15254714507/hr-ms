@@ -4,10 +4,72 @@
 <mapper namespace="com.hrms.support.dao.DepartmentDao">
     <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.Department">
         <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="department_name" property="departmentName" jdbcType="VARCHAR"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
         <trim prefix="" suffix="" suffixOverrides=",">
             id,
+            department_name,
+            create_time,
+            update_time,
+            create_user,
+            update_user,
         </trim>
     </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from department
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.hrms.api.domain.entity.Department">
+        insert
+        into department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            department_name,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{departmentName,jdbcType=VARCHAR},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.hrms.api.domain.entity.Department">
+        update department
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="departmentName !=null and departmentName != '' ">
+                    department_name= #{departmentName,jdbcType=VARCHAR},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+            </trim>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from department
+        where id = #{id,jdbcType=BIGINT};
+    </delete>
+    <select id="list" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.DepartmentCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from department
+        <if test="departmentName !=null and departmentName != '' ">
+            where department_name=#{departmentName,jdbcType=VARCHAR}
+        </if>
+
+    </select>
 </mapper>
