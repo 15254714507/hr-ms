@@ -67,8 +67,9 @@
         select
         <include refid="Base_Column_List"/>
         from department
+        where is_delete = 0
         <if test="departmentName !=null and departmentName != '' ">
-            where department_name=#{departmentName,jdbcType=VARCHAR}
+            and department_name=#{departmentName,jdbcType=VARCHAR}
         </if>
 
     </select>
