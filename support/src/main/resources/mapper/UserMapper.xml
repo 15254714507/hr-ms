@@ -4,20 +4,231 @@
 <mapper namespace="com.hrms.support.dao.UserDao">
     <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.User">
         <id column="id" property="id" jdbcType="BIGINT"/>
-        <result column="account" property="account" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="identity_card" property="identityCard" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="TINYINT"/>
+        <result column="date_of_birth" property="dateOfBirth" jdbcType="DATE"/>
+        <result column="native_place" property="nativePlace" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="nationality" property="nationality" jdbcType="VARCHAR"/>
+        <result column="national" property="national" jdbcType="VARCHAR"/>
+        <result column="degree" property="degree" jdbcType="VARCHAR"/>
+        <result column="professional" property="professional" jdbcType="VARCHAR"/>
+        <result column="university" property="university" jdbcType="VARCHAR"/>
+        <result column="graduation_date" property="graduationDate" jdbcType="DATE"/>
+        <result column="first_work_date" property="firstWorkDate" jdbcType="DATE"/>
+        <result column="work_years" property="workYears" jdbcType="DECIMAL"/>
+        <result column="census_register" property="censusRegister" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="head_shot" property="headShot" jdbcType="VARCHAR"/>
+        <result column="resume" property="resume" jdbcType="VARCHAR"/>
+        <result column="employment_date" property="employmentDate" jdbcType="DATE"/>
+        <result column="internship_date" property="internshipDate" jdbcType="DATE"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="delete" jdbcType="TINYINT"/>
     </resultMap>
     <sql id="Base_Column_List">
         <trim prefix="" suffix="" suffixOverrides=",">
             id,
-            account,
+            username,
             password,
+            name,
+            identity_card,
+            gender,
+            date_of_birth,
+            native_place,
+            email,
+            phone,
+            nationality,
+            national,
+            degree,
+            professional,
+            university,
+            graduation_date,
+            first_work_date,
+            work_years,
+            census_register,
+            address,
+            head_shot,
+            resume,
+            employment_date,
+            internship_date,
+            create_time,
+            update_time,
+            create_user,
+            update_user,
+            is_delete,
         </trim>
     </sql>
     <select id="getById" resultMap="BaseResultMap" parameterType="Long">
         select
         <include refid="Base_Column_List"/>
         from user
-        where id = #{id,jdbcType=BIGINT}
+        where is_delete = 0
+        and id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.hrms.api.domain.entity.User">
+        insert
+        into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            username,
+            password,
+            name,
+            identity_card,
+            gender,
+            date_of_birth,
+            native_place,
+            email,
+            phone,
+            nationality,
+            national,
+            degree,
+            professional,
+            university,
+            graduation_date,
+            first_work_date,
+            work_years,
+            census_register,
+            address,
+            head_shot,
+            resume,
+            employment_date,
+            internship_date,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{username,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR},
+            #{name,jdbcType=VARCHAR},
+            #{identityCard,jdbcType=VARCHAR},
+            #{gender,jdbcType=DATE},
+            #{dateOfBirth,jdbcType=DATE},
+            #{nativePlace,jdbcType=VARCHAR},
+            #{email,jdbcType=VARCHAR},
+            #{phone,jdbcType=VARCHAR},
+            #{nationality,jdbcType=VARCHAR},
+            #{national,jdbcType=VARCHAR},
+            #{degree,jdbcType=VARCHAR},
+            #{professional,jdbcType=VARCHAR},
+            #{university,jdbcType=VARCHAR},
+            #{graduationDate,jdbcType=DATE},
+            #{firstWorkDate,jdbcType=DATE},
+            #{workYears,jdbcType=INTEGER},
+            #{censusRegister,jdbcType=VARCHAR},
+            #{address,jdbcType=VARCHAR},
+            #{headShot,jdbcType=VARCHAR},
+            #{resume,jdbcType=VARCHAR},
+            #{employmentDate,jdbcType=DATE},
+            #{internshipDate,jdbcType=DATE},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.hrms.api.domain.entity.User">
+        update user
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="password !=null and password != '' ">
+                    password= #{password,jdbcType=VARCHAR},
+                </if>
+                <if test="name !=null and name != '' ">
+                    name=#{name,jdbcType=VARCHAR},
+                </if>
+                <if test="identityCard !=null and identityCard != '' ">
+                    identity_card=#{identityCard,jdbcType=VARCHAR},
+                </if>
+                <if test="gender !=null">
+                    gender=#{gender,jdbcType=TINYINT},
+                </if>
+                <if test="dateOfBirth !=null ">
+                    date_of_birth=#{dateOfBirth,jdbcType=DATE},
+                </if>
+                <if test="nativePlace !=null and nativePlace != '' ">
+                    native_place=#{nativePlace,jdbcType=VARCHAR},
+                </if>
+                <if test="phone !=null and phone != '' ">
+                    phone=#{phone,jdbcType=VARCHAR},
+                </if>
+                <if test="email !=null and email != '' ">
+                    email=#{email,jdbcType=VARCHAR},
+                </if>
+                <if test="nationality !=null and nationality != '' ">
+                    nationality=#{nationality,jdbcType=VARCHAR},
+                </if>
+                <if test="national !=null and national != '' ">
+                    national=#{national,jdbcType=VARCHAR},
+                </if>
+                <if test="degree !=null and degree != '' ">
+                    degree=#{degree,jdbcType=VARCHAR},
+                </if>
+                <if test="professional !=null and professional != '' ">
+                    professional=#{professional,jdbcType=VARCHAR},
+                </if>
+                <if test="university !=null and university != '' ">
+                    university=#{university,jdbcType=VARCHAR},
+                </if>
+                <if test="graduationDate !=null">
+                    graduation_date=#{graduationDate,jdbcType=DATE},
+                </if>
+                <if test="firstWorkDate !=null">
+                    first_work_date=#{firstWorkDate,jdbcType=DATE},
+                </if>
+                <if test="workYears !=null">
+                    work_years=#{workYears,jdbcType=INTEGER},
+                </if>
+                <if test="censusRegister !=null and censusRegister != '' ">
+                    census_register= #{censusRegister,jdbcType=VARCHAR},
+                </if>
+                <if test="address !=null and address != '' ">
+                    address=#{address,jdbcType=VARCHAR},
+                </if>
+                <if test="headShot !=null and headShot != '' ">
+                    head_shot= #{headShot,jdbcType=VARCHAR},
+                </if>
+                <if test="resume !=null and resume != '' ">
+                    resume= #{resume,jdbcType=VARCHAR},
+                </if>
+                <if test="employmentDate !=null">
+                    employment_date= #{employmentDate,jdbcType=DATE},
+                </if>
+                <if test="internshipDate !=null">
+                    internship_date= #{internshipDate,jdbcType=DATE},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and id = #{id,jdbcType=BIGINT};
+    </update>
+    <update id="deleteById">
+        update user
+        <set>
+            is_delete=1,
+            update_time=#{updateTime,jdbcType=TIMESTAMP}
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <select id="getByUsername" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where
+        <if test="username!=null and username!=''">
+            username=#{username,jdbcType=VARCHAR}
+        </if>
+
     </select>
 </mapper>

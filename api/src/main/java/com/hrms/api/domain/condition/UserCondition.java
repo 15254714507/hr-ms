@@ -1,10 +1,9 @@
-package com.hrms.api.domain.entity;
+package com.hrms.api.domain.condition;
 
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -12,7 +11,7 @@ import java.time.LocalTime;
  * @date 2020/4/2 19:07
  */
 @Data
-public class User implements Serializable {
+public class UserCondition implements Serializable {
     /**
      * 主键 id
      */
@@ -113,11 +112,11 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private LocalTime createTime;
     /**
      * 修改时间
      */
-    private LocalDateTime updateTime;
+    private LocalTime updateTime;
     /**
      * 创建者
      */

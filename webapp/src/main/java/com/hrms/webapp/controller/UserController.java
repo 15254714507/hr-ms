@@ -20,7 +20,7 @@ public class UserController {
     @Reference//这不再用	@Autowired，因为你没实现类怎么注入
     private UserService userService;
 
-    @RequestMapping("/")
+    @RequestMapping("/222")
     public String findAll(Model model, HttpSession session) throws Exception {
         User user = userService.getById(1L);
         session.setAttribute("a",user.getAccount());
