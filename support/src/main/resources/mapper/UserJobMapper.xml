@@ -4,11 +4,114 @@
 <mapper namespace="com.hrms.support.dao.UserJobDao">
     <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.UserJob">
         <id column="id" property="id" jdbcType="BIGINT"/>
-
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="job_id" property="jobId" jdbcType="BIGINT"/>
+        <result column="types_of_employees" property="typesOfEmployees" jdbcType="VARCHAR"/>
+        <result column="base_salary" property="baseSalary" jdbcType="INTEGER"/>
+        <result column="performance_salary" property="performanceSalary" jdbcType="INTEGER"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
         <trim prefix="" suffix="" suffixOverrides=",">
             id,
+            user_id,
+            job_id,
+            types_of_employees,
+            base_salary,
+            performance_salary,
+            create_time,
+            update_time,
+            create_user,
+            update_user,
         </trim>
     </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from user_job
+        where is_delete = 0
+        and id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.hrms.api.domain.entity.UserJob">
+        insert
+        into user_job
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            user_id,
+            job_id,
+            types_of_employees,
+            base_salary,
+            performance_salary,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{userId,jdbcType=BIGINT},
+            #{jobId,jdbcType=BIGINT},
+            #{typesOfEmployees,jdbcType=VARCHAR},
+            #{baseSalary,jdbcType=INTEGER},
+            #{performanceSalary,jdbcType=INTEGER},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.hrms.api.domain.entity.UserJob">
+        update user_job
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="userId !=null">
+                    user_id= #{userId,jdbcType=BIGINT},
+                </if>
+                <if test="jobId !=null">
+                    job_id= #{jobId,jdbcType=BIGINT},
+                </if>
+                <if test="typesOfEmployees !=null and typesOfEmployees!=''">
+                    types_of_employees= #{typesOfEmployees,jdbcType=VARCHAR},
+                </if>
+                <if test="baseSalary !=null">
+                    base_salary= #{baseSalary,jdbcType=INTEGER},
+                </if>
+                <if test="performanceSalary !=null">
+                    performance_salary= #{performanceSalary,jdbcType=INTEGER},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and id = #{id,jdbcType=BIGINT};
+    </update>
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from user_job
+        where id = #{id,jdbcType=BIGINT};
+    </delete>
+    <select id="list" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.UserJobCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from user_job
+        where is_delete=0
+        <if test="userId !=null">
+            and user_id= #{userId,jdbcType=BIGINT}
+        </if>
+        <if test="jobId !=null">
+            and job_id= #{jobId,jdbcType=BIGINT}
+        </if>
+        <if test="typesOfEmployees !=null and typesOfEmployees!=''">
+            and types_of_employees= #{typesOfEmployees,jdbcType=VARCHAR}
+        </if>
+        <if test="baseSalary !=null">
+            and base_salary= #{baseSalary,jdbcType=INTEGER}
+        </if>
+        <if test="performanceSalary !=null">
+            and performance_salary= #{performanceSalary,jdbcType=INTEGER}
+        </if>
+    </select>
 </mapper>

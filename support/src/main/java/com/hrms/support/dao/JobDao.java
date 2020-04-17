@@ -31,7 +31,7 @@ public interface JobDao {
     /**
      * 修改岗位信息
      *
-     * @param id
+     * @param job
      * @return
      */
     public Long updateById(Job job);

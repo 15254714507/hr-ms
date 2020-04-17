@@ -28,7 +28,7 @@ public class UserJob {
     /**
      * 员工类型，分全职还是实习
      */
-    private String typeOfEmployees;
+    private String typesOfEmployees;
     /**
      * 基本工资
      */
