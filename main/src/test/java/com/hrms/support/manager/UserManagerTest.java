@@ -1,8 +1,8 @@
 package com.hrms.support.manager;
 
+import com.hrms.api.domain.condition.UserCondition;
 import com.hrms.api.domain.entity.User;
 import com.hrms.api.until.LocalDateTimeFactory;
-import com.hrms.support.manager.UserManager;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author 孔超
@@ -120,11 +121,20 @@ public class UserManagerTest {
         Assert.assertNotNull(user);
 
         Long isSuc = userManager.deleteById(user.getId());
-        Assert.assertEquals(1,isSuc.intValue());
+        Assert.assertEquals(1, isSuc.intValue());
 
         user = userManager.getById(user.getId());
         Assert.assertNull(user);
 
+    }
+
+    @Test
+    @Transactional
+    public void listTest() {
+        insert();
+        UserCondition userCondition = new UserCondition();
+        List<User> userList = userManager.list(userCondition);
+        Assert.assertTrue(userList.size() > 0);
     }
 
 }

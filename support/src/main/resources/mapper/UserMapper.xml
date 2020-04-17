@@ -231,4 +231,10 @@
         </if>
 
     </select>
+    <select id="list" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.UserCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where is_delete=0
+    </select>
 </mapper>

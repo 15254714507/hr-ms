@@ -1,6 +1,7 @@
 package com.hrms.support.manager.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.hrms.api.domain.condition.UserCondition;
 import com.hrms.api.domain.entity.User;
 import com.hrms.api.exception.DaoException;
 import com.hrms.api.until.LocalDateTimeFactory;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author 孔超
@@ -85,6 +87,15 @@ public class UserManagerImpl implements UserManager {
     public User getByUsername(String username) throws DaoException {
         try {
             return userDao.getByUsername(username);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public List<User> list(UserCondition userCondition) throws DaoException {
+        try {
+            return userDao.list(userCondition);
         } catch (Exception e) {
             throw new DaoException(e);
         }

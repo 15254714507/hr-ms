@@ -1,8 +1,11 @@
 package com.hrms.support.manager;
 
 
+import com.hrms.api.domain.condition.UserCondition;
 import com.hrms.api.domain.entity.User;
 import com.hrms.api.exception.DaoException;
+
+import java.util.List;
 
 /**
  * @author 孔超
@@ -53,4 +56,13 @@ public interface UserManager {
      * @throws DaoException 包装了一成异常
      */
     public User getByUsername(String username) throws DaoException;
+
+    /**
+     * 获得用户的集合
+     *
+     * @param userCondition 搜索的条件
+     * @return 返回user的集合
+     * @throws DaoException 包装了一成异常
+     */
+    public List<User> list(UserCondition userCondition) throws DaoException;
 }

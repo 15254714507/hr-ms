@@ -1,9 +1,11 @@
 package com.hrms.support.dao;
 
+import com.hrms.api.domain.condition.UserCondition;
 import com.hrms.api.domain.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author 孔超
@@ -51,4 +53,12 @@ public interface UserDao {
      * @return
      */
     public User getByUsername(String username);
+
+    /**
+     * 获得用户的集合
+     *
+     * @param userCondition
+     * @return
+     */
+    public List<User> list(UserCondition userCondition);
 }
