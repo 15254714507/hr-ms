@@ -1,6 +1,7 @@
 package com.hrms.support.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.hrms.api.domain.condition.UserCondition;
 import com.hrms.api.domain.entity.User;
 import com.hrms.api.service.UserService;
 import com.hrms.support.manager.UserManager;
@@ -21,5 +22,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Long id) {
         return userManager.getById(id);
+    }
+
+    @Override
+    public User getUserByUserNamePassword(UserCondition userCondition) {
+        User user = userManager.getByUsername(userCondition.getUsername());
+        if (user.getPassword().equals(userCondition.getPassword())) {
+            return user;
+        }
+        return null;
     }
 }

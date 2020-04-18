@@ -1,8 +1,6 @@
 package com.hrms.webapp.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-
-import com.hrms.api.domain.entity.User;
 import com.hrms.api.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +20,7 @@ public class UserController {
 
     @RequestMapping("/222")
     public String findAll(Model model, HttpSession session) throws Exception {
-        User user = userService.getById(1L);
-        session.setAttribute("a",user.getAccount());
+
         return "index";
 
     }

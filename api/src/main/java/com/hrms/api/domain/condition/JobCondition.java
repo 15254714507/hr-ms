@@ -2,6 +2,7 @@ package com.hrms.api.domain.condition;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 /**
@@ -11,7 +12,7 @@ import java.time.LocalTime;
  * @date 2020/4/13 22:00
  */
 @Data
-public class JobCondition {
+public class JobCondition implements Serializable {
     /**
      * 主键 id
      */

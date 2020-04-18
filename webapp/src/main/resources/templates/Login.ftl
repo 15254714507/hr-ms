@@ -16,7 +16,7 @@
         <p>版权归孔超所有</p>
     </div>
 
-    <form action="/login" method="post" id="loginForm">
+    <form action="/login.do" method="post" id="loginForm">
         <div>
             <input type="text" name="username" class="username" placeholder="用户名" autocomplete="off"/>
         </div>
