@@ -17,6 +17,7 @@
             <div><img src="${(employees.headShot)!}" class="per-img"></div>
             <div><h3>${(employees.name)!}</h3>
                 <p>${(employees.departmentName)!}</p>
+                <br/>
                 <p>${(employees.jobName)!}</p></div>
         </div>
         <div class="clear"></div>
@@ -35,7 +36,7 @@
         <header class="aside-head">
             <ul class="nav-ul">
                 <li class="active-li"><a href="home.html" target="fraName">首页</a></li>
-                <li><a href="ruzhi.html" target="fraName">入职管理登记</a></li>
+                <li><a href="/gotoAddEmployees.do" target="fraName">入职管理登记</a></li>
                 <li><a href="lizhi.html" target="fraName">离职管理</a></li>
                 <li><a href="jixiao.html" target="fraName">绩效管理</a></li>
                 <li><a href="shares.html" target="fraName">薪资管理</a></li>

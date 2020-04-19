@@ -59,9 +59,6 @@
     $(function () {
         char1();
         char2();
-        table1();
-        table2();
-        table3();
         change();
 
     })

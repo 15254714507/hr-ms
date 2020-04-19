@@ -1,6 +1,9 @@
 package com.hrms.api.service;
 
+import com.hrms.api.domain.dto.DepartmentJob;
 import com.hrms.api.domain.dto.Employees;
+
+import java.util.List;
 
 /**
  * @author 孔超
@@ -14,4 +17,11 @@ public interface JobService {
      * @return
      */
     public Employees getEmployees(Long jobId);
+
+    /**
+     * 获得所有的部门岗位
+     *
+     * @return
+     */
+    public List<DepartmentJob> listAllDepartment();
 }
