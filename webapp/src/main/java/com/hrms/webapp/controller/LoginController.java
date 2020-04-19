@@ -39,7 +39,7 @@ public class LoginController {
             return "Login";
         }
         model.addAttribute("employees", employees);
-        return "main/home";
+        return "main/main";
 
     }
 
@@ -69,7 +69,7 @@ public class LoginController {
             log.error("发生系统异常", e);
             return "Login";
         }
-        return "main/home";
+        return "main/main";
     }
 
     /**
