@@ -33,8 +33,14 @@ public class LoginController {
      * @return
      */
     @RequestMapping("/")
-    public String gotoLogin() {
-        return "Login";
+    public String gotoLogin(HttpSession session, Model model) {
+        Employees employees = (Employees) session.getAttribute("employees");
+        if (employees == null) {
+            return "Login";
+        }
+        model.addAttribute("employees", employees);
+        return "main/home";
+
     }
 
     /**
