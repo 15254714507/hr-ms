@@ -30,5 +30,9 @@ public class Employees implements Serializable {
      * 岗位名称
      */
     private String jobName;
+    /**
+     * 此岗位是否是当前部门的领导
+     */
+    private Boolean lead;
 
 }

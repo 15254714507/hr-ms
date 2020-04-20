@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 /**
  * 岗位信息
@@ -26,6 +25,10 @@ public class Job implements Serializable {
      * 岗位名称
      */
     private String jobName;
+    /**
+     * 此岗位是否是当前部门的领导
+     */
+    private Boolean lead;
     /**
      * 创建时间
      */

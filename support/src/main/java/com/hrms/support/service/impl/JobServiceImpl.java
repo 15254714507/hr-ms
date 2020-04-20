@@ -36,6 +36,7 @@ public class JobServiceImpl implements JobService {
         }
         Employees employees = departmentService.getEmployees(job.getDepartmentId());
         employees.setJobName(job.getJobName());
+        employees.setLead(job.getLead());
         return employees;
     }
 

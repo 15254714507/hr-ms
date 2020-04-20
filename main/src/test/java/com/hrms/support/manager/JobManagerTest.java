@@ -26,6 +26,7 @@ public class JobManagerTest {
         Job job = new Job();
         job.setDepartmentId(10000L);
         job.setJobName("111");
+        job.setLead(true);
         job.setCreateUser("kc");
         job.setUpdateUser("kc");
         Long isSuc = jobManager.insert(job);
@@ -43,7 +44,7 @@ public class JobManagerTest {
         Assert.assertEquals(1, jobList.size());
         Assert.assertEquals("111", jobList.get(0).getJobName());
         Assert.assertEquals(10000, jobList.get(0).getDepartmentId().intValue());
-
+        Assert.assertTrue(jobList.get(0).getLead());
     }
 
     @Test

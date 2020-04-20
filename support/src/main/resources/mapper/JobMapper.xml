@@ -6,6 +6,7 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="department_id" property="departmentId" jdbcType="BIGINT"/>
         <result column="job_name" property="jobName" jdbcType="VARCHAR"/>
+        <result column="is_lead" property="lead" jdbcType="TINYINT"/>
         <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
         <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -16,6 +17,7 @@
             id,
             department_id,
             job_name,
+            is_lead,
             create_user,
             update_user,
             create_time,
@@ -34,6 +36,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             department_id,
             job_name,
+            is_lead,
             create_user,
             update_user,
             create_time,
@@ -43,6 +46,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             #{departmentId,jdbcType=BIGINT},
             #{jobName,jdbcType=VARCHAR},
+            #{lead,jdbcType=TINYINT},
             #{createUser,jdbcType=VARCHAR},
             #{updateUser,jdbcType=VARCHAR},
             #{createTime,jdbcType=TIMESTAMP},

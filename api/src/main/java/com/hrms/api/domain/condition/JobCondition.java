@@ -26,6 +26,10 @@ public class JobCondition implements Serializable {
      */
     private String jobName;
     /**
+     * 此岗位是否是当前部门的领导
+     */
+    private Boolean lead;
+    /**
      * 创建时间
      */
     private LocalTime createTime;
