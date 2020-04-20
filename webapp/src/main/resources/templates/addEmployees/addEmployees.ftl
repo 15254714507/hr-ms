@@ -33,7 +33,7 @@
                     <td class="top-table-label">证件号码：</td>
                     <td><input type="text" name="identityCard"></td>
                     <td class="top-table-label">证件类型：</td>
-                    <td><select>
+                    <td><select name="identityType">
                             <option>第二代身份证</option>
                             <option>护照</option>
                         </select></td>
