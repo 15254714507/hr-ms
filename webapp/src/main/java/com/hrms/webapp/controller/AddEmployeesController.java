@@ -2,12 +2,17 @@ package com.hrms.webapp.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.hrms.api.domain.dto.DepartmentJob;
+import com.hrms.api.domain.entity.RegisterNewEmployee;
 import com.hrms.api.service.JobService;
+import com.hrms.api.until.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -31,6 +36,14 @@ public class AddEmployeesController {
             return "error/404";
         }
         return "addEmployees/addEmployees";
+    }
+
+    @PostMapping("/saveNewEmployees.do")
+    @ResponseBody
+    public Result saveNewEmployees(@Valid RegisterNewEmployee registerNewEmployee) {
+        //提交表单后的操作
+        return null;
+
     }
 
 }

@@ -34,7 +34,7 @@
     </aside>
     <article class="artlce">
         <header class="aside-head">
-            <ul class="nav-ul">
+            <ul class="nav-ul">1
                 <li class="active-li"><a href="home.html" target="fraName">首页</a></li>
                 <li><a href="/gotoAddEmployees.do" target="fraName">入职管理登记</a></li>
                 <li><a href="lizhi.html" target="fraName">离职管理</a></li>

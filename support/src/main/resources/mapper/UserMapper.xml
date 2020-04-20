@@ -7,6 +7,7 @@
         <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="identity_type" property="identityType" jdbcType="VARCHAR"/>
         <result column="identity_card" property="identityCard" jdbcType="VARCHAR"/>
         <result column="gender" property="gender" jdbcType="TINYINT"/>
         <result column="date_of_birth" property="dateOfBirth" jdbcType="DATE"/>
@@ -39,6 +40,7 @@
             username,
             password,
             name,
+            identity_type,
             identity_card,
             gender,
             date_of_birth,
@@ -80,6 +82,7 @@
             username,
             password,
             name,
+            identity_type,
             identity_card,
             gender,
             date_of_birth,
@@ -110,6 +113,7 @@
             #{username,jdbcType=VARCHAR},
             #{password,jdbcType=VARCHAR},
             #{name,jdbcType=VARCHAR},
+            #{identityType,jdbcType=VARCHAR},
             #{identityCard,jdbcType=VARCHAR},
             #{gender,jdbcType=DATE},
             #{dateOfBirth,jdbcType=DATE},
@@ -145,6 +149,9 @@
                 </if>
                 <if test="name !=null and name != '' ">
                     name=#{name,jdbcType=VARCHAR},
+                </if>
+                <if test="identityType !=null and identityType != '' ">
+                    identity_type=#{identityType,jdbcType=VARCHAR},
                 </if>
                 <if test="identityCard !=null and identityCard != '' ">
                     identity_card=#{identityCard,jdbcType=VARCHAR},

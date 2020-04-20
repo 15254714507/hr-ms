@@ -29,6 +29,10 @@ public class UserCondition implements Serializable {
      */
     private String name;
     /**
+     * 身份类型
+     */
+    private String identityType;
+    /**
      * 身份证号
      */
     private String identityCard;
