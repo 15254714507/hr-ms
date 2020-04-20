@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>入职</title>
+    <title>入职管理</title>
     <link rel="stylesheet" href="js/bstable/css/bootstrap.min.css">
     <link rel="stylesheet" href="js/bstable/css/bootstrap-table.css">
     <link rel="stylesheet" href="css/all.css">
 </head>
 <body>
 <main>
-    <div class="home-tab"><i class="tab-i"></i> 所在位置：<span>入职管理登录</span></div>
+    <div class="home-tab"><i class="tab-i"></i> 所在位置：<span>入职管理</span></div>
     <div class="find-top1">
         <form action="">
             <table class="top-table">
@@ -95,12 +95,18 @@
                 </tr>
                 <tr>
                     <td class="top-table-label">实习时间：</td>
-                    <td><input type="text"></td>
+                    <td><input type="date"></td>
                     <td class="top-table-label">员工类型：</td>
                     <td><select>
                             <option>全职</option>
                             <option>实习</option>
                         </select></td>
+                    <td class="top-table-label">基本工资：</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td class="top-table-label">绩效工资：</td>
+                    <td><input type="text"></td>
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: center">
