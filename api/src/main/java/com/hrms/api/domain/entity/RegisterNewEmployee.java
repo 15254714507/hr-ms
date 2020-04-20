@@ -81,7 +81,7 @@ public class RegisterNewEmployee implements Serializable {
      */
     private double workYears;
     /**
-     * 户口所在地
+     * 户籍
      */
     private String censusRegister;
     /**
