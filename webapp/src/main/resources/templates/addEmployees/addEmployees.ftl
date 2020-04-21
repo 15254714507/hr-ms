@@ -15,11 +15,11 @@
             <table class="top-table">
                 <tr>
                     <td class="top-table-label">职员编号：</td>
-                    <td><input type="text" name="username" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"></td>
+                    <td><input type="text" name="username" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"/></td>
                     <td class="top-table-label">职员姓名：</td>
-                    <td><input type="text" name="name" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"></td>
+                    <td><input type="text" name="name" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"/></td>
                     <td class="top-table-label">出生年月：</td>
-                    <td><input type="date" name="dateOfBirth"></td>
+                    <td><input type="date" name="dateOfBirth"/></td>
                 </tr>
                 <tr>
                     <td class="top-table-label">联系电话：</td>
@@ -75,10 +75,12 @@
                             <option value="少数民族">少数民族</option>
 
                         </select></td>
-                    <td class="top-table-label">户籍地址：</td>
-                    <td><input type="text" name="censusRegister"></td>
+                    <td class="top-table-label">籍贯：</td>
+                    <td><input type="text" name="nativePlace"></td>
                 </tr>
                 <tr>
+                    <td class="top-table-label">户籍地址：</td>
+                    <td><input type="text" name="censusRegister"></td>
                     <td class="top-table-label">入职部门：</td>
                     <td><select name="departmentId" onChange="department_job(this)">
                             <option value="">选择部门</option>
@@ -90,10 +92,10 @@
                     <td><select name="jobName" id="jobs">
                             <option value="">选择岗位</option>
                         </select></td>
-                    <td class="top-table-label">入职时间：</td>
-                    <td><input type="date" name="employmentDate"></td>
                 </tr>
                 <tr>
+                    <td class="top-table-label">入职时间：</td>
+                    <td><input type="date" name="employmentDate"></td>
                     <td class="top-table-label">实习时间：</td>
                     <td><input type="date" name="internshipDate"></td>
                     <td class="top-table-label">员工类型：</td>
@@ -101,16 +103,17 @@
                             <option>全职</option>
                             <option>实习</option>
                         </select></td>
-                    <td class="top-table-label">基本工资：</td>
-                    <td><input type="text" name="baseSalary"></td>
                 </tr>
                 <tr>
+                    <td class="top-table-label">基本工资：</td>
+                    <td><input type="text" name="baseSalary"></td>
                     <td class="top-table-label">绩效工资：</td>
                     <td><input type="text" name="performanceSalary"></td>
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: center">
-                        <button class="add-but"><i class="glyphicon glyphicon-edit" onclick="saveClick()"></i> 提交</button>
+                        <input type="button" value="添加" onclick="saveClick()"/>
+<#--                        <button class="add-but" onclick="saveClick()><i class="glyphicon glyphicon-edit"></i> 提交</button>-->
                     </td>
                 </tr>
             </table>
@@ -161,7 +164,11 @@
             data: $("#form_new_employees").serialize(),
             dataType: "json",
             success: function (result) {
-
+                if(result.code===1){
+                    alert(result.msg);
+                }else{
+                    alert(result.msg)
+                }
             },
             error: function () {
                 alert("连接服务器异常，请刷新后重试")

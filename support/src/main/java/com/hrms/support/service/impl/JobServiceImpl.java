@@ -7,6 +7,7 @@ import com.hrms.api.domain.dto.DepartmentJob;
 import com.hrms.api.domain.dto.Employees;
 import com.hrms.api.domain.entity.Department;
 import com.hrms.api.domain.entity.Job;
+import com.hrms.api.exception.DaoException;
 import com.hrms.api.service.DepartmentService;
 import com.hrms.api.service.JobService;
 import com.hrms.support.manager.JobManager;
@@ -27,6 +28,16 @@ public class JobServiceImpl implements JobService {
     DepartmentService departmentService;
     @Resource
     JobManager jobManager;
+
+    @Override
+    public Job getById(Long id) throws DaoException {
+        return jobManager.getById(id);
+    }
+
+    @Override
+    public List<Job> list(JobCondition jobCondition) throws DaoException {
+        return jobManager.list(jobCondition);
+    }
 
     @Override
     public Employees getEmployees(Long jobId) {

@@ -15,6 +15,10 @@ public class Employees implements Serializable {
      */
     private Long userId;
     /**
+     * 账号
+     */
+    private String username;
+    /**
      * 名字
      */
     private String name;

@@ -13,6 +13,15 @@ import java.util.List;
  */
 public interface DepartmentService {
     /**
+     * 根据部门id获得部门的信息
+     *
+     * @param id
+     * @return
+     * @throws DaoException
+     */
+    public Department getById(Long id) throws DaoException;
+
+    /**
      * 获得职员的部门信息
      *
      * @param departmentId

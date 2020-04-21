@@ -23,6 +23,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     DepartmentManager departmentManager;
 
     @Override
+    public Department getById(Long id) throws DaoException {
+        return departmentManager.getById(id);
+    }
+
+    @Override
     public Employees getEmployees(Long departmentId) {
         Department department = departmentManager.getById(departmentId);
         if (department == null) {

@@ -2,6 +2,8 @@ package com.hrms.api.until;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 返回给前端封装的对象
  *
@@ -9,7 +11,7 @@ import lombok.Data;
  * @date 2020/4/13 23:07
  */
 @Data
-public class Result {
+public class Result implements Serializable {
     /***
      * 是否成功的标志
      */

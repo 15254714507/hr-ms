@@ -37,6 +37,7 @@ public class EmployeesServiceImpl implements EmployeesService {
             return null;
         }
         employees.setUserId(user.getId());
+        employees.setUsername(user.getUsername());
         employees.setName(user.getName());
         employees.setHeadShot(user.getHeadShot());
         return employees;

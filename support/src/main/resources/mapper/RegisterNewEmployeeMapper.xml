@@ -277,6 +277,9 @@
         <include refid="Base_Column_List"/>
         from register_new_employee
         where is_delete=0
+        <if test="username!=null and username!=''">
+            and username= #{username,jdbcType=VARCHAR}
+        </if>
         <if test="lead!=null">
             and create_user= #{createUser,jdbcType=VARCHAR}
         </if>

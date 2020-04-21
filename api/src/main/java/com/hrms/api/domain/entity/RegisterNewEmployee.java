@@ -1,6 +1,7 @@
 package com.hrms.api.domain.entity;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -39,6 +40,7 @@ public class RegisterNewEmployee implements Serializable {
     /**
      * 出生日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
     /**
      * 籍贯
@@ -75,15 +77,17 @@ public class RegisterNewEmployee implements Serializable {
     /**
      * 毕业时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate graduationDate;
     /**
      * 参加工作时间(第一份工作时间)
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate firstWorkDate;
     /**
      * 工作年限
      */
-    private double workYears;
+    private Double workYears;
     /**
      * 户籍
      */
@@ -111,10 +115,12 @@ public class RegisterNewEmployee implements Serializable {
     /**
      * 入职时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate employmentDate;
     /**
      * 实习时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate internshipDate;
     /**
      * 员工类型，分全职还是实习
