@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("")
-public class AddEmployeesController {
+public class OnboardingController {
     @Reference
     JobService jobService;
     @Reference
@@ -42,7 +42,7 @@ public class AddEmployeesController {
             log.error("跳转到入职登记页面时系统发生异常", e);
             return "error/404";
         }
-        return "addEmployees/addEmployees";
+        return "onboarding/addEmployees";
     }
 
     @PostMapping("/saveNewEmployees.do")

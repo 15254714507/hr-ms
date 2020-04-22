@@ -5,8 +5,11 @@
     <title>人力资源管理平台</title>
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="js/jQueryCalendar/calendar.css">
+    <link rel="stylesheet" href="js/bstable/css/bootstrap.min.css">
     <style>
-
+        .dropdown:hover ul {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -34,10 +37,24 @@
     </aside>
     <article class="artlce">
         <header class="aside-head">
-            <ul class="nav-ul">1
+            <ul class="nav-ul">
                 <li class="active-li"><a href="home.html" target="fraName">首页</a></li>
-                <li><a href="/gotoAddEmployees.do" target="fraName">入职管理登记</a></li>
-                <li><a href="lizhi.html" target="fraName">离职管理</a></li>
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        入职管理 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class=""><a href="/gotoAddEmployees.do" target="fraName">入职登记</a></li>
+                        <li class=""><a href="#" target="fraName">入职审核</a></li>
+                    </ul>
+                </li>
+                <li><a href="lizhi.html" target="fraName">离职管理</a>
+                    <ul class="nav-ul" style="position: absolute;top:40px; display: none;">
+                        <li>二级菜单1</li>
+                        <li>二级菜单2</li>
+                    </ul>
+                </li>
                 <li><a href="jixiao.html" target="fraName">绩效管理</a></li>
                 <li><a href="shares.html" target="fraName">薪资管理</a></li>
                 <li><a href="mes.html" target="fraName">信息管理</a></li>
