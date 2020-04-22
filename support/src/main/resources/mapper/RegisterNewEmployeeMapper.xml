@@ -32,9 +32,9 @@
         <result column="types_of_employees" property="typesOfEmployees" jdbcType="VARCHAR"/>
         <result column="base_salary" property="baseSalary" jdbcType="INTEGER"/>
         <result column="performance_salary" property="performanceSalary" jdbcType="INTEGER"/>
-        <result column="approval_user" property="typesOfEmployees" jdbcType="VARCHAR"/>
-        <result column="approval_status" property="baseSalary" jdbcType="INTEGER"/>
-        <result column="approval_comments" property="performanceSalary" jdbcType="VARCHAR"/>
+        <result column="approval_user" property="approvalUser" jdbcType="VARCHAR"/>
+        <result column="approval_status" property="approvalStatus" jdbcType="INTEGER"/>
+        <result column="approval_comments" property="approvalComments" jdbcType="VARCHAR"/>
         <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
         <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -280,7 +280,7 @@
         <if test="username!=null and username!=''">
             and username= #{username,jdbcType=VARCHAR}
         </if>
-        <if test="lead!=null">
+        <if test="lead==null">
             and create_user= #{createUser,jdbcType=VARCHAR}
         </if>
     </select>

@@ -64,8 +64,7 @@ public class RegisterNewEmployeeManagerTest {
     public void listTest() {
         insert();
         RegisterNewEmployeeCondition registerNewEmployeeCondition = new RegisterNewEmployeeCondition();
-        registerNewEmployeeCondition.setLead(true);
-        registerNewEmployeeCondition.setCreateUser("1111");
+       registerNewEmployeeCondition.setCreateUser("1111");
         List<RegisterNewEmployee> registerNewEmployeeList = registerNewEmployeeManager.list(registerNewEmployeeCondition);
         Assert.assertTrue(1 <= registerNewEmployeeList.size());
     }
