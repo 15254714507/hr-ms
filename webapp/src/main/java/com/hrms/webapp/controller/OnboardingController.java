@@ -33,6 +33,12 @@ public class OnboardingController {
     @Reference
     RegisterNewEmployeeService registerNewEmployeeService;
 
+    /**
+     * 前往入职登记新员工页面
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping("/gotoAddEmployees.do")
     public String gotoAddEmployees(Model model) {
         try {
@@ -74,4 +80,5 @@ public class OnboardingController {
         registerNewEmployee.setCreateUser(employees.getUsername());
         registerNewEmployee.setUpdateUser(employees.getUsername());
     }
+
 }
