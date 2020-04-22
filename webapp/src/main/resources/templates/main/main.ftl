@@ -46,14 +46,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class=""><a href="/gotoAddEmployees.do" target="fraName">入职登记</a></li>
-                        <li class=""><a href="#" target="fraName">入职审核</a></li>
+                        <li class=""><a href="/gotoAuditEmployees.do" target="fraName">入职审核</a></li>
                     </ul>
                 </li>
                 <li><a href="lizhi.html" target="fraName">离职管理</a>
-                    <ul class="nav-ul" style="position: absolute;top:40px; display: none;">
-                        <li>二级菜单1</li>
-                        <li>二级菜单2</li>
-                    </ul>
                 </li>
                 <li><a href="jixiao.html" target="fraName">绩效管理</a></li>
                 <li><a href="shares.html" target="fraName">薪资管理</a></li>

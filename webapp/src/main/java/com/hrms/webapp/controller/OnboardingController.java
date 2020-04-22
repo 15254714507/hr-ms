@@ -2,9 +2,11 @@ package com.hrms.webapp.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.hrms.api.domain.condition.RegisterNewEmployeeCondition;
 import com.hrms.api.domain.dto.DepartmentJob;
 import com.hrms.api.domain.dto.Employees;
 import com.hrms.api.domain.entity.RegisterNewEmployee;
+import com.hrms.api.domain.vo.RegisterNewEmployeeVO;
 import com.hrms.api.service.JobService;
 import com.hrms.api.service.RegisterNewEmployeeService;
 import com.hrms.api.until.Result;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -79,6 +82,71 @@ public class OnboardingController {
         Employees employees = (Employees) session.getAttribute("employees");
         registerNewEmployee.setCreateUser(employees.getUsername());
         registerNewEmployee.setUpdateUser(employees.getUsername());
+    }
+
+    /**
+     * 前往审核新员工页面
+     */
+    @RequestMapping("/gotoAuditEmployees.do")
+    public String gotoAuditEmployees(Model model) {
+        return "onboarding/auditEmployees";
+    }
+
+    @RequestMapping("/getRegisterNewEmployeeList.do")
+    @ResponseBody
+    public List<RegisterNewEmployeeVO> getRegisterNewEmployeeList() {
+        List<RegisterNewEmployeeVO> registerNewEmployeeVOList = null;
+        RegisterNewEmployeeCondition registerNewEmployeeCondition = new RegisterNewEmployeeCondition();
+        registerNewEmployeeCondition.setLead(true);
+        try {
+            List<RegisterNewEmployee> registerNewEmployeesList = registerNewEmployeeService.list(registerNewEmployeeCondition);
+            registerNewEmployeeVOList = getRegisterNewEmployeeVOList(registerNewEmployeesList);
+        } catch (Exception e) {
+            log.warn("在待审核员工页面获取员工集合时发生系统异常", e);
+        }
+
+        return registerNewEmployeeVOList;
+    }
+
+    /**
+     * List<RegisterNewEmployee>转成List<RegisterNewEmployeeVO>
+     *
+     * @param registerNewEmployeesList
+     * @return
+     */
+    private List<RegisterNewEmployeeVO> getRegisterNewEmployeeVOList(List<RegisterNewEmployee> registerNewEmployeesList) {
+        List<RegisterNewEmployeeVO> registerNewEmployeeVOList = new ArrayList<>();
+        for (RegisterNewEmployee registerNewEmployee : registerNewEmployeesList) {
+            if (registerNewEmployee.getApprovalStatus() == 0) {
+                registerNewEmployeeVOList.add(getRegisterNewEmployeeVO(registerNewEmployee));
+            }
+        }
+        return registerNewEmployeeVOList;
+    }
+
+    /**
+     * RegisterNewEmployee转成RegisterNewEmployeeVO
+     *
+     * @param registerNewEmployee
+     * @return
+     */
+    private RegisterNewEmployeeVO getRegisterNewEmployeeVO(RegisterNewEmployee registerNewEmployee) {
+        RegisterNewEmployeeVO registerNewEmployeeVO = new RegisterNewEmployeeVO();
+        registerNewEmployeeVO.setId(registerNewEmployee.getId());
+        registerNewEmployeeVO.setUsername(registerNewEmployee.getUsername());
+        registerNewEmployeeVO.setName(registerNewEmployee.getName());
+        registerNewEmployeeVO.setDepartmentName(registerNewEmployee.getDepartmentName());
+        registerNewEmployeeVO.setJobName(registerNewEmployee.getJobName());
+        registerNewEmployeeVO.setBaseSalary(registerNewEmployee.getBaseSalary());
+        registerNewEmployeeVO.setPerformanceSalary(registerNewEmployee.getPerformanceSalary());
+        registerNewEmployeeVO.setDegree(registerNewEmployee.getDegree());
+        if (registerNewEmployee.getGender() == 0) {
+            registerNewEmployeeVO.setGender("男");
+        } else {
+            registerNewEmployeeVO.setGender("女");
+        }
+        return registerNewEmployeeVO;
+
     }
 
 }

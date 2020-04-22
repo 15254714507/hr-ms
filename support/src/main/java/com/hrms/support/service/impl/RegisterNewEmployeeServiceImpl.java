@@ -2,9 +2,11 @@ package com.hrms.support.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.hrms.api.domain.condition.JobCondition;
+import com.hrms.api.domain.condition.RegisterNewEmployeeCondition;
 import com.hrms.api.domain.entity.Department;
 import com.hrms.api.domain.entity.Job;
 import com.hrms.api.domain.entity.RegisterNewEmployee;
+import com.hrms.api.exception.DaoException;
 import com.hrms.api.service.DepartmentService;
 import com.hrms.api.service.JobService;
 import com.hrms.api.service.RegisterNewEmployeeService;
@@ -36,10 +38,15 @@ public class RegisterNewEmployeeServiceImpl implements RegisterNewEmployeeServic
             return result;
         }
         Long isSuc = registerNewEmployeeManager.insert(registerNewEmployee);
-        if(isSuc.intValue()==0){
+        if (isSuc.intValue() == 0) {
             return new Result(0, "此职工编码也存在");
         }
         return new Result(1, "添加成功");
+    }
+
+    @Override
+    public List<RegisterNewEmployee> list(RegisterNewEmployeeCondition registerNewEmployeeCondition) throws DaoException {
+        return registerNewEmployeeManager.list(registerNewEmployeeCondition);
     }
 
     /**
