@@ -28,7 +28,7 @@
 
 </div>
 
-<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/jquery.js" type="text/javascript"></script>
 <script src="js/common.js" type="text/javascript"></script>
 <!--背景图片自动更换-->
 <script src="js/supersized.3.2.7.min.js" type="text/javascript"></script>
