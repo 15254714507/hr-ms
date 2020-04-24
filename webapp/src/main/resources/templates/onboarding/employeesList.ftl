@@ -57,6 +57,9 @@
             search: true, //显示搜索框
             contentType: "application/x-www-form-urlencoded",
             queryParams: null,
+            sortName:"updateTime",
+            sortStable:true,
+            sortOrder:"desc",
             columns: [
                 {
                     title: "id",
@@ -117,6 +120,12 @@
                     align: 'center',
                     valign: 'middle'
                 },
+                {
+                    title: '时间',
+                    field: 'updateTime',
+                    visible: false
+                },
+
                 {
                     title: '操作',
                     field: 'opr',

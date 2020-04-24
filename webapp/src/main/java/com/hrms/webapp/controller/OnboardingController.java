@@ -284,6 +284,7 @@ public class OnboardingController {
             } else {
                 registerNewEmployeeVO.setApprovalUser(registerNewEmployee.getUpdateUser());
             }
+            registerNewEmployeeVO.setUpdateTime(registerNewEmployee.getUpdateTime());
             registerNewEmployeeVOList.add(registerNewEmployeeVO);
         }
 

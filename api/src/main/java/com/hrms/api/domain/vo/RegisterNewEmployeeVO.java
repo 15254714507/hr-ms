@@ -3,6 +3,7 @@ package com.hrms.api.domain.vo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author 孔超
@@ -58,4 +59,8 @@ public class RegisterNewEmployeeVO implements Serializable {
      * 审批意见
      */
     private String approvalComments;
+    /**
+     * 修改时间，用于排序
+     */
+    private LocalDateTime updateTime;
 }
