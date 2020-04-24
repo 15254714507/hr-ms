@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>入职</title>
+    <title>审核入职员工</title>
     <link rel="stylesheet" href="js/bstable/css/bootstrap.min.css">
     <link rel="stylesheet" href="js/bstable/css/bootstrap-table.css">
     <link rel="stylesheet" href="css/all.css">
@@ -152,7 +152,7 @@
                 </div>
             </form>
             <footer class="modal-footer">
-                <button  onclick="saveApprovalComments()">确认</button>
+                <button onclick="saveApprovalComments()">确认</button>
             </footer>
         </div>
     </div>
@@ -172,7 +172,7 @@
             method: "get",
             striped: false,
             singleSelect: false,
-            url: "/getRegisterNewEmployeeList.do",
+            url: "/getAuditRegisterNewEmployeeList.do",
             dataType: "json",
             pagination: true, //分页
             pageSize: 10,
@@ -304,3 +304,4 @@
     }
 </script>
 </body>
+</html>

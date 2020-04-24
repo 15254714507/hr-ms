@@ -92,15 +92,15 @@ public class OnboardingController {
         return "onboarding/auditEmployees";
     }
 
-    @RequestMapping("/getRegisterNewEmployeeList.do")
+    @RequestMapping("/getAuditRegisterNewEmployeeList.do")
     @ResponseBody
-    public List<RegisterNewEmployeeVO> getRegisterNewEmployeeList() {
+    public List<RegisterNewEmployeeVO> getAuditRegisterNewEmployeeList() {
         List<RegisterNewEmployeeVO> registerNewEmployeeVOList = null;
         RegisterNewEmployeeCondition registerNewEmployeeCondition = new RegisterNewEmployeeCondition();
         registerNewEmployeeCondition.setLead(true);
         try {
             List<RegisterNewEmployee> registerNewEmployeesList = registerNewEmployeeService.list(registerNewEmployeeCondition);
-            registerNewEmployeeVOList = getRegisterNewEmployeeVOList(registerNewEmployeesList);
+            registerNewEmployeeVOList = getAuditRegisterNewEmployeeVOList(registerNewEmployeesList);
         } catch (Exception e) {
             log.warn("在待审核员工页面获取员工集合时发生系统异常", e);
         }
@@ -109,12 +109,12 @@ public class OnboardingController {
     }
 
     /**
-     * List<RegisterNewEmployee>转成List<RegisterNewEmployeeVO>
+     * 审核的List<RegisterNewEmployee>转成List<RegisterNewEmployeeVO>
      *
      * @param registerNewEmployeesList
      * @return
      */
-    private List<RegisterNewEmployeeVO> getRegisterNewEmployeeVOList(List<RegisterNewEmployee> registerNewEmployeesList) {
+    private List<RegisterNewEmployeeVO> getAuditRegisterNewEmployeeVOList(List<RegisterNewEmployee> registerNewEmployeesList) {
         List<RegisterNewEmployeeVO> registerNewEmployeeVOList = new ArrayList<>();
         for (RegisterNewEmployee registerNewEmployee : registerNewEmployeesList) {
             if (registerNewEmployee.getApprovalStatus() == 0) {
@@ -152,7 +152,7 @@ public class OnboardingController {
         if (registerNewEmployee.getApprovalStatus() == 1) {
             registerNewEmployeeVO.setApprovalStatus("审核通过");
         }
-        if (registerNewEmployee.getApprovalStatus() == -1) {
+        if (registerNewEmployee.getApprovalStatus() == 2) {
             registerNewEmployeeVO.setApprovalStatus("审核不通过");
         }
         return registerNewEmployeeVO;
@@ -226,6 +226,12 @@ public class OnboardingController {
 
     }
 
+    /**
+     * 填充拒绝通过的数据
+     *
+     * @param registerNewEmployee
+     * @param updateUser
+     */
     private void fillFailApproval(RegisterNewEmployee registerNewEmployee, String updateUser) {
         registerNewEmployee.setApprovalUser(updateUser);
         registerNewEmployee.setUpdateUser(updateUser);
@@ -233,4 +239,55 @@ public class OnboardingController {
         registerNewEmployee.setApprovalStatus(2);
     }
 
+    /**
+     * 前往入职新员工列表页面
+     */
+    @RequestMapping("/gotoRegisterNewEmployeesList.do")
+    public String gotoRegisterNewEmployeesList() {
+        return "onboarding/employeesList";
+    }
+
+    @RequestMapping("/getRegisterNewEmployeeList.do")
+    @ResponseBody
+    public List<RegisterNewEmployeeVO> getRegisterNewEmployeeList(HttpSession session) {
+        List<RegisterNewEmployeeVO> registerNewEmployeeVOList = null;
+        RegisterNewEmployeeCondition registerNewEmployeeCondition = new RegisterNewEmployeeCondition();
+        Employees employees = (Employees) session.getAttribute("employees");
+        registerNewEmployeeCondition.setCreateUser(employees.getUsername());
+        try {
+            List<RegisterNewEmployee> registerNewEmployeesList = registerNewEmployeeService.list(registerNewEmployeeCondition);
+            registerNewEmployeeVOList = getRegisterNewEmployeeVOList(registerNewEmployeesList);
+        } catch (Exception e) {
+            log.warn("在待审核员工页面获取员工集合时发生系统异常", e);
+        }
+
+        return registerNewEmployeeVOList;
+    }
+
+    /**
+     * 新入职列表 转换成List<RegisterNewEmployeeVO>
+     *
+     * @param registerNewEmployeesList
+     * @return
+     */
+    private List<RegisterNewEmployeeVO> getRegisterNewEmployeeVOList(List<RegisterNewEmployee> registerNewEmployeesList) {
+        List<RegisterNewEmployeeVO> registerNewEmployeeVOList = new ArrayList<>();
+        for (RegisterNewEmployee registerNewEmployee : registerNewEmployeesList) {
+            RegisterNewEmployeeVO registerNewEmployeeVO = getRegisterNewEmployeeVO(registerNewEmployee);
+            if (registerNewEmployee.getApprovalComments() == null || "".equals(registerNewEmployee.getApprovalComments())) {
+                registerNewEmployeeVO.setApprovalComments("无");
+            } else {
+                registerNewEmployeeVO.setApprovalComments(registerNewEmployee.getApprovalComments());
+            }
+            if (registerNewEmployee.getApprovalUser() == null || "".equals(registerNewEmployee.getApprovalUser())) {
+                registerNewEmployeeVO.setApprovalUser("无");
+            } else {
+                registerNewEmployeeVO.setApprovalUser(registerNewEmployee.getUpdateUser());
+            }
+            registerNewEmployeeVOList.add(registerNewEmployeeVO);
+        }
+
+        return registerNewEmployeeVOList;
+
+    }
 }

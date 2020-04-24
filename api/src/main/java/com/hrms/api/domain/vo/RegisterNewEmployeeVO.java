@@ -50,4 +50,12 @@ public class RegisterNewEmployeeVO implements Serializable {
      * 审核状态
      */
     private String approvalStatus;
+    /**
+     * 审批人
+     */
+    private String approvalUser;
+    /**
+     * 审批意见
+     */
+    private String approvalComments;
 }

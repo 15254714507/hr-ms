@@ -46,6 +46,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class=""><a href="/gotoAddEmployees.do" target="fraName">入职登记</a></li>
+                        <li class=""><a href="/gotoRegisterNewEmployeesList.do" target="fraName">入职列表</a></li>
                         <li class=""><a href="/gotoAuditEmployees.do" target="fraName">入职审核</a></li>
                     </ul>
                 </li>
