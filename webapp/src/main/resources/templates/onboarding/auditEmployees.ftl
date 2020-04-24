@@ -81,8 +81,9 @@
                 },
                 {
                     title: '审核状态',
-                    field: 'person',
-                    align: 'center'
+                    field: 'approvalStatus',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '操作',
@@ -90,14 +91,59 @@
                     width: 180,
                     align: 'center',
                     formatter: function (cellval, row) {
-                        var d = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="add(\'' + row.ID + '\')">编辑</button> ';
-                        var c = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="add(\'' + row.ID + '\')">删除</button> ';
+                        var d = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="pass(\'' + row.id + '\')">通过</button> ';
+                        var c = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="fail(\'' + row.id + '\')">不通过</button> ';
 
                         return d + c;
                     }
                 }
             ]
         });
+    }
+
+    //同意
+    function pass(id) {
+        $.ajax({
+            url: "/passNewEmployees.do",
+            type: "POST",
+            cache: false,
+            data: {
+                id: id
+            },
+            success: function (result) {
+                if (result.code === 1) {
+                    location.reload();
+                    alert(result.msg);
+                } else {
+                    alert(result.msg)
+                }
+            },
+            error: function () {
+                alert("连接服务器异常，请刷新后重试")
+            }
+        });
+    }
+
+    //不同意
+    function fail(id) {
+        // $.ajax({
+        //     url: "/failNewEmployees.do",
+        //     type: "POST",
+        //     cache: false,
+        //     data: {
+        //         id: id
+        //     },
+        //     success: function (result) {
+        //         if (result.code === 1) {
+        //             alert(result.msg);
+        //         } else {
+        //             alert(result.msg)
+        //         }
+        //     },
+        //     error: function () {
+        //         alert("连接服务器异常，请刷新后重试")
+        //     }
+        // });
     }
 </script>
 </body>

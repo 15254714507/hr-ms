@@ -3,6 +3,7 @@ package com.hrms.api.service;
 import com.hrms.api.domain.condition.RegisterNewEmployeeCondition;
 import com.hrms.api.domain.entity.RegisterNewEmployee;
 import com.hrms.api.exception.DaoException;
+import com.hrms.api.exception.ServiceException;
 import com.hrms.api.until.Result;
 
 import java.util.List;
@@ -28,4 +29,13 @@ public interface RegisterNewEmployeeService {
      * @throws DaoException
      */
     public List<RegisterNewEmployee> list(RegisterNewEmployeeCondition registerNewEmployeeCondition) throws DaoException;
+
+    /**
+     * 待审核员工通过了的服务
+     *
+     * @param registerNewEmployee
+     * @return
+     * @throws ServiceException
+     */
+    public Result pass(RegisterNewEmployee registerNewEmployee) throws ServiceException,DaoException;
 }

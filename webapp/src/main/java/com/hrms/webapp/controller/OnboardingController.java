@@ -145,8 +145,43 @@ public class OnboardingController {
         } else {
             registerNewEmployeeVO.setGender("女");
         }
+        if (registerNewEmployee.getApprovalStatus() == null || registerNewEmployee.getApprovalStatus() == 0) {
+            registerNewEmployeeVO.setApprovalStatus("未审核");
+            return registerNewEmployeeVO;
+        }
+        if (registerNewEmployee.getApprovalStatus() == 1) {
+            registerNewEmployeeVO.setApprovalStatus("审核通过");
+        }
+        if (registerNewEmployee.getApprovalStatus() == -1) {
+            registerNewEmployeeVO.setApprovalStatus("审核不通过");
+        }
         return registerNewEmployeeVO;
+    }
 
+    @PostMapping("/passNewEmployees.do")
+    @ResponseBody
+    public Result passNewEmployees(Long id, HttpSession session) {
+        Employees employees = (Employees) session.getAttribute("employees");
+        RegisterNewEmployee registerNewEmployee = fillPassApproval(id, employees.getUsername());
+        Result result = null;
+        try {
+            result = registerNewEmployeeService.pass(registerNewEmployee);
+        } catch (Exception e) {
+            log.warn("通过待审核的新员工时出现异常 {}", JSON.toJSONString(registerNewEmployee), e);
+            return new Result(-1, "系统异常，请刷新后重试");
+        }
+        return result;
+
+    }
+
+    private RegisterNewEmployee fillPassApproval(Long id, String updateUser) {
+        RegisterNewEmployee registerNewEmployee = new RegisterNewEmployee();
+        registerNewEmployee.setId(id);
+        registerNewEmployee.setApprovalStatus(1);
+        registerNewEmployee.setApprovalComments("通过");
+        registerNewEmployee.setApprovalUser(updateUser);
+        registerNewEmployee.setUpdateUser(updateUser);
+        return registerNewEmployee;
     }
 
 }

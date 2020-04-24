@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.hrms.api.domain.condition.UserJobCondition;
 import com.hrms.api.domain.dto.Employees;
 import com.hrms.api.domain.entity.UserJob;
+import com.hrms.api.exception.DaoException;
 import com.hrms.api.service.JobService;
 import com.hrms.api.service.UserJobService;
 import com.hrms.support.manager.UserJobManager;
@@ -23,6 +24,11 @@ public class UserJobServiceImpl implements UserJobService {
     UserJobManager userJobManager;
     @Resource
     JobService jobService;
+
+    @Override
+    public Long insert(UserJob userJob) throws DaoException {
+        return userJobManager.insert(userJob);
+    }
 
     @Override
     public Employees getEmployees(Long userId) {

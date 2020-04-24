@@ -46,4 +46,8 @@ public class RegisterNewEmployeeVO implements Serializable {
      * 岗位名称
      */
     private String jobName;
+    /**
+     * 审核状态
+     */
+    private String approvalStatus;
 }

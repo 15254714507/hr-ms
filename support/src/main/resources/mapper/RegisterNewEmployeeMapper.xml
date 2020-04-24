@@ -251,13 +251,13 @@
                     internship_date= #{internshipDate,jdbcType=DATE},
                 </if>
                 <if test="approvalUser!=null and approvalUser!=''">
-                    approval_user=#{approvalUser,jdbcType=VARCHAR}
+                    approval_user=#{approvalUser,jdbcType=VARCHAR},
                 </if>
                 <if test="approvalStatus!=null">
-                    approval_status=#{approvalStatus,jdbcType=INTEGER}
+                    approval_status=#{approvalStatus,jdbcType=INTEGER},
                 </if>
                 <if test="approvalComments!=null and approvalComments!=''">
-                    approval_comments=#{approvalComments,jdbcType=VARCHAR}
+                    approval_comments=#{approvalComments,jdbcType=VARCHAR},
                 </if>
                 update_user=#{updateUser,jdbcType=VARCHAR},
                 update_time=#{updateTime,jdbcType=TIMESTAMP},
