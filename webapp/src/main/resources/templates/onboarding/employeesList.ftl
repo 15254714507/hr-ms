@@ -14,23 +14,119 @@
     <div class="table-con">
         <table id="table" class="table-style"></table>
     </div>
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <header class="modal-header">
-                <h4>原因：</h4>
-                <div class="close" onclick="modal_close()">x</div>
-            </header>
-            <form id="audit_form">
-                <input id="id" name="id" style="display: none"/>
-                <div class="modal-body">
-                    <label>
-                        <textarea name="approvalComments" cols="70" rows="5"></textarea>
-                    </label>
-                </div>
-            </form>
-            <footer class="modal-footer">
-                <button onclick="saveApprovalComments()">确认</button>
-            </footer>
+
+    <div id="modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div  class="modal-dialog modal-lg" role="document">
+            <div id="iframe" class="modal-content">
+<#--                <div id="iframe" class="find-top1">-->
+<#--                    <form action="" id="form_new_employees">-->
+<#--                        <table class="top-table">-->
+<#--                            <tr>-->
+<#--                                <td class="top-table-label">职员编号：</td>-->
+<#--                                <td><input type="text" name="username" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"/></td>-->
+<#--                                <td class="top-table-label">职员姓名：</td>-->
+<#--                                <td><input type="text" name="name" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"/></td>-->
+<#--                                <td class="top-table-label">出生年月：</td>-->
+<#--                                <td><input type="date" name="dateOfBirth"/></td>-->
+<#--                            </tr>-->
+<#--                            <tr>-->
+<#--                                <td class="top-table-label">联系电话：</td>-->
+<#--                                <td><input type="text" name="phone"></td>-->
+<#--                                <td class="top-table-label">联系邮箱：</td>-->
+<#--                                <td><input type="text" name="email"></td>-->
+<#--                                <td class="top-table-label">常住地址：</td>-->
+<#--                                <td><input type="text" name="address"></td>-->
+<#--                            </tr>-->
+<#--                            <tr>-->
+<#--                                <td class="top-table-label">证件号码：</td>-->
+<#--                                <td><input type="text" name="identityCard"></td>-->
+<#--                                <td class="top-table-label">证件类型：</td>-->
+<#--                                <td><select name="identityType">-->
+<#--                                        <option>第二代身份证</option>-->
+<#--                                        <option>护照</option>-->
+<#--                                    </select></td>-->
+<#--                                <td class="top-table-label">性别：</td>-->
+<#--                                <td><input type="radio" checked="checked" name="gender" value="0"><span>男</span>-->
+<#--                                    <input type="radio" name="gender" value="1"><span>女</span>-->
+<#--                                </td>-->
+<#--                            </tr>-->
+<#--                            <tr>-->
+<#--                                <td class="top-table-label">学历：</td>-->
+<#--                                <td><select name="degree">-->
+<#--                                        <option>本科</option>-->
+<#--                                        <option>研究生</option>-->
+<#--                                        <option>博士</option>-->
+<#--                                    </select></td>-->
+<#--                                <td class="top-table-label">专业：</td>-->
+<#--                                <td><input type="text" name="professional"></td>-->
+<#--                                <td class="top-table-label">毕业院校：</td>-->
+<#--                                <td><input type="text" name="university"></td>-->
+<#--                            </tr>-->
+<#--                            <tr>-->
+<#--                                <td class="top-table-label">毕业时间：</td>-->
+<#--                                <td><input type="date" name="graduationDate"></td>-->
+<#--                                <td class="top-table-label">工作时间：</td>-->
+<#--                                <td><input type="date" name="firstWorkDate"></td>-->
+<#--                                <td class="top-table-label">工作年限：</td>-->
+<#--                                <td><input type="text" name="workYears"></td>-->
+<#--                            </tr>-->
+<#--                            <tr>-->
+<#--                                <td class="top-table-label">国籍：</td>-->
+<#--                                <td><select name="nationality">-->
+<#--                                        <option>中国</option>-->
+<#--                                        <option>外国</option>-->
+<#--                                    </select></td>-->
+<#--                                <td class="top-table-label">民族：</td>-->
+<#--                                <td><select name="national">-->
+<#--                                        <option value="">请选择</option>-->
+<#--                                        <option value="汉族">汉族</option>-->
+<#--                                        <option value="少数民族">少数民族</option>-->
+
+<#--                                    </select></td>-->
+<#--                                <td class="top-table-label">籍贯：</td>-->
+<#--                                <td><input type="text" name="nativePlace"></td>-->
+<#--                            </tr>-->
+<#--                            <tr>-->
+<#--                                <td class="top-table-label">户籍地址：</td>-->
+<#--                                <td><input type="text" name="censusRegister"></td>-->
+<#--                                <td class="top-table-label">入职部门：</td>-->
+<#--                                <td><select name="departmentId" onChange="department_job(this)">-->
+<#--                                        <option value="">选择部门</option>-->
+<#--                                        <#list departmentJobList as departmentJob>-->
+<#--                                            <option value="${departmentJob.departmentId}">${departmentJob.departmentName}</option>-->
+<#--                                        </#list>-->
+<#--                                    </select></td>-->
+<#--                                <td class="top-table-label">工作岗位：</td>-->
+<#--                                <td><select name="jobName" id="jobs">-->
+<#--                                        <option value="">选择岗位</option>-->
+<#--                                    </select></td>-->
+<#--                            </tr>-->
+<#--                            <tr>-->
+<#--                                <td class="top-table-label">入职时间：</td>-->
+<#--                                <td><input type="date" name="employmentDate"></td>-->
+<#--                                <td class="top-table-label">实习时间：</td>-->
+<#--                                <td><input type="date" name="internshipDate"></td>-->
+<#--                                <td class="top-table-label">员工类型：</td>-->
+<#--                                <td><select name="typesOfEmployees">-->
+<#--                                        <option>全职</option>-->
+<#--                                        <option>实习</option>-->
+<#--                                    </select></td>-->
+<#--                            </tr>-->
+<#--                            <tr>-->
+<#--                                <td class="top-table-label">基本工资：</td>-->
+<#--                                <td><input type="text" name="baseSalary"></td>-->
+<#--                                <td class="top-table-label">绩效工资：</td>-->
+<#--                                <td><input type="text" name="performanceSalary"></td>-->
+<#--                            </tr>-->
+<#--                            <tr>-->
+<#--                                <td colspan="6" style="text-align: center">-->
+<#--                                    <input type="button" value="添加" onclick="saveClick()"/>-->
+<#--                                </td>-->
+<#--                            </tr>-->
+<#--                        </table>-->
+<#--                    </form>-->
+<#--                </div>-->
+            </div>
         </div>
     </div>
 </main>
@@ -57,9 +153,9 @@
             search: true, //显示搜索框
             contentType: "application/x-www-form-urlencoded",
             queryParams: null,
-            sortName:"updateTime",
-            sortStable:true,
-            sortOrder:"desc",
+            sortName: "updateTime",
+            sortStable: true,
+            sortOrder: "desc",
             columns: [
                 {
                     title: "id",
@@ -133,9 +229,10 @@
                     align: 'center',
                     formatter: function (cellval, row) {
                         if (row.approvalStatus === "审核不通过") {
-                            var d = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="pass(\'' + row.id + '\')">编辑</button> ';
-                            var c = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="fail(\'' + row.id + '\')">重新提交审核</button> ';
-                            return d + c;
+                            var d = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="editEmployees(\'' + row.id + '\')">编辑</button> ';
+                            var c = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="resubmit(\'' + row.id + '\')">重新提交</button> ';
+                            var e = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="deleteEmployees(\'' + row.id + '\')">删除</button> ';
+                            return d + c + e;
                         }
                         return null;
 
@@ -143,6 +240,53 @@
                 }
             ]
         });
+    }
+
+    function editEmployees(id) {
+        $("#iframe").load("/gotoUpdateEmployees.do?id="+id);
+        $("#modal").modal('show')
+    }
+    function resubmit(id) {
+        //     $.ajax({
+        //         url: "/passNewEmployees.do",
+        //         type: "POST",
+        //         cache: false,
+        //         data: {
+        //             id: id
+        //         },
+        //         success: function (result) {
+        //             if (result.code === 1) {
+        //                 alert(result.msg);
+        //                 location.reload();
+        //             } else {
+        //                 alert(result.msg)
+        //             }
+        //         },
+        //         error: function () {
+        //             alert("连接服务器异常，请刷新后重试")
+        //         }
+        //     });
+    }
+    function deleteEmployees(id) {
+        //     $.ajax({
+        //         url: "/passNewEmployees.do",
+        //         type: "POST",
+        //         cache: false,
+        //         data: {
+        //             id: id
+        //         },
+        //         success: function (result) {
+        //             if (result.code === 1) {
+        //                 alert(result.msg);
+        //                 location.reload();
+        //             } else {
+        //                 alert(result.msg)
+        //             }
+        //         },
+        //         error: function () {
+        //             alert("连接服务器异常，请刷新后重试")
+        //         }
+        //     });
     }
 
     // //同意

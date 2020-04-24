@@ -14,6 +14,15 @@ import java.util.List;
  */
 public interface RegisterNewEmployeeService {
     /**
+     * 根据id获取审核的新员工的信息
+     *
+     * @param id 主键
+     * @return 返回id对应的用户信息
+     * @throws DaoException 包装的异常
+     */
+    public RegisterNewEmployee getById(Long id) throws DaoException;
+
+    /**
      * 添加待审核新员工
      *
      * @param registerNewEmployee 新员工的所有信息

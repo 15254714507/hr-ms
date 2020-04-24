@@ -291,4 +291,25 @@ public class OnboardingController {
         return registerNewEmployeeVOList;
 
     }
+
+    /**
+     * 前往入职登记新员工页面
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping("/gotoUpdateEmployees.do")
+    public String gotoUpdateEmployees(Long id, Model model) {
+        try {
+            List<DepartmentJob> departmentJobList = jobService.listAllDepartment();
+            model.addAttribute("departmentJobList", departmentJobList);
+            RegisterNewEmployee registerNewEmployee = registerNewEmployeeService.getById(id);
+            model.addAttribute("registerNewEmployee", registerNewEmployee);
+        } catch (Exception e) {
+            log.error("跳转到入职登记页面时系统发生异常", e);
+            return "error/404";
+        }
+        return "onboarding/updateEmployees";
+    }
+
 }

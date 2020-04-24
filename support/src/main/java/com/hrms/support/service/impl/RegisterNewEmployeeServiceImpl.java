@@ -37,6 +37,11 @@ public class RegisterNewEmployeeServiceImpl implements RegisterNewEmployeeServic
 
 
     @Override
+    public RegisterNewEmployee getById(Long id) throws DaoException {
+        return registerNewEmployeeManager.getById(id);
+    }
+
+    @Override
     public Result insert(RegisterNewEmployee registerNewEmployee) {
         Result result = fillRegisterNewEmployee(registerNewEmployee);
         if (result != null) {
