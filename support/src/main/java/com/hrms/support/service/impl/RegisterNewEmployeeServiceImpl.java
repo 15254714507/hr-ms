@@ -50,6 +50,11 @@ public class RegisterNewEmployeeServiceImpl implements RegisterNewEmployeeServic
     }
 
     @Override
+    public Long updateById(RegisterNewEmployee registerNewEmployee) throws DaoException {
+        return registerNewEmployeeManager.updateById(registerNewEmployee);
+    }
+
+    @Override
     public List<RegisterNewEmployee> list(RegisterNewEmployeeCondition registerNewEmployeeCondition) throws DaoException {
         return registerNewEmployeeManager.list(registerNewEmployeeCondition);
     }

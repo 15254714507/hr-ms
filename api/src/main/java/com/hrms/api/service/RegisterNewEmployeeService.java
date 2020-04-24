@@ -22,6 +22,15 @@ public interface RegisterNewEmployeeService {
     public Result insert(RegisterNewEmployee registerNewEmployee);
 
     /**
+     * 修改需要审核的新员工的信息
+     *
+     * @param registerNewEmployee 要修改的用户信息，id存在
+     * @return 返回是否成功 1是成功 0是没有此用户信息(可能不存在或者 被逻辑删除了)
+     * @throws DaoException 包装了一层异常
+     */
+    public Long updateById(RegisterNewEmployee registerNewEmployee) throws DaoException;
+
+    /**
      * 获得待审核员工信息的集合
      *
      * @param registerNewEmployeeCondition
@@ -37,5 +46,5 @@ public interface RegisterNewEmployeeService {
      * @return
      * @throws ServiceException
      */
-    public Result pass(RegisterNewEmployee registerNewEmployee) throws ServiceException,DaoException;
+    public Result pass(RegisterNewEmployee registerNewEmployee) throws ServiceException, DaoException;
 }

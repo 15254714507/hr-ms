@@ -158,6 +158,13 @@ public class OnboardingController {
         return registerNewEmployeeVO;
     }
 
+    /**
+     * 待审核员工信息通过
+     *
+     * @param id
+     * @param session
+     * @return
+     */
     @PostMapping("/passNewEmployees.do")
     @ResponseBody
     public Result passNewEmployees(Long id, HttpSession session) {
@@ -174,6 +181,13 @@ public class OnboardingController {
 
     }
 
+    /**
+     * 填充通过后需要填充的信息
+     *
+     * @param id
+     * @param updateUser
+     * @return
+     */
     private RegisterNewEmployee fillPassApproval(Long id, String updateUser) {
         RegisterNewEmployee registerNewEmployee = new RegisterNewEmployee();
         registerNewEmployee.setId(id);
@@ -182,6 +196,41 @@ public class OnboardingController {
         registerNewEmployee.setApprovalUser(updateUser);
         registerNewEmployee.setUpdateUser(updateUser);
         return registerNewEmployee;
+    }
+
+    /**
+     * 待审核员工信息通过
+     *
+     * @param registerNewEmployee
+     * @param session
+     * @return
+     */
+    @PostMapping("/failNewEmployees.do")
+    @ResponseBody
+    public Result failNewEmployees(@Valid RegisterNewEmployee registerNewEmployee, HttpSession session) {
+        Employees employees = (Employees) session.getAttribute("employees");
+        fillFailApproval(registerNewEmployee, employees.getUsername());
+        Result result = null;
+        try {
+            Long isSuc = registerNewEmployeeService.updateById(registerNewEmployee);
+            if (isSuc == 1) {
+                result = new Result(1, "原因填写完成");
+            } else {
+                result = new Result(0, "“没有此待审核的员工");
+            }
+        } catch (Exception e) {
+            log.warn("不通过待审核的新员工时修改原因时出现异常 {}", JSON.toJSONString(registerNewEmployee), e);
+            return new Result(-1, "系统异常，请刷新后重试");
+        }
+        return result;
+
+    }
+
+    private void fillFailApproval(RegisterNewEmployee registerNewEmployee, String updateUser) {
+        registerNewEmployee.setApprovalUser(updateUser);
+        registerNewEmployee.setUpdateUser(updateUser);
+        //2代表的是不通过
+        registerNewEmployee.setApprovalStatus(2);
     }
 
 }

@@ -113,7 +113,6 @@
                 <tr>
                     <td colspan="6" style="text-align: center">
                         <input type="button" value="添加" onclick="saveClick()"/>
-<#--                        <button class="add-but" onclick="saveClick()><i class="glyphicon glyphicon-edit"></i> 提交</button>-->
                     </td>
                 </tr>
             </table>
