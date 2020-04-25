@@ -34,10 +34,19 @@ public interface RegisterNewEmployeeService {
      * 修改需要审核的新员工的信息
      *
      * @param registerNewEmployee 要修改的用户信息，id存在
-     * @return 返回是否成功 1是成功 0是没有此用户信息(可能不存在或者 被逻辑删除了)
+     * @return 如果为null说明成功，不为null就是错误信息
      * @throws DaoException 包装了一层异常
      */
-    public Long updateById(RegisterNewEmployee registerNewEmployee) throws DaoException;
+    public Result updateById(RegisterNewEmployee registerNewEmployee) throws DaoException;
+
+    /**
+     * 删除需要审核的新员工
+     *
+     * @param id
+     * @return 返回是否成功  1是成功  2是没有此用户(要不不存在，要不逻辑删除已经删除了)
+     * @throws DaoException 包装了一层异常
+     */
+    public Long deleteById(Long id) throws DaoException;
 
     /**
      * 获得待审核员工信息的集合

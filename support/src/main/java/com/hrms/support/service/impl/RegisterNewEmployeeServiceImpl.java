@@ -55,8 +55,25 @@ public class RegisterNewEmployeeServiceImpl implements RegisterNewEmployeeServic
     }
 
     @Override
-    public Long updateById(RegisterNewEmployee registerNewEmployee) throws DaoException {
-        return registerNewEmployeeManager.updateById(registerNewEmployee);
+    public Result updateById(RegisterNewEmployee registerNewEmployee) throws DaoException {
+        Result result = null;
+        //说明修改内容包括部门和岗位
+        if (registerNewEmployee.getDepartmentId() != null) {
+            result = fillRegisterNewEmployee(registerNewEmployee);
+            if (result != null) {
+                return result;
+            }
+        }
+        Long isSuc = registerNewEmployeeManager.updateById(registerNewEmployee);
+        if (isSuc == 0) {
+            result = new Result(0, "此待审核职员不存在");
+        }
+        return result;
+    }
+
+    @Override
+    public Long deleteById(Long id) throws DaoException {
+        return registerNewEmployeeManager.deleteById(id);
     }
 
     @Override

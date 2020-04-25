@@ -66,7 +66,7 @@ public class OnboardingController {
         try {
             result = registerNewEmployeeService.insert(registerNewEmployee);
         } catch (Exception e) {
-            log.warn("添加待审核的新员工出现异常 {}", JSON.toJSONString(registerNewEmployee), e);
+            log.error("添加待审核的新员工出现异常 {}", JSON.toJSONString(registerNewEmployee), e);
             return new Result(-1, "系统异常，请刷新后重试");
         }
         return result;
@@ -102,7 +102,7 @@ public class OnboardingController {
             List<RegisterNewEmployee> registerNewEmployeesList = registerNewEmployeeService.list(registerNewEmployeeCondition);
             registerNewEmployeeVOList = getAuditRegisterNewEmployeeVOList(registerNewEmployeesList);
         } catch (Exception e) {
-            log.warn("在待审核员工页面获取员工集合时发生系统异常", e);
+            log.error("在待审核员工页面获取员工集合时发生系统异常", e);
         }
 
         return registerNewEmployeeVOList;
@@ -174,7 +174,7 @@ public class OnboardingController {
         try {
             result = registerNewEmployeeService.pass(registerNewEmployee);
         } catch (Exception e) {
-            log.warn("通过待审核的新员工时出现异常 {}", JSON.toJSONString(registerNewEmployee), e);
+            log.error("通过待审核的新员工时出现异常 {}", JSON.toJSONString(registerNewEmployee), e);
             return new Result(-1, "系统异常，请刷新后重试");
         }
         return result;
@@ -212,14 +212,12 @@ public class OnboardingController {
         fillFailApproval(registerNewEmployee, employees.getUsername());
         Result result = null;
         try {
-            Long isSuc = registerNewEmployeeService.updateById(registerNewEmployee);
-            if (isSuc == 1) {
+            result = registerNewEmployeeService.updateById(registerNewEmployee);
+            if (result == null) {
                 result = new Result(1, "原因填写完成");
-            } else {
-                result = new Result(0, "“没有此待审核的员工");
             }
         } catch (Exception e) {
-            log.warn("不通过待审核的新员工时修改原因时出现异常 {}", JSON.toJSONString(registerNewEmployee), e);
+            log.error("不通过待审核的新员工时修改原因时出现异常 {}", JSON.toJSONString(registerNewEmployee), e);
             return new Result(-1, "系统异常，请刷新后重试");
         }
         return result;
@@ -310,6 +308,68 @@ public class OnboardingController {
             return "error/404";
         }
         return "onboarding/updateEmployees";
+    }
+
+    /**
+     * 修改待审核员工信息
+     *
+     * @param registerNewEmployee
+     * @param session
+     * @return
+     */
+    @PostMapping("/updateNewEmployees.do")
+    @ResponseBody
+    public Result updateNewEmployees(@Valid RegisterNewEmployee registerNewEmployee, HttpSession session) {
+        Result result = null;
+        Employees employees = (Employees) session.getAttribute("employees");
+        registerNewEmployee.setUpdateUser(employees.getUsername());
+        try {
+            result = registerNewEmployeeService.updateById(registerNewEmployee);
+            if (result == null) {
+                result = new Result(1, "修改信息成功");
+            }
+        } catch (Exception e) {
+            log.error("修改新入职员工信息时发生系统异常 {}", JSON.toJSONString(registerNewEmployee), e);
+            return new Result(-1, "系统异常，请刷新后重试");
+        }
+        return result;
+    }
+
+    @PostMapping("/resubmitNewEmployees.do")
+    public Result resubmitNewEmployees(Long id, HttpSession session) {
+        Result result = null;
+        Employees employees = (Employees) session.getAttribute("employees");
+        RegisterNewEmployee registerNewEmployee = new RegisterNewEmployee();
+        registerNewEmployee.setId(id);
+        registerNewEmployee.setApprovalStatus(0);
+        registerNewEmployee.setUpdateUser(employees.getUsername());
+        try {
+            result = registerNewEmployeeService.updateById(registerNewEmployee);
+            if (result == null) {
+                result = new Result(1, "重新提交审核成功");
+            }
+        } catch (Exception e) {
+            log.error("修改待审核员工的审核状态出现系统异常 id {}", id, e);
+            return new Result(-1, "系统异常，请刷新后重试");
+        }
+        return result;
+    }
+
+    @PostMapping("/deleteNewEmployees.do")
+    public Result deleteNewEmployees(Long id) {
+        Result result = null;
+        try {
+            Long isSuc = registerNewEmployeeService.deleteById(id);
+            if (isSuc == 1) {
+                result = new Result(1, "删除成功");
+            } else {
+                result = new Result(0, "删除失败，因为不存在");
+            }
+        } catch (Exception e) {
+            log.error("删除待审核员工出现系统异常 id {}", id, e);
+            return new Result(-1, "系统异常，请刷新后重试");
+        }
+        return result;
     }
 
 }

@@ -232,17 +232,17 @@
                 <if test="jobId!=null">
                     job_id= #{jobId,jdbcType=BIGINT},
                 </if>
-                <if test="jobName!=null and job!=''">
+                <if test="jobName!=null and jobName!=''">
                     job_name=#{jobName,jdbcType=VARCHAR},
                 </if>
                 <if test="typesOfEmployees!=null and typesOfEmployees!=''">
-                    department_name= #{typesOfEmployees,jdbcType=VARCHAR},
+                    types_of_employees= #{typesOfEmployees,jdbcType=VARCHAR},
                 </if>
                 <if test="baseSalary!=null">
-                    department_name=#{baseSalary,jdbcType=INTEGER},
+                    base_salary=#{baseSalary,jdbcType=INTEGER},
                 </if>
                 <if test="performanceSalary!=null">
-                    department_name=#{performanceSalary,jdbcType=INTEGER},
+                    performance_salary=#{performanceSalary,jdbcType=INTEGER},
                 </if>
                 <if test="employmentDate !=null">
                     employment_date= #{employmentDate,jdbcType=DATE},

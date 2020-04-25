@@ -247,106 +247,48 @@
         $("#modal").modal('show')
     }
     function resubmit(id) {
-        //     $.ajax({
-        //         url: "/passNewEmployees.do",
-        //         type: "POST",
-        //         cache: false,
-        //         data: {
-        //             id: id
-        //         },
-        //         success: function (result) {
-        //             if (result.code === 1) {
-        //                 alert(result.msg);
-        //                 location.reload();
-        //             } else {
-        //                 alert(result.msg)
-        //             }
-        //         },
-        //         error: function () {
-        //             alert("连接服务器异常，请刷新后重试")
-        //         }
-        //     });
+            $.ajax({
+                url: "/resubmitNewEmployees.do",
+                type: "POST",
+                cache: false,
+                data: {
+                    id: id
+                },
+                success: function (result) {
+                    if (result.code === 1) {
+                        alert(result.msg);
+                        location.reload();
+                    } else {
+                        alert(result.msg)
+                    }
+                },
+                error: function () {
+                    alert("连接服务器异常，请刷新后重试")
+                }
+            });
     }
     function deleteEmployees(id) {
-        //     $.ajax({
-        //         url: "/passNewEmployees.do",
-        //         type: "POST",
-        //         cache: false,
-        //         data: {
-        //             id: id
-        //         },
-        //         success: function (result) {
-        //             if (result.code === 1) {
-        //                 alert(result.msg);
-        //                 location.reload();
-        //             } else {
-        //                 alert(result.msg)
-        //             }
-        //         },
-        //         error: function () {
-        //             alert("连接服务器异常，请刷新后重试")
-        //         }
-        //     });
+            $.ajax({
+                url: "/deleteNewEmployees.do",
+                type: "POST",
+                cache: false,
+                data: {
+                    id: id
+                },
+                success: function (result) {
+                    if (result.code === 1) {
+                        alert(result.msg);
+                        location.reload();
+                    } else {
+                        alert(result.msg)
+                    }
+                },
+                error: function () {
+                    alert("连接服务器异常，请刷新后重试")
+                }
+            });
     }
 
-    // //同意
-    // function pass(id) {
-    //     $.ajax({
-    //         url: "/passNewEmployees.do",
-    //         type: "POST",
-    //         cache: false,
-    //         data: {
-    //             id: id
-    //         },
-    //         success: function (result) {
-    //             if (result.code === 1) {
-    //                 alert(result.msg);
-    //                 location.reload();
-    //             } else {
-    //                 alert(result.msg)
-    //             }
-    //         },
-    //         error: function () {
-    //             alert("连接服务器异常，请刷新后重试")
-    //         }
-    //     });
-    // }
-    //
-    //
-    // // let close = document.getElementById('modal_close');
-    // //不同意通过就打开弹出框写明原因
-    // function fail(id) {
-    //     document.getElementById("id").value = id;
-    //     modal.style.display = "block";
-    // }
-    //
-    // //关闭弹出框
-    // function modal_close() {
-    //     modal.style.display = "none";
-    // }
-    //
-    // //不同意，需要提交不同意的原因，让别人知道为什么
-    // function saveApprovalComments() {
-    //     $.ajax({
-    //         url: "/failNewEmployees.do",
-    //         type: "POST",
-    //         cache: false,
-    //         data: $("#audit_form").serialize(),
-    //         dataType: "json",
-    //         success: function (result) {
-    //             if (result.code === 1) {
-    //                 modal.style.display = "none";
-    //                 alert(result.msg);
-    //                 location.reload();
-    //             } else {
-    //                 alert(result.msg)
-    //             }
-    //         },
-    //         error: function () {
-    //             alert("连接服务器异常，请刷新后重试")
-    //         }
-    //     });
-    // }
 </script>
 </body>
 </html>
