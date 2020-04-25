@@ -336,6 +336,7 @@ public class OnboardingController {
     }
 
     @PostMapping("/resubmitNewEmployees.do")
+    @ResponseBody
     public Result resubmitNewEmployees(Long id, HttpSession session) {
         Result result = null;
         Employees employees = (Employees) session.getAttribute("employees");
@@ -356,6 +357,7 @@ public class OnboardingController {
     }
 
     @PostMapping("/deleteNewEmployees.do")
+    @ResponseBody
     public Result deleteNewEmployees(Long id) {
         Result result = null;
         try {
