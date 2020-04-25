@@ -167,7 +167,7 @@
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: center">
-                        <input type="button" value="修改" onclick="updateClick()"/>
+                        <input type="button" value="修改" data-dismiss="modal" onclick="updateClick()"/>
                     </td>
                 </tr>
             </table>
@@ -222,9 +222,6 @@
             success: function (result) {
                 if (result.code === 1) {
                     alert(result.msg);
-                    $("#modal").modal({
-                        dismiss:"modal"
-                    });
                 } else {
                     alert(result.msg)
                 }
