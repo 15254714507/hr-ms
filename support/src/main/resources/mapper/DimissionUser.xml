@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrms.support.dao.DimissionUserDao">
+    <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.DimissionUser">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="department_name" property="departmentName" jdbcType="VARCHAR"/>
+        <result column="job_name" property="jobName" jdbcType="VARCHAR"/>
+        <result column="date_of_entry" property="dateOfEntry" jdbcType="DATE"/>
+        <result column="date_of_separation" property="dateOfSeparation" jdbcType="DATE"/>
+        <result column="reasons_for_separation" property="reasonsForSeparation" jdbcType="VARCHAR"/>
+        <result column="steps" property="steps" jdbcType="INTEGER"/>
+        <result column="approval_user" property="approvalUser" jdbcType="VARCHAR"/>
+        <result column="approval_comments" property="approvalComments" jdbcType="VARCHAR"/>
+        <result column="types_of_employees" property="typesOfEmployees" jdbcType="VARCHAR"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            username,
+            name,
+            department_name,
+            job_name,
+            date_of_entry,
+            date_of_separation,
+            reasons_for_separation,
+            steps,
+            approval_user,
+            approval_comments,
+            types_of_employees,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+    </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from dimission_user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.hrms.api.domain.entity.DimissionUser">
+        insert
+        into dimission_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            username,
+            name,
+            department_name,
+            job_name,
+            date_of_entry,
+            date_of_separation,
+            reasons_for_separation,
+            types_of_employees,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{username,jdbcType=VARCHAR},
+            #{name,jdbcType=VARCHAR},
+            #{departmentName,jdbcType=VARCHAR},
+            #{jobName,jdbcType=VARCHAR},
+            #{dateOfEntry,jdbcType=DATE},
+            #{dateOfSeparation,jdbcType=DATE},
+            #{reasonsForSeparation,jdbcType=VARCHAR},
+            #{typesOfEmployees,jdbcType=VARCHAR},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.hrms.api.domain.entity.DimissionUser">
+        update dimission_user
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="steps !=null">
+                    steps= #{steps,jdbcType=INTEGER},
+                </if>
+                <if test="approvalUser !=null and approvalUser!=''">
+                    approval_user= #{approvalUser,jdbcType=VARCHAR},
+                </if>
+                <if test="approvalComments !=null and approvalComments!=''">
+                    approval_comments= #{approvalComments,jdbcType=VARCHAR},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+            </trim>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from dimission_user
+        where id = #{id,jdbcType=BIGINT};
+    </delete>
+    <select id="list" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.DimissionUserCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from dimission_user
+        where is_delete = 0
+        <if test="username !=null and username!=''">
+            and username= #{username,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>

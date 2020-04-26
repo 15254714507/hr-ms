@@ -50,7 +50,16 @@
                         <li class=""><a href="/gotoAuditEmployees.do" target="fraName">入职审核</a></li>
                     </ul>
                 </li>
-                <li><a href="lizhi.html" target="fraName">离职管理</a>
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        离职管理 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class=""><a href="/gotoDimissionApplication.do" target="fraName">离职申请</a></li>
+                        <li class=""><a href="/gotoDimissionAuditList.do" target="fraName">离职审核</a></li>
+                        <li class=""><a href="/gotoPrintDimissionProve.do" target="fraName">打印离职证明</a></li>
+                    </ul>
                 </li>
                 <li><a href="jixiao.html" target="fraName">绩效管理</a></li>
                 <li><a href="shares.html" target="fraName">薪资管理</a></li>
