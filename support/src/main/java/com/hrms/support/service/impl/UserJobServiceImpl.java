@@ -40,4 +40,9 @@ public class UserJobServiceImpl implements UserJobService {
         }
         return jobService.getEmployees(userJobList.get(0).getJobId());
     }
+
+    @Override
+    public List<UserJob> list(UserJobCondition userJobCondition) throws DaoException {
+        return userJobManager.list(userJobCondition);
+    }
 }

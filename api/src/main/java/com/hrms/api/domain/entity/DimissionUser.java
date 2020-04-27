@@ -1,6 +1,7 @@
 package com.hrms.api.domain.entity;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -35,10 +36,12 @@ public class DimissionUser implements Serializable {
     /**
      * 入职时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfEntry;
     /**
      * 离职时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfSeparation;
     /**
      * 离职原因

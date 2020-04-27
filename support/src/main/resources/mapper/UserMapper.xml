@@ -232,10 +232,8 @@
         select
         <include refid="Base_Column_List"/>
         from user
-        where
-        <if test="username!=null and username!=''">
-            username=#{username,jdbcType=VARCHAR}
-        </if>
+        where username=#{username,jdbcType=VARCHAR}
+
 
     </select>
     <select id="list" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.UserCondition">

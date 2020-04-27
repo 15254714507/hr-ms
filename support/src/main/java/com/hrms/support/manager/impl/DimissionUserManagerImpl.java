@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2020/4/26 19:52
  */
 @Slf4j
-@Component("DimissionUserManager")
+@Component("dimissionUserManager")
 public class DimissionUserManagerImpl implements DimissionUserManager {
     @Resource
     DimissionUserDao dimissionUserDao;

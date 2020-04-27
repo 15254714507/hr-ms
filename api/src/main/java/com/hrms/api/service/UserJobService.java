@@ -1,8 +1,11 @@
 package com.hrms.api.service;
 
+import com.hrms.api.domain.condition.UserJobCondition;
 import com.hrms.api.domain.dto.Employees;
 import com.hrms.api.domain.entity.UserJob;
 import com.hrms.api.exception.DaoException;
+
+import java.util.List;
 
 /**
  * @author 孔超
@@ -25,4 +28,12 @@ public interface UserJobService {
      * @return
      */
     public Employees getEmployees(Long userId);
+    /**
+     * 获得岗位信息的集合
+     *
+     * @param userJobCondition
+     * @return
+     * @throws DaoException
+     */
+    public List<UserJob> list(UserJobCondition userJobCondition) throws DaoException;
 }
