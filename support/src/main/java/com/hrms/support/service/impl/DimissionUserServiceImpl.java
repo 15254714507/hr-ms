@@ -7,6 +7,7 @@ import com.hrms.api.domain.dto.Employees;
 import com.hrms.api.domain.entity.DimissionUser;
 import com.hrms.api.domain.entity.User;
 import com.hrms.api.domain.entity.UserJob;
+import com.hrms.api.exception.DaoException;
 import com.hrms.api.service.DimissionUserService;
 import com.hrms.api.service.UserJobService;
 import com.hrms.api.service.UserService;
@@ -53,6 +54,33 @@ public class DimissionUserServiceImpl implements DimissionUserService {
             return new Result(0, "已申请，请勿重复申请离职");
         }
         return new Result(1, "申请成功");
+    }
+
+    @Override
+    public Long updateById(DimissionUser dimissionUser) throws DaoException {
+        return dimissionUserManager.updateById(dimissionUser);
+    }
+
+    @Override
+    public Result deleteById(Long id) throws DaoException {
+        DimissionUser dimissionUser = dimissionUserManager.getById(id);
+        if (dimissionUser == null) {
+            return new Result(0, "要删除的离职申请不存在");
+        }
+        if (dimissionUser.getSteps() != 1) {
+            return new Result(0, "要删除的离职申请，已过审核,不允许再删除");
+        }
+        Long isSuc = dimissionUserManager.deleteById(id);
+        if (isSuc != 1) {
+            return new Result(0, "要删除的离职申请不存在");
+        }
+        //这里应该对申请者有个通知
+        return new Result(1, "删除成功");
+    }
+
+    @Override
+    public List<DimissionUser> list(DimissionUserCondition dimissionUserCondition) throws DaoException {
+        return dimissionUserManager.list(dimissionUserCondition);
     }
 
     private Result addTypesOfEmployees(DimissionUser dimissionUser) {

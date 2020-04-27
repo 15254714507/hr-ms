@@ -57,7 +57,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class=""><a href="/gotoDimissionApplication.do" target="fraName">离职申请</a></li>
-                        <li class=""><a href="/gotoDimissionAuditList.do" target="fraName">离职审核</a></li>
+                        <li class=""><a href="/gotoAuditDimission.do" target="fraName">离职审核</a></li>
                         <li class=""><a href="/gotoPrintDimissionProve.do" target="fraName">打印离职证明</a></li>
                     </ul>
                 </li>

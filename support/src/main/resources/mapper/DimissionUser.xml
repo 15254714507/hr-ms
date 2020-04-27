@@ -111,5 +111,8 @@
         <if test="username !=null and username!=''">
             and username= #{username,jdbcType=VARCHAR}
         </if>
+        <if test="steps !=null">
+            and steps= #{steps,jdbcType=INTEGER}
+        </if>
     </select>
 </mapper>
