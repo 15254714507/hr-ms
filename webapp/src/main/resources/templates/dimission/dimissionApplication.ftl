@@ -88,7 +88,8 @@
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: center">
-                        <input id="btn" type="button"   class="glyphicon glyphicon-edit" onclick="saveDimissionUser()" value="提交">
+                        <input id="btn" type="button" class="glyphicon glyphicon-edit" onclick="saveDimissionUser()"
+                               value="提交">
                     </td>
                 </tr>
             </table>
@@ -124,12 +125,14 @@
                         $("#jobName").val(dimissionUser.jobName);
                         $("#dateOfEntry").val(dimissionUser.dateOfEntry);
                         if (dimissionUser.steps !== 0) {
-                            $("#reasonsForSeparation").val(dimissionUser.reasonsForSeparation).prop("readonly",true);
+                            $("#reasonsForSeparation").val(dimissionUser.reasonsForSeparation).prop("readonly", true);
                             $("#btn").hide();
                         } else {
-                            $("#reasonsForSeparation").val("").prop("readonly",false);
+                            $("#reasonsForSeparation").val("").prop("readonly", false);
                             $("#btn").show();
                         }
+                        $step.toStep(dimissionUser.steps);
+                        $index.text(dimissionUser.steps);
                     }
                 } else {
                     alert(result.msg)
@@ -154,7 +157,9 @@
             success: function (result) {
                 if (result.code === 1) {
                     $("#btn").hide();
-                    $("#reasonsForSeparation").prop("readonly",true);
+                    $("#reasonsForSeparation").prop("readonly", true);
+                    $step.nextStep();
+                    $index.text(1);
                     alert(result.msg);
                 } else {
                     alert(result.msg)
