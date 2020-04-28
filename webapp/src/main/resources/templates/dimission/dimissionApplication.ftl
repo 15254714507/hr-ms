@@ -65,6 +65,7 @@
         <div id="step"></div>
     </div>
     <div class="find-top1">
+        <input id="id" type="hidden">
         <form id="dimission_form">
             <table class="top-table">
                 <tr>
@@ -90,6 +91,9 @@
                     <td colspan="6" style="text-align: center">
                         <input id="btn" type="button" class="glyphicon glyphicon-edit" onclick="saveDimissionUser()"
                                value="提交">
+                        <input id="btn_down" type="button" onclick="downDimission()"
+                               title="导出" value="打印离职证明" style="display:none;"
+                               class="btn btn-xs btn-primary">
                     </td>
                 </tr>
             </table>
@@ -133,7 +137,11 @@
                         }
                         $step.toStep(dimissionUser.steps);
                         $index.text(dimissionUser.steps);
-                    }else{
+                        if (dimissionUser.steps === 2) {
+                            $("#id").val(dimissionUser.id);
+                            $("#btn_down").show();
+                        }
+                    } else {
                         $("#name").val("");
                         $("#gender").val("");
                         $("#departmentName").val("");
@@ -175,6 +183,15 @@
                 alert("连接服务器异常，请刷新后重试")
             }
         });
+
+    }
+
+    //打印离职证明
+    function downDimission() {
+        window.location.href = "/downDimission.do?id=" + $("#id").val();
+        $step.nextStep();
+        $index.text(3);
+        $("#btn_down").hide();
     }
 </script>
 <script src="js/jquery.js"></script>

@@ -34,6 +34,11 @@ public class DimissionUserServiceImpl implements DimissionUserService {
     UserJobService userJobService;
 
     @Override
+    public DimissionUser getById(Long id) throws DaoException {
+        return dimissionUserManager.getById(id);
+    }
+
+    @Override
     public DimissionUser getDimissionUserMsgByUsername(String username) {
         DimissionUserCondition dimissionUserCondition = new DimissionUserCondition();
         dimissionUserCondition.setUsername(username);

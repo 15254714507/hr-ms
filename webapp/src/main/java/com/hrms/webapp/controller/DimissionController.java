@@ -8,7 +8,11 @@ import com.hrms.api.domain.entity.DimissionUser;
 import com.hrms.api.service.DimissionUserService;
 import com.hrms.api.until.LocalDateTimeFactory;
 import com.hrms.api.until.Result;
+import com.hrms.webapp.until.WordUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 孔超
@@ -145,6 +152,33 @@ public class DimissionController {
             result = new Result(-1, "发生系统异常，请刷新后重试");
         }
         return result;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/downDimission.do")
+    @ResponseBody
+    public ResponseEntity<byte[]> downDimission(Long id) {
+        Map<String, Object> dataMap = new HashMap<String, Object>(2);
+        byte[] fileByte = null;
+        try {
+            DimissionUser dimissionUser = dimissionUserService.getById(id);
+            dataMap.put("dimissionUser", dimissionUser);
+            if ("实习".equals(dimissionUser.getTypesOfEmployees())) {
+                dataMap.put("type", "实习");
+            } else {
+                dataMap.put("type", "离职");
+            }
+            fileByte = WordUtil.createWordByte(dataMap, "proofOfSeparation.ftl", "离职证明.doc");
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentDispositionFormData("attachment", URLEncoder.encode(dimissionUser.getName() + "的离职证明.doc", "utf-8"));
+            return new ResponseEntity<byte[]>(fileByte, headers, HttpStatus.CREATED);
+        } catch (Exception e) {
+            log.error("导出出库单失败 id:{}", id, e);
+        }
+        return null;
     }
 
 }

@@ -14,6 +14,15 @@ import java.util.List;
  */
 public interface DimissionUserService {
     /**
+     * 根据id获得离职用户的信息
+     *
+     * @param id
+     * @return
+     * @throws DaoException
+     */
+    public DimissionUser getById(Long id) throws DaoException;
+
+    /**
      * 根据账号获得这个账号的离职需要的信息
      *
      * @param username
@@ -29,6 +38,7 @@ public interface DimissionUserService {
      * @throws ServiceException
      */
     public Result insert(DimissionUser dimissionUser);
+
     /**
      * 修改离职用户的信息
      *
@@ -37,6 +47,7 @@ public interface DimissionUserService {
      * @throws DaoException
      */
     public Long updateById(DimissionUser dimissionUser) throws DaoException;
+
     /**
      * 删除离职用户
      *
