@@ -133,6 +133,12 @@
                         }
                         $step.toStep(dimissionUser.steps);
                         $index.text(dimissionUser.steps);
+                    }else{
+                        $("#name").val("");
+                        $("#gender").val("");
+                        $("#departmentName").val("");
+                        $("#jobName").val("");
+                        $("#reasonsForSeparation").val("")
                     }
                 } else {
                     alert(result.msg)
