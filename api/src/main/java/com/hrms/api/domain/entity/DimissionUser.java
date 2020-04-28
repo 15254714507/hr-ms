@@ -26,6 +26,14 @@ public class DimissionUser implements Serializable {
      */
     private String name;
     /**
+     * 性别
+     */
+    private String gender;
+    /**
+     * 身份证号
+     */
+    private String identityCard;
+    /**
      * 部门名称
      */
     private String departmentName;
@@ -48,7 +56,7 @@ public class DimissionUser implements Serializable {
      */
     private String reasonsForSeparation;
     /**
-     * 离职进行的步骤 0是提交申请 1待审核 2审核完成 3打印离职证明 4完成
+     * 离职进行的步骤  1待审核 2审核完成 3打印离职证明 4完成
      */
     private Integer steps;
     /**

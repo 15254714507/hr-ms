@@ -25,6 +25,14 @@ public class DimissionUserCondition implements Serializable {
      */
     private String name;
     /**
+     * 性别
+     */
+    private String gender;
+    /**
+     * 身份证号
+     */
+    private String identityCard;
+    /**
      * 部门名称
      */
     private String departmentName;

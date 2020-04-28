@@ -6,6 +6,8 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="identity_card" property="identityCard" jdbcType="VARCHAR"/>
         <result column="department_name" property="departmentName" jdbcType="VARCHAR"/>
         <result column="job_name" property="jobName" jdbcType="VARCHAR"/>
         <result column="date_of_entry" property="dateOfEntry" jdbcType="DATE"/>
@@ -25,6 +27,8 @@
             id,
             username,
             name,
+            gender,
+            identity_card,
             department_name,
             job_name,
             date_of_entry,
@@ -52,6 +56,8 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             username,
             name,
+            gender,
+            identity_card,
             department_name,
             job_name,
             date_of_entry,
@@ -67,6 +73,8 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             #{username,jdbcType=VARCHAR},
             #{name,jdbcType=VARCHAR},
+            #{gender,jdbcType=VARCHAR},
+            #{identityCard,jdbcType=VARCHAR},
             #{departmentName,jdbcType=VARCHAR},
             #{jobName,jdbcType=VARCHAR},
             #{dateOfEntry,jdbcType=DATE},
