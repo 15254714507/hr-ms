@@ -177,6 +177,7 @@ public class DimissionController {
     private Map<String, Object> getDataMap(Long id) {
         Map<String, Object> dataMap = new HashMap<String, Object>(2);
         DimissionUser dimissionUser = dimissionUserService.getById(id);
+        //如果没有此离职信息或者离职的步骤没有到2，或者过了2都是不允许打印离职证明的
         if (dimissionUser == null || dimissionUser.getSteps() != 2) {
             return null;
         }
@@ -202,5 +203,64 @@ public class DimissionController {
         }
     }
 
+    /**
+     * 前往删除离职员工账号页面
+     *
+     * @return
+     */
+    @RequestMapping("/gotoAuditDeleteUser.do")
+    public String gotoAuditDeleteUser() {
+        return "dimission/auditDeleteUser";
+    }
 
+    @PostMapping("/getDeleteUserList.do")
+    @ResponseBody
+    public List<DimissionUser> getDeleteUserList() {
+        DimissionUserCondition dimissionUserCondition = new DimissionUserCondition();
+        dimissionUserCondition.setSteps(3);
+        List<DimissionUser> dimissionUserList = null;
+        try {
+            dimissionUserList = dimissionUserService.list(dimissionUserCondition);
+        } catch (Exception e) {
+            log.error("获取需要删除离职用户信息出现系统异常", e);
+        }
+        return dimissionUserList;
+    }
+
+    @PostMapping("/deleteUser.do")
+    @ResponseBody
+    public Result deleteUser(Long id) {
+        Result result = null;
+        try {
+            result = dimissionUserService.deleteUser(id);
+        } catch (Exception e) {
+            log.error("删除离职员工账号时发生系统异常，id{}", id, e);
+            result = new Result(-1, "发生系统异常，请刷新后重试");
+        }
+        return result;
+    }
+
+    /**
+     * 前往删除离职员工账号页面
+     *
+     * @return
+     */
+    @RequestMapping("/gotoDimissionUserList.do")
+    public String gotoDimissionUserList() {
+        return "dimission/dimissionUserList";
+    }
+
+    @PostMapping("/getDimissionUserList.do")
+    @ResponseBody
+    public List<DimissionUser> getDimissionUserList() {
+        DimissionUserCondition dimissionUserCondition = new DimissionUserCondition();
+        dimissionUserCondition.setSteps(4);
+        List<DimissionUser> dimissionUserList = null;
+        try {
+            dimissionUserList = dimissionUserService.list(dimissionUserCondition);
+        } catch (Exception e) {
+            log.error("获取需要删除离职用户信息出现系统异常", e);
+        }
+        return dimissionUserList;
+    }
 }

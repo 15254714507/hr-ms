@@ -60,7 +60,7 @@
 
 <body style="background-color: #ecf0f5;font-family: 微软雅黑,serif;color: #475059;min-width: 1000px;overflow: auto">
 <div class="notice_main">
-    <br/>
+    <div class="home-tab"><i class="tab-i"></i> 所在位置：<span>离职流程</span></div>
     <div class="main">
         <div id="step"></div>
     </div>

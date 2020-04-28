@@ -65,4 +65,13 @@ public interface DimissionUserService {
      * @throws DaoException
      */
     public List<DimissionUser> list(DimissionUserCondition dimissionUserCondition) throws DaoException;
+
+    /**
+     * 删除离职员工的账号信息
+     *
+     * @param dimissionUserId 离职信息的id
+     * @return
+     * @throws ServiceException
+     */
+    public Result deleteUser(Long dimissionUserId) throws ServiceException;
 }

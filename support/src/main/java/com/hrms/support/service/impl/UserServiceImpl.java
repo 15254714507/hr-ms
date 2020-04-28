@@ -43,4 +43,9 @@ public class UserServiceImpl implements UserService {
     public User getByUsername(String username) throws DaoException {
         return userManager.getByUsername(username);
     }
+
+    @Override
+    public Long deleteById(Long id) throws DaoException {
+        return userManager.deleteById(id);
+    }
 }

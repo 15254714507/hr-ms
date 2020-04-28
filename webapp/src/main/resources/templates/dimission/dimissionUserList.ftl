@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>审核离职</title>
+    <title>离职员工列表</title>
     <link rel="stylesheet" href="js/bstable/css/bootstrap.min.css">
     <link rel="stylesheet" href="js/bstable/css/bootstrap-table.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.step.css"/>
@@ -43,15 +43,7 @@
 
 <body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 1000px;overflow: auto">
 <div class="notice_main">
-    <div class="home-tab"><i class="tab-i"></i> 所在位置：<span>审核离职申请</span></div>
-    <div style="border-bottom: 1px #ccc solid;padding-bottom: 8px">
-        <p style="line-height: 24px;font-size: 14px;padding: 4px 0 0 36px ;color:#bb8940;background-repeat: no-repeat;background-position: 10px 8px;font-weight: bold">
-            温馨提示</p>
-        <ul class="ts">
-            <li><span>*</span>如果审核时，拒绝该员工离职，请直接删除离职申请</li>
-        </ul>
-    </div>
-
+    <div class="home-tab"><i class="tab-i"></i> 所在位置：<span>已离职员工列表</span></div>
     <div class="table-con">
         <table id="table" class="table-style"></table>
     </div>
@@ -72,7 +64,7 @@
             method: "POST",
             striped: false,
             singleSelect: false,
-            url: "/getAuditDimissionUserList.do",
+            url: "/getDimissionUserList.do",
             dataType: "json",
             pagination: true, //分页
             pageSize: 10,
@@ -80,6 +72,9 @@
             search: true, //显示搜索框
             contentType: "application/x-www-form-urlencoded",
             queryParams: null,
+            sortName: "updateTime",
+            sortStable: true,
+            sortOrder: "desc",
             columns: [
                 {
                     title: "id",
@@ -123,62 +118,11 @@
                     valign: 'middle'
                 },
                 {
-                    title: '操作',
-                    field: 'opr',
-                    width: 180,
-                    align: 'center',
-                    formatter: function (cellval, row) {
-                        var d = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="passDimission(\'' + row.id + '\')">通过</button> ';
-                        var c = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="deleteDimission(\'' + row.id + '\')">删除</button> ';
-
-                        return d + c;
-                    }
+                    title: '时间',
+                    field: 'updateTime',
+                    visible: false
                 }
             ]
-        });
-    }
-
-    function passDimission(id) {
-        $.ajax({
-            url: "/passDimissionUser.do",
-            type: "POST",
-            cache: false,
-            data: {
-                id: id
-            },
-            success: function (result) {
-                if (result.code === 1) {
-                    alert(result.msg);
-                    location.reload();
-                } else {
-                    alert(result.msg)
-                }
-            },
-            error: function () {
-                alert("连接服务器异常，请刷新后重试")
-            }
-        });
-    }
-
-    function deleteDimission(id) {
-        $.ajax({
-            url: "/deleteDimissionUser.do",
-            type: "POST",
-            cache: false,
-            data: {
-                id: id
-            },
-            success: function (result) {
-                if (result.code === 1) {
-                    alert(result.msg);
-                    location.reload();
-                } else {
-                    alert(result.msg)
-                }
-            },
-            error: function () {
-                alert("连接服务器异常，请刷新后重试")
-            }
         });
     }
 </script>

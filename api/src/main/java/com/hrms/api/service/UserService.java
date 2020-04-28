@@ -42,4 +42,12 @@ public interface UserService {
      * @throws DaoException 包装了一成异常
      */
     public User getByUsername(String username) throws DaoException;
+    /**
+     * 删除此用户 逻辑删除
+     *
+     * @param id
+     * @return 返回是否成功  1是成功  0是没有此用户(要不不存在，要不逻辑删除已经删除了)
+     * @throws DaoException 包装了一层异常
+     */
+    public Long deleteById(Long id) throws DaoException;
 }

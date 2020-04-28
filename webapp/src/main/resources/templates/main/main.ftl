@@ -57,8 +57,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class=""><a href="/gotoDimissionApplication.do" target="fraName">离职申请</a></li>
-                        <li class=""><a href="/gotoAuditDimission.do" target="fraName">离职审核</a></li>
-                        <li class=""><a href="/gotoPrintDimissionProve.do" target="fraName">打印离职证明</a></li>
+                        <li class=""><a href="/gotoAuditDimission.do" target="fraName">审核离职申请</a></li>
+                        <li class=""><a href="/gotoAuditDeleteUser.do" target="fraName">删除离职员工</a></li>
+                        <li class=""><a href="/gotoDimissionUserList.do" target="fraName">离职员工列表</a></li>
                     </ul>
                 </li>
                 <li><a href="jixiao.html" target="fraName">绩效管理</a></li>
