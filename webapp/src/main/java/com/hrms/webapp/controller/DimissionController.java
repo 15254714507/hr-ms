@@ -161,24 +161,46 @@ public class DimissionController {
     @RequestMapping(value = "/downDimission.do")
     @ResponseBody
     public ResponseEntity<byte[]> downDimission(Long id) {
-        Map<String, Object> dataMap = new HashMap<String, Object>(2);
         byte[] fileByte = null;
+        HttpHeaders headers = new HttpHeaders();
         try {
-            DimissionUser dimissionUser = dimissionUserService.getById(id);
-            dataMap.put("dimissionUser", dimissionUser);
-            if ("实习".equals(dimissionUser.getTypesOfEmployees())) {
-                dataMap.put("type", "实习");
-            } else {
-                dataMap.put("type", "离职");
-            }
+            Map<String, Object> dataMap = getDataMap(id);
             fileByte = WordUtil.createWordByte(dataMap, "proofOfSeparation.ftl", "离职证明.doc");
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentDispositionFormData("attachment", URLEncoder.encode(dimissionUser.getName() + "的离职证明.doc", "utf-8"));
-            return new ResponseEntity<byte[]>(fileByte, headers, HttpStatus.CREATED);
+            headers.setContentDispositionFormData("attachment", URLEncoder.encode("离职证明.doc", "utf-8"));
+            updateDimissionUser(id);
         } catch (Exception e) {
-            log.error("导出出库单失败 id:{}", id, e);
+            log.error("下载离职证明失败 id:{}", id, e);
         }
-        return null;
+        return new ResponseEntity<byte[]>(fileByte, headers, HttpStatus.CREATED);
     }
+
+    private Map<String, Object> getDataMap(Long id) {
+        Map<String, Object> dataMap = new HashMap<String, Object>(2);
+        DimissionUser dimissionUser = dimissionUserService.getById(id);
+        if (dimissionUser == null || dimissionUser.getSteps() != 2) {
+            return null;
+        }
+        dataMap.put("dimissionUser", dimissionUser);
+        if ("实习".equals(dimissionUser.getTypesOfEmployees())) {
+            dataMap.put("type", "实习");
+        } else {
+            dataMap.put("type", "离职");
+        }
+        return dataMap;
+    }
+
+    /**
+     * 打印完离职证明，流程步骤就结束了，就要变成4
+     */
+    private void updateDimissionUser(Long id) {
+        DimissionUser dimissionUser = new DimissionUser();
+        dimissionUser.setId(id);
+        dimissionUser.setSteps(3);
+        Long isSuc = dimissionUserService.updateById(dimissionUser);
+        if (isSuc != 1) {
+            log.error("离职证明打印完后，流程变为完成时出现异常");
+        }
+    }
+
 
 }
