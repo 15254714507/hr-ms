@@ -73,14 +73,14 @@
                                onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"></td>
                     <td class="top-table-label">姓名：</td>
                     <td><input type="text" id="name" name="name" readonly></td>
-                    <td class="top-table-label">部门：</td>
-                    <td><input type="text" id="departmentName" name="departmentName" readonly></td>
+                    <td class="top-table-label">性别：</td>
+                    <td><input type="text" id="gender" name="gender" readonly></td>
                 </tr>
                 <tr>
+                    <td class="top-table-label">部门：</td>
+                    <td><input type="text" id="departmentName" name="departmentName" readonly></td>
                     <td class="top-table-label">岗位：</td>
                     <td><input type="text" id="jobName" name="jobName" readonly></td>
-                    <td class="top-table-label">入职时间：</td>
-                    <td><input type="date" id="dateOfEntry" name="dateOfEntry" readonly></td>
                 </tr>
                 <tr>
                     <td class="top-table-label">离职原因</td>
@@ -121,9 +121,9 @@
                         let dimissionUser = result.object;
                         $index.text(dimissionUser.steps);
                         $("#name").val(dimissionUser.name);
+                        $("#gender").val(dimissionUser.gender);
                         $("#departmentName").val(dimissionUser.departmentName);
                         $("#jobName").val(dimissionUser.jobName);
-                        $("#dateOfEntry").val(dimissionUser.dateOfEntry);
                         if (dimissionUser.steps !== 0) {
                             $("#reasonsForSeparation").val(dimissionUser.reasonsForSeparation).prop("readonly", true);
                             $("#btn").hide();

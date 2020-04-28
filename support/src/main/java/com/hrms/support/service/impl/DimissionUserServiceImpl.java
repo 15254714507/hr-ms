@@ -11,6 +11,7 @@ import com.hrms.api.exception.DaoException;
 import com.hrms.api.service.DimissionUserService;
 import com.hrms.api.service.UserJobService;
 import com.hrms.api.service.UserService;
+import com.hrms.api.until.LocalDateTimeFactory;
 import com.hrms.api.until.Result;
 import com.hrms.support.manager.DimissionUserManager;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +46,7 @@ public class DimissionUserServiceImpl implements DimissionUserService {
 
     @Override
     public Result insert(DimissionUser dimissionUser) {
-        Result result = addTypesOfEmployees(dimissionUser);
+        Result result = fillDimissionUser(dimissionUser);
         if (result != null) {
             return result;
         }
@@ -83,7 +84,13 @@ public class DimissionUserServiceImpl implements DimissionUserService {
         return dimissionUserManager.list(dimissionUserCondition);
     }
 
-    private Result addTypesOfEmployees(DimissionUser dimissionUser) {
+    /**
+     * 添加离职表前把缺少的信息填充完整
+     *
+     * @param dimissionUser
+     * @return
+     */
+    private Result fillDimissionUser(DimissionUser dimissionUser) {
         User user = userService.getByUsername(dimissionUser.getUsername());
         if (user == null) {
             return new Result(0, "没有此用户,请刷新后重试");
@@ -95,6 +102,9 @@ public class DimissionUserServiceImpl implements DimissionUserService {
             return new Result(0, "没有此用户的岗位，请联系运营人员");
         }
         dimissionUser.setTypesOfEmployees(userJobList.get(0).getTypesOfEmployees());
+        dimissionUser.setIdentityCard(user.getIdentityCard());
+        dimissionUser.setDateOfEntry(user.getEmploymentDate());
+        dimissionUser.setDateOfSeparation(LocalDateTimeFactory.getLocalDate());
         return null;
     }
 
@@ -114,7 +124,12 @@ public class DimissionUserServiceImpl implements DimissionUserService {
         DimissionUser dimissionUser = transEmployeesToDimissionUser(employees);
         dimissionUser.setUsername(user.getUsername());
         dimissionUser.setName(user.getName());
-        dimissionUser.setDateOfEntry(user.getEmploymentDate());
+        if (user.getGender() == 0) {
+            dimissionUser.setGender("男");
+        } else {
+            dimissionUser.setGender("女");
+        }
+        dimissionUser.setIdentityCard(user.getIdentityCard());
         return dimissionUser;
     }
 
