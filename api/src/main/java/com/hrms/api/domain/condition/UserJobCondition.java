@@ -3,6 +3,7 @@ package com.hrms.api.domain.condition;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -40,11 +41,11 @@ public class UserJobCondition implements Serializable {
     /**
      * 创建时间
      */
-    private LocalTime createTime;
+    private LocalDateTime createTime;
     /**
      * 修改时间
      */
-    private LocalTime updateTime;
+    private LocalDateTime updateTime;
     /**
      * 创建者
      */
