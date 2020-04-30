@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrms.support.dao.PerformanceDao">
+    <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.Performance">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="goal" property="goal" jdbcType="VARCHAR"/>
+        <result column="kpi" property="kpi" jdbcType="DECIMAL"/>
+        <result column="audit_user" property="auditUser" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            user_id,
+            goal,
+            kpi,
+            audit_user,
+            status,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+    </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from performance
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.hrms.api.domain.entity.Performance">
+        insert
+        into performance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            user_id,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{userId,jdbcType=BIGINT},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.hrms.api.domain.entity.Performance">
+        update performance
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="userId !=null">
+                    user_id= #{userId,jdbcType=BIGINT},
+                </if>
+                <if test="goal !=null and goal != '' ">
+                    goal=#{goal,jdbcType=VARCHAR},
+                </if>
+                <if test="kpi !=null">
+                    kpi=#{kpi,jdbcType=DECIMAL},
+                </if>
+                <if test="auditUser !=null and auditUser != '' ">
+                    audit_user=#{auditUser,jdbcType=VARCHAR},
+                </if>
+                <if test="status !=null">
+                    status=#{status,jdbcType=TINYINT},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+            </trim>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from performance
+        where id = #{id,jdbcType=BIGINT};
+    </delete>
+    <select id="list" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.PerformanceCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from performance
+        where is_delete=0
+        <if test="userId !=null">
+            and user_id= #{userId,jdbcType=BIGINT}
+        </if>
+        <if test="status !=null">
+            and status=#{status,jdbcType=TINYINT}
+        </if>
+        <if test="year!=null">
+            and year(create_time) =#{year,jdbcType=INTEGER}
+        </if>
+        <if test="month!=null">
+            and month(create_time) =#{month,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>
