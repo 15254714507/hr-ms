@@ -4,6 +4,8 @@ import com.hrms.api.domain.condition.UserCondition;
 import com.hrms.api.domain.entity.User;
 import com.hrms.api.exception.DaoException;
 
+import java.util.List;
+
 /**
  * @author 孔超
  * @date 2020/4/2 19:07
@@ -50,4 +52,12 @@ public interface UserService {
      * @throws DaoException 包装了一层异常
      */
     public Long deleteById(Long id) throws DaoException;
+    /**
+     * 获得用户的集合
+     *
+     * @param userCondition 搜索的条件
+     * @return 返回user的集合
+     * @throws DaoException 包装了一成异常
+     */
+    public List<User> list(UserCondition userCondition) throws DaoException;
 }

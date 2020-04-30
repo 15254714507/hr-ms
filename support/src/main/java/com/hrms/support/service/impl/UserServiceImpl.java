@@ -9,6 +9,7 @@ import com.hrms.support.manager.UserManager;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author 孔超
@@ -47,5 +48,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Long deleteById(Long id) throws DaoException {
         return userManager.deleteById(id);
+    }
+
+    @Override
+    public List<User> list(UserCondition userCondition) throws DaoException {
+        return userManager.list(userCondition);
     }
 }
