@@ -46,4 +46,8 @@ public class UserPerformance implements Serializable {
      * 绩效的日期
      */
     private String yearMonth;
+    /**
+     * 确认kpi的人
+     */
+    private String auditUser;
 }

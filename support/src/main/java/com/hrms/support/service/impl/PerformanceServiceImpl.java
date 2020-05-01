@@ -76,6 +76,7 @@ public class PerformanceServiceImpl implements PerformanceService {
         userPerformance.setKpi(performance.getKpi());
         userPerformance.setPerformanceId(performance.getId());
         userPerformance.setStatus(performance.getStatus());
+        userPerformance.setAuditUser(performance.getAuditUser());
         String yearMonth = performance.getCreateTime().getYear() + "年" + performance.getCreateTime().getMonthValue() + "月";
         userPerformance.setYearMonth(yearMonth);
     }

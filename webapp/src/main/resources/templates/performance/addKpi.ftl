@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>添加考核项</title>
+    <title>绩效认定页面</title>
     <link rel="stylesheet" href="js/bstable/css/bootstrap.min.css">
     <link rel="stylesheet" href="js/bstable/css/bootstrap-table.css">
     <link rel="stylesheet" href="css/all.css">
@@ -140,19 +140,29 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <header class="modal-header">
-                <h4>考核项：</h4>
+                <h4>绩效打KPI：</h4>
                 <div class="close" onclick="modal_close()">x</div>
             </header>
+
             <form id="add_form">
                 <input id="performance_id" name="id" style="display: none"/>
                 <div class="modal-body">
+                    <label>考核项：</label>
                     <label>
-                        <textarea id="text" name="goal" cols="70" rows="5"></textarea>
+                        <textarea id="text" cols="70" rows="5" readonly></textarea>
                     </label>
+                </div>
+                <div>
+                    <label>绩效点：</label>
+                    <select id="kpi" name="kpi">
+                        <option>0.8</option>
+                        <option>1.0</option>
+                        <option>1.2</option>
+                    </select>
                 </div>
             </form>
             <footer class="modal-footer">
-                <button id="btn" onclick="savePerformanceGoal()" style="display: none">提交</button>
+                <button id="btn" onclick="savePerformanceKpi()">提交</button>
             </footer>
         </div>
     </div>
@@ -172,7 +182,7 @@
             method: "POST",
             striped: false,
             singleSelect: false,
-            url: "/getNotAddPerformanceList.do",
+            url: "/getAddPerformanceKpiList.do",
             dataType: "json",
             pagination: true, //分页
             pageSize: 10,
@@ -216,52 +226,31 @@
                     visible: false
                 },
                 {
-                    title: '状态',
-                    field: 'status',
-                    width: 180,
-                    align: 'center',
-                    valign: 'middle',
-                    formatter: function (cellval, row) {
-                        let status = null;
-                        if (row.status) {
-                            status = "考核项未添加";
-                        } else {
-                            status = "考核项已添加";
-                        }
-                        return status;
-                    }
+                    title: '绩效打kpi的人的账号',
+                    field: 'auditUser',
+                    visible: false
                 },
                 {
-                    title: '考核项',
+                    title: '操作',
                     field: 'Ope',
                     width: 180,
                     align: 'center',
                     valign: 'middle',
                     formatter: function (cellval, row) {
-                        let d = null;
-                        if (row.status) {
-                            d = '<button  id="see" data-id="98" class="btn btn-xs btn-primary" onclick="see(\'' + row.goal + '\')">查看考核项</button> ';
-                        } else {
-                            d = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="add(\'' + row.performanceId + '\')">添加考核项</button> ';
+                        if (row.auditUser == null || row.auditUser === '') {
+                            return '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="add(\'' + row.performanceId + '\',\'' + row.goal + '\')">添加KPI</button> ';
                         }
-                        return d;
+                        return "KPI已打"
                     }
                 },
             ]
         });
     }
 
-    //只是查看考核项
-    function see(goal) {
-        document.getElementById("text").value = goal;
-        document.getElementById("btn").style.display = "none";
-        modal.style.display = "block";
-    }
-
     //添加考核项，提交按钮打开
-    function add(id) {
+    function add(id, goal) {
         document.getElementById("performance_id").value = id;
-        document.getElementById("btn").style.display = "block";
+        document.getElementById("text").value = goal;
         modal.style.display = "block";
     }
 
@@ -271,9 +260,9 @@
     }
 
     //提交考核项
-    function savePerformanceGoal() {
+    function savePerformanceKpi() {
         $.ajax({
-            url: "/savePerformanceGoal.do",
+            url: "/savePerformanceKpi.do",
             type: "POST",
             cache: false,
             data: $("#add_form").serialize(),
