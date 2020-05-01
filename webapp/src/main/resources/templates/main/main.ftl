@@ -70,7 +70,7 @@
                     <ul class="dropdown-menu">
                         <li class=""><a href="/gotoAddAssessment.do" target="fraName">绩效考核项</a></li>
                         <li class=""><a href="/gotoPerformanceKpi.do" target="fraName">绩效认定</a></li>
-                        <li class=""><a href="/gotoAuditDeleteUser.do" target="fraName">绩效列表</a></li>
+                        <li class=""><a href="/gotoPerformanceList.do" target="fraName">绩效列表</a></li>
                     </ul>
                 </li>
                 <li><a href="shares.html" target="fraName">薪资管理</a></li>

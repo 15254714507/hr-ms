@@ -3,6 +3,7 @@ package com.hrms.api.domain.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author 孔超
@@ -50,4 +51,8 @@ public class UserPerformance implements Serializable {
      * 确认kpi的人
      */
     private String auditUser;
+    /**
+     * 创建时间，主要用于排序
+     */
+    private LocalDateTime createTime;
 }

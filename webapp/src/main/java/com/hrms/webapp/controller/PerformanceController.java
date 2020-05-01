@@ -90,9 +90,9 @@ public class PerformanceController {
         List<UserPerformance> userPerformanceList = null;
         LocalDate lastDay = LocalDateTimeFactory.getLocalDate().with(TemporalAdjusters.lastDayOfMonth());
 //        //每个月的最后两天才允许填写kpi
-//        if (LocalDateTimeFactory.getLocalDate().getDayOfMonth() < lastDay.getDayOfMonth() - 1) {
-//            return null;
-//        }
+        if (LocalDateTimeFactory.getLocalDate().getDayOfMonth() < lastDay.getDayOfMonth() - 1) {
+            return null;
+        }
         PerformanceCondition performanceCondition = new PerformanceCondition();
         performanceCondition.setYear(LocalDateTimeFactory.getLocalDate().getYear());
         performanceCondition.setMonth(LocalDateTimeFactory.getLocalDate().getMonth().getValue());
@@ -125,6 +125,24 @@ public class PerformanceController {
         }
         return result;
 
+    }
+
+    @RequestMapping("/gotoPerformanceList.do")
+    public String gotoPerformanceList() {
+        return "performance/performanceList";
+    }
+
+    @PostMapping("/getPerformanceList.do")
+    @ResponseBody
+    public List<UserPerformance> getPerformanceList() {
+        List<UserPerformance> userPerformanceList = null;
+        PerformanceCondition performanceCondition = new PerformanceCondition();
+        try {
+            userPerformanceList = performanceService.listUserPerformance(performanceCondition);
+        } catch (Exception e) {
+            log.error("获取所有的绩效信息时发生系统异常", e);
+        }
+        return userPerformanceList;
     }
 
 }
