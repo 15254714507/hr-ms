@@ -7,7 +7,7 @@
         <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="start_date" property="startDate" jdbcType="DATE"/>
-        <result column="end_date" property="startDate" jdbcType="DATE"/>
+        <result column="end_date" property="endDate" jdbcType="DATE"/>
         <result column="days_of_recess" property="daysOfRecess" jdbcType="DECIMAL"/>
         <result column="days_of_leave" property="daysOfLeave" jdbcType="DECIMAL"/>
         <result column="days_of_sick_leave" property="daysOfSickLeave" jdbcType="DECIMAL"/>

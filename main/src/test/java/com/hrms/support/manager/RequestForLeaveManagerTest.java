@@ -23,7 +23,6 @@ public class RequestForLeaveManagerTest {
     @Resource
     RequestForLeaveManager requestForLeaveManager;
 
-
     public void insert() {
         RequestForLeave requestForLeave = new RequestForLeave();
         requestForLeave.setUsername("2222");
