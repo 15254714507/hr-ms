@@ -29,4 +29,13 @@ public interface SignService {
      * @throws DaoException
      */
     public List<Sign> listByYearMonthDay(SignCondition signCondition) throws DaoException;
+
+    /**
+     * 晚上18点以后的签到下班服务
+     *
+     * @param sign
+     * @return
+     * @throws DaoException
+     */
+    public Result nightSign(Sign sign) throws DaoException;
 }

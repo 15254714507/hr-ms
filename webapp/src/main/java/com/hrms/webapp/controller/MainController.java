@@ -52,9 +52,9 @@ public class MainController {
         signCondition.setDay(LocalDateTimeFactory.getLocalDate().getDayOfMonth());
         try {
             List<Sign> signList = signService.listByYearMonthDay(signCondition);
-            //签到成功返回的是1 没有签到是0
+            //上班签到成功返回的是1 上班没有签到是0
             if (signList != null && signList.size() > 0) {
-                result = new Result(1, 1);
+                result = new Result(1, getSignStatus(signList.get(0)));
             } else {
                 result = new Result(1, 0);
             }
@@ -66,26 +66,21 @@ public class MainController {
     }
 
     /**
-     * 签到
+     * 获得签到的状态，0是未签到、1已上班、2下班签到，3已下班
      *
-     * @param session
+     * @param sign
      * @return
      */
-    @PostMapping("/saveSign.do")
-    @ResponseBody
-    public Result saveSign(HttpSession session) {
-        Result result = null;
-        Sign sign = new Sign();
-        Employees employees = (Employees) session.getAttribute("employees");
-        sign.setCreateUser(employees.getUsername());
-        sign.setUpdateUser(employees.getUsername());
-        sign.setUsername(employees.getUsername());
-        try {
-            result = signService.insert(sign);
-        } catch (Exception e) {
-            log.error("创建新的签到时出现系统异常employees{}", JSON.toJSONString(employees), e);
-            result = new Result(-1, "系统异常，请重新尝试");
+    private Integer getSignStatus(Sign sign) {
+        //上班签到后还要有下班签到。
+        if (sign.getGetOffWork() != null) {
+            return 3;
         }
-        return result;
+        //晚上18点开始下班签到,否则说明还在已上班
+        if (LocalDateTimeFactory.getLocalDateTime().getHour() >= 18) {
+            return 2;
+        } else {
+            return 1;
+        }
     }
 }

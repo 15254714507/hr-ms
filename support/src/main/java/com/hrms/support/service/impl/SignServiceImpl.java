@@ -37,4 +37,37 @@ public class SignServiceImpl implements SignService {
     public List<Sign> listByYearMonthDay(SignCondition signCondition) throws DaoException {
         return signManager.listByYearMonthDay(signCondition);
     }
+
+    @Override
+    public Result nightSign(Sign sign) throws DaoException {
+        SignCondition signCondition = getSignCondition(sign);
+        List<Sign> signList = signManager.listByYearMonthDay(signCondition);
+        if (signList == null || signList.size() < 1) {
+            return new Result(0, "没有您的签到记录，请联系运营人员");
+        }
+        sign.setId(signList.get(0).getId());
+        sign.setGetOffWork(LocalDateTimeFactory.getLocalDateTime());
+        Long isSuc = signManager.updateById(sign);
+        if (isSuc == 1) {
+            return new Result(1, "签到成功");
+        } else {
+            return new Result(0, "没有此签到记录，请联系运营人员");
+        }
+
+    }
+
+    /**
+     * 转成SignCondition用于list查询
+     *
+     * @param sign
+     * @return
+     */
+    private SignCondition getSignCondition(Sign sign) {
+        SignCondition signCondition = new SignCondition();
+        signCondition.setUsername(sign.getUsername());
+        signCondition.setYear(LocalDateTimeFactory.getLocalDate().getYear());
+        signCondition.setMonth(LocalDateTimeFactory.getLocalDate().getMonthValue());
+        signCondition.setDay(LocalDateTimeFactory.getLocalDate().getDayOfMonth());
+        return signCondition;
+    }
 }

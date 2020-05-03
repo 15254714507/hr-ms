@@ -21,8 +21,12 @@
                                                   class="per-img"/>
                 <br>
                 <br>
-                <button id="btn1" class="btn btn-danger" onclick="saveSign()" style="display: none">签到</button>
-                <button id="btn2" class="btn btn-success" style="display: none">已签到</button>
+                <button id="btn1" class="btn btn-danger" onclick="saveSign()" style="display: none">上班签到</button>
+                <button id="btn2" class="btn btn-success" style="display: none">已上班</button>
+                <button id="btn3" class="btn btn-danger" onclick="updateSignGetOffWork()" style="display: none">下班签到
+                </button>
+                <button id="btn4" class="btn btn-success" onclick="updateSignGetOffWork()" style="display: none">已下班
+                </button>
             </div>
             <div><p style="font-size: 24px;font-weight: 600">${(employees.name)!}</p>
                 部门：<p style="font-weight: 700">${(employees.departmentName)!}</p>
@@ -168,14 +172,30 @@
             dataType: "json",
             success: function (result) {
                 if (result.code === 1) {
-                    if(result.object===1){
-                        $("#btn2").show();
-                        $("#btn1").hide();
-                    }else{
+                    if (result.object === 0) {
                         $("#btn1").show();
                         $("#btn2").hide();
+                        $("#btn3").hide();
+                        $("#btn4").hide();
                     }
-
+                    if (result.object === 1) {
+                        $("#btn1").hide();
+                        $("#btn2").show();
+                        $("#btn3").hide();
+                        $("#btn4").hide();
+                    }
+                    if (result.object === 2) {
+                        $("#btn1").hide();
+                        $("#btn2").hide();
+                        $("#btn3").show();
+                        $("#btn4").hide();
+                    }
+                    if (result.object === 3) {
+                        $("#btn1").hide();
+                        $("#btn2").hide();
+                        $("#btn3").hide();
+                        $("#btn4").show();
+                    }
                 } else {
                     alert(result.msg);
                 }
@@ -187,7 +207,7 @@
         });
     }
 
-    //签到
+    //上班签到
     function saveSign() {
         $.ajax({
             url: "/saveSign.do",
@@ -196,8 +216,34 @@
             dataType: "json",
             success: function (result) {
                 if (result.code === 1) {
-                    $("#btn2").show();
                     $("#btn1").hide();
+                    $("#btn2").show();
+                    $("#btn3").hide();
+                    $("#btn4").hide();
+                    alert(result.msg);
+                } else {
+                    alert(result.msg);
+                }
+            },
+            error: function () {
+                alert("连接服务器异常，请刷新后重试")
+            }
+        });
+    }
+
+    //下班签到
+    function updateSignGetOffWork() {
+        $.ajax({
+            url: "/updateSignGetOffWork.do",
+            type: "POST",
+            cache: false,
+            dataType: "json",
+            success: function (result) {
+                if (result.code === 1) {
+                    $("#btn1").hide();
+                    $("#btn2").hide();
+                    $("#btn3").hide();
+                    $("#btn4").show();
                     alert(result.msg);
                 } else {
                     alert(result.msg);
