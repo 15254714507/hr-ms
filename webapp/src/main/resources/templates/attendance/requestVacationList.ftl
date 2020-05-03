@@ -62,10 +62,16 @@
 <div class="notice_main">
     <div class="home-tab"><i class="tab-i"></i> 所在位置：<span>假期申请列表</span></div>
     <div style=>
-        <button class="add-but btn-lg" onclick=""><i class="glyphicon glyphicon-edit"></i>申请假期</button>
+        <button class="add-but btn-lg" onclick="addNewVacation()"><i class="glyphicon glyphicon-edit"></i>申请假期</button>
     </div>
     <div class="table-con">
         <table id="table" class="table-style"></table>
+    </div>
+    <div id="modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div  class="modal-dialog modal-lg" role="document">
+            <div id="iframe" class="modal-content">
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
@@ -229,6 +235,10 @@
                 }
             ]
         });
+    }
+    function addNewVacation() {
+        $("#iframe").load("/gotoAddNewVacation.do");
+        $("#modal").modal('show')
     }
 </script>
 <script src="js/jquery.js"></script>

@@ -3,7 +3,9 @@ package com.hrms.webapp.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.hrms.api.domain.condition.RequestForLeaveCondition;
 import com.hrms.api.domain.entity.RequestForLeave;
+import com.hrms.api.domain.entity.User;
 import com.hrms.api.service.RequestForLeaveService;
+import com.hrms.api.service.UserService;
 import com.hrms.api.until.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ import java.util.List;
 @Controller
 @RequestMapping("")
 public class AttendanceController {
+    @Reference
+    UserService userService;
     @Reference
     RequestForLeaveService requestForLeaveService;
 
@@ -45,6 +49,24 @@ public class AttendanceController {
     @PostMapping("/getVacationUserName.do")
     @ResponseBody
     public Result getVacationUserName(String username) {
-        return null;
+        if (username == null) {
+            return new Result(1, null);
+        }
+        Result result = new Result(1, null);
+        try {
+            User user = userService.getByUsername(username);
+            if (user != null) {
+                result.setObject(user.getName());
+            }
+        } catch (Exception e) {
+            log.error("根据账号获取用户姓名出现系统异常 username{}", username, e);
+            result = new Result(-1, "获取用户姓名异常");
+        }
+
+        return result;
+    }
+    @RequestMapping("/gotoAddNewVacation.do")
+    public String gotoAddNewVacation(){
+        return "attendance/addRequestVacation";
     }
 }
