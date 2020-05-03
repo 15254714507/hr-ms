@@ -37,6 +37,7 @@ public class RequestForLeaveManagerTest {
         requestForLeave.setDaysOfRecess(1.2);
         requestForLeave.setDaysOfSickLeave(1.2);
         requestForLeave.setDescription("222");
+        requestForLeave.setName("kc");
         Long isSuc = requestForLeaveManager.insert(requestForLeave);
         Assert.assertEquals(1, isSuc.intValue());
     }

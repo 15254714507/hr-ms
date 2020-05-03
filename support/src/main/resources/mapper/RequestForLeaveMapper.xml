@@ -5,6 +5,7 @@
     <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.RequestForLeave">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="start_date" property="startDate" jdbcType="DATE"/>
         <result column="end_date" property="startDate" jdbcType="DATE"/>
         <result column="days_of_recess" property="daysOfRecess" jdbcType="DECIMAL"/>
@@ -23,6 +24,7 @@
         <trim prefix="" suffix="" suffixOverrides=",">
             id,
             username,
+            name,
             start_date,
             end_date,
             days_of_recess,
@@ -50,6 +52,7 @@
         into request_for_leave
         <trim prefix="(" suffix=")" suffixOverrides=",">
             username,
+            name,
             start_date,
             end_date,
             days_of_recess,
@@ -66,6 +69,7 @@
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
             #{username,jdbcType=VARCHAR},
+            #{name,jdbcType=VARCHAR},
             #{startDate,jdbcType=DATE},
             #{endDate,jdbcType=DATE},
             #{daysOfRecess,jdbcType=DECIMAL},
@@ -84,6 +88,9 @@
         update request_for_leave
         <set>
             <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="name !=null and name!=''">
+                    name= #{name,jdbcType=VARCHAR},
+                </if>
                 <if test="startDate !=null">
                     start_date= #{startDate,jdbcType=DATE},
                 </if>

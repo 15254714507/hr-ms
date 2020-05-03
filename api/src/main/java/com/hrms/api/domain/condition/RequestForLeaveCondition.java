@@ -21,6 +21,10 @@ public class RequestForLeaveCondition implements Serializable {
      */
     private String username;
     /**
+     * 姓名
+     */
+    private String name;
+    /**
      * 假期开始时间
      */
     private LocalDate startDate;
