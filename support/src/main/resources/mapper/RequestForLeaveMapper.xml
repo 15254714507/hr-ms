@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrms.support.dao.RequestForLeaveDao">
+    <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.RequestForLeave">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="start_date" property="startDate" jdbcType="DATE"/>
+        <result column="end_date" property="startDate" jdbcType="DATE"/>
+        <result column="days_of_recess" property="daysOfRecess" jdbcType="DECIMAL"/>
+        <result column="days_of_leave" property="daysOfLeave" jdbcType="DECIMAL"/>
+        <result column="days_of_sick_leave" property="daysOfSickLeave" jdbcType="DECIMAL"/>
+        <result column="days_of_absenteeism" property="daysOfAbsenteeism" jdbcType="DECIMAL"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="audit_user" property="auditUser" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            username,
+            start_date,
+            end_date,
+            days_of_recess,
+            days_of_leave,
+            days_of_sick_leave,
+            days_of_absenteeism,
+            description,
+            audit_user,
+            status,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+    </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from request_for_leave
+        where is_delete = 0
+        and id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.hrms.api.domain.entity.RequestForLeave">
+        insert
+        into request_for_leave
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            username,
+            start_date,
+            end_date,
+            days_of_recess,
+            days_of_leave,
+            days_of_sick_leave,
+            days_of_absenteeism,
+            description,
+            audit_user,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{username,jdbcType=VARCHAR},
+            #{startDate,jdbcType=DATE},
+            #{endDate,jdbcType=DATE},
+            #{daysOfRecess,jdbcType=DECIMAL},
+            #{daysOfLeave,jdbcType=DECIMAL},
+            #{daysOfSickLeave,jdbcType=DECIMAL},
+            #{daysOfAbsenteeism,jdbcType=DECIMAL},
+            #{description,jdbcType=VARCHAR},
+            #{auditUser,jdbcType=VARCHAR},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.hrms.api.domain.entity.RequestForLeave">
+        update request_for_leave
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="startDate !=null">
+                    start_date= #{startDate,jdbcType=DATE},
+                </if>
+                <if test="endDate !=null">
+                    end_date= #{endDate,jdbcType=DATE},
+                </if>
+                <if test="daysOfRecess !=null">
+                    days_of_recess= #{daysOfRecess,jdbcType=DECIMAL},
+                </if>
+                <if test="daysOfLeave !=null">
+                    days_of_leave= #{daysOfLeave,jdbcType=DECIMAL},
+                </if>
+                <if test="daysOfSickLeave !=null">
+                    days_of_sick_leave= #{daysOfSickLeave,jdbcType=DECIMAL},
+                </if>
+                <if test="daysOfAbsenteeism !=null">
+                    days_of_absenteeism= #{daysOfAbsenteeism,jdbcType=DECIMAL},
+                </if>
+                <if test="description !=null and description!=''">
+                    description= #{description,jdbcType=VARCHAR},
+                </if>
+                <if test="auditUser !=null and auditUser!=''">
+                    audit_user= #{auditUser,jdbcType=VARCHAR},
+                </if>
+                <if test="status !=null">
+                    status= #{status,jdbcType=TINYINT},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and id = #{id,jdbcType=BIGINT};
+    </update>
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from request_for_leave
+        where id = #{id,jdbcType=BIGINT};
+    </delete>
+    <select id="list" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.RequestForLeaveCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from request_for_leave
+        where is_delete=0
+        <if test="username !=null and username!=''">
+            and username= #{username,jdbcType=VARCHAR}
+        </if>
+        <if test="startDate !=null">
+            and start_date &lt;= #{startDate,jdbcType=DATE}
+        </if>
+        <if test="endDate !=null">
+            and end_date &gt;= #{endDate,jdbcType=DATE}
+        </if>
+        <if test="status !=null">
+            and status= #{status,jdbcType=TINYINT}
+        </if>
+    </select>
+</mapper>
