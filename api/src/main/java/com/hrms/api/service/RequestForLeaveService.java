@@ -22,6 +22,24 @@ public interface RequestForLeaveService {
     public Result insert(RequestForLeave requestForLeave) throws DaoException;
 
     /**
+     * 修改请假信息
+     *
+     * @param requestForLeave
+     * @return
+     * @throws DaoException
+     */
+    public Long updateById(RequestForLeave requestForLeave) throws DaoException;
+
+    /**
+     * 删除请假信息
+     *
+     * @param id
+     * @return
+     * @throws DaoException
+     */
+    public Long deleteById(Long id) throws DaoException;
+
+    /**
      * 获得申请假的信息的集合
      *
      * @param requestForLeaveCondition

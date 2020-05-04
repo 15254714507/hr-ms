@@ -67,8 +67,9 @@
     <div class="table-con">
         <table id="table" class="table-style"></table>
     </div>
-    <div id="modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-        <div  class="modal-dialog modal-lg" role="document">
+    <div id="modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
             <div id="iframe" class="modal-content">
             </div>
         </div>
@@ -227,18 +228,65 @@
                     width: 180,
                     align: 'center',
                     formatter: function (cellval, row) {
-                        var d = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="add(\'' + row.id + '\')">通过</button> ';
-                        var c = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="add(\'' + row.id + '\')">删除</button> ';
-
-                        return d + c;
+                        if (!row.status) {
+                            var d = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="passVacation(\'' + row.id + '\')">通过</button> ';
+                            var c = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="deleteVacation(\'' + row.id + '\')">删除</button> ';
+                            return d + c;
+                        }
                     }
                 }
             ]
         });
     }
+
+    //打开请假申请的页面
     function addNewVacation() {
         $("#iframe").load("/gotoAddNewVacation.do");
         $("#modal").modal('show')
+    }
+
+    //删除请假申请
+    function deleteVacation(id) {
+        $.ajax({
+            url: "/deleteRequestVacation.do",
+            type: "POST",
+            cache: false,
+            data: {
+                id: id
+            },
+            success: function (result) {
+                if (result.code === 1) {
+                    location.reload();
+                }
+                alert(result.msg);
+            }
+            ,
+            error: function () {
+                alert("连接服务器异常，请刷新后重试")
+            }
+        });
+    }
+
+    //通过请假申请
+    function passVacation(id) {
+        $.ajax({
+            url: "/passRequestVacation.do",
+            type: "POST",
+            cache: false,
+            data: {
+                id: id
+            },
+            success: function (result) {
+                if (result.code === 1) {
+                    location.reload();
+                }
+                alert(result.msg);
+            }
+            ,
+            error: function () {
+                alert("连接服务器异常，请刷新后重试")
+            }
+        });
     }
 </script>
 <script src="js/jquery.js"></script>

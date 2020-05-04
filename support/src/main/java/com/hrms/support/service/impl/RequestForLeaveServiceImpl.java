@@ -32,6 +32,16 @@ public class RequestForLeaveServiceImpl implements RequestForLeaveService {
     }
 
     @Override
+    public Long updateById(RequestForLeave requestForLeave) throws DaoException {
+        return requestForLeaveManager.updateById(requestForLeave);
+    }
+
+    @Override
+    public Long deleteById(Long id) throws DaoException {
+        return requestForLeaveManager.deleteById(id);
+    }
+
+    @Override
     public List<RequestForLeave> list(RequestForLeaveCondition requestForLeaveCondition) throws DaoException {
         return requestForLeaveManager.list(requestForLeaveCondition);
     }

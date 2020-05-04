@@ -126,4 +126,46 @@ public class AttendanceController {
         requestForLeave.setUpdateUser(createUser);
         return requestForLeave;
     }
+
+    @PostMapping("/deleteRequestVacation.do")
+    @ResponseBody
+    public Result deleteRequestVacation(Long id) {
+        Result result = null;
+        try {
+            Long isSuc = requestForLeaveService.deleteById(id);
+            if (isSuc != 1) {
+                return new Result(0, "没有此请假申请");
+            } else {
+                result = new Result(1, "删除请假申请完成");
+            }
+        } catch (Exception e) {
+            log.error("删除请假申请出现系统异常 id{}", id, e);
+            result = new Result(-1, "系统异常，请刷新后重试");
+        }
+        return result;
+    }
+
+    @PostMapping("/passRequestVacation.do")
+    @ResponseBody
+    public Result passRequestVacation(Long id, HttpSession session) {
+        Result result = null;
+        RequestForLeave requestForLeave = new RequestForLeave();
+        requestForLeave.setId(id);
+        requestForLeave.setStatus(true);
+        Employees employees = (Employees) session.getAttribute("employees");
+        requestForLeave.setAuditUser(employees.getUsername());
+        requestForLeave.setUpdateUser(employees.getUsername());
+        try {
+            Long isSuc = requestForLeaveService.updateById(requestForLeave);
+            if (isSuc != 1) {
+                return new Result(0, "没有此请假申请");
+            } else {
+                result = new Result(1, "已通过请假申请");
+            }
+        } catch (Exception e) {
+            log.error("通过请假申请出现系统异常 id{}", id, e);
+            result = new Result(-1, "系统异常，请刷新后重试");
+        }
+        return result;
+    }
 }
