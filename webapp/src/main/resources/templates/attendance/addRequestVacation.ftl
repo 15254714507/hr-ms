@@ -10,7 +10,7 @@
 <body>
 <main>
     <div class="find-top1">
-        <form action="" id="form_new_employees">
+        <form action="" id="form_new_vacation">
             <table class="top-table">
                 <tr>
                     <td class="top-table-label">职员编号：</td>
@@ -51,16 +51,18 @@
 <script src="js/bstable/js/bootstrap-table.js"></script>
 <script src="js/bstable/js/bootstrap-table-zh-CN.min.js"></script>
 <script type="text/javascript">
+    //添加新的假期申请
     function saveClick() {
         $.ajax({
-            url: "/updateNewEmployees.do",
+            url: "/saveNewVacation.do",
             type: "POST",
             cache: false,
-            data: $("#form_new_employees").serialize(),
+            data: $("#form_new_vacation").serialize(),
             dataType: "json",
             success: function (result) {
                 if (result.code === 1) {
                     alert(result.msg);
+                    location.reload();
                 } else {
                     alert(result.msg)
                 }
@@ -70,6 +72,7 @@
             }
         });
     }
+
     //计算请假天数
     function computeDate() {
         let startDate = $("#startDate").val();
@@ -87,8 +90,9 @@
         }
         let timeInterval = new Date(endDate).getTime() - new Date(startDate).getTime();
         let days = parseInt(timeInterval / (1000 * 60 * 60 * 24));
-        $("#days").val(days+1);
+        $("#days").val(days + 1);
     }
+
     //根据员工编码获得姓名
     function setUserName() {
         $.ajax({
