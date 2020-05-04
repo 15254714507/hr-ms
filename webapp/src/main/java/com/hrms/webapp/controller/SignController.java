@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.hrms.api.domain.dto.Employees;
 import com.hrms.api.domain.entity.Sign;
 import com.hrms.api.service.SignService;
+import com.hrms.api.until.LocalDateTimeFactory;
 import com.hrms.api.until.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,7 @@ public class SignController {
         sign.setCreateUser(employees.getUsername());
         sign.setUpdateUser(employees.getUsername());
         sign.setUsername(employees.getUsername());
+        sign.setWorkTime(LocalDateTimeFactory.getLocalDateTime());
         try {
             result = signService.insert(sign);
         } catch (Exception e) {

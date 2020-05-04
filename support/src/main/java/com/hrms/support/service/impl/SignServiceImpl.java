@@ -25,12 +25,16 @@ public class SignServiceImpl implements SignService {
 
     @Override
     public Result insert(Sign sign) throws DaoException {
-        sign.setWorkTime(LocalDateTimeFactory.getLocalDateTime());
         Long isSuc = signManager.insert(sign);
         if (isSuc != 1) {
             return new Result(0, "已签到，请勿重复签到");
         }
         return new Result(1, "签到成功");
+    }
+
+    @Override
+    public Long updateById(Sign sign) throws DaoException {
+        return signManager.updateById(sign);
     }
 
     @Override

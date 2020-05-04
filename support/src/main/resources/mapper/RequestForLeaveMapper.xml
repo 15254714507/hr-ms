@@ -148,4 +148,22 @@
             and status= #{status,jdbcType=TINYINT}
         </if>
     </select>
+    <select id="listRequest" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.RequestForLeaveCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from request_for_leave
+        where is_delete=0
+        <if test="username !=null and username!=''">
+            and username= #{username,jdbcType=VARCHAR}
+        </if>
+        <if test="startDate !=null">
+            and start_date &lt;= #{startDate,jdbcType=DATE}
+        </if>
+        <if test="endDate !=null">
+            and end_date &gt;= #{endDate,jdbcType=DATE}
+        </if>
+        <if test="status !=null">
+            and status= #{status,jdbcType=TINYINT}
+        </if>
+    </select>
 </mapper>

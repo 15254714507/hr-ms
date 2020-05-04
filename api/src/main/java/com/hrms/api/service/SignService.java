@@ -20,6 +20,14 @@ public interface SignService {
      * @throws DaoException
      */
     public Result insert(Sign sign) throws DaoException;
+    /**
+     * 修改签到信息
+     *
+     * @param sign
+     * @return
+     * @throws DaoException
+     */
+    public Long updateById(Sign sign) throws DaoException;
 
     /**
      * 指定哪年哪月那日的签到信息

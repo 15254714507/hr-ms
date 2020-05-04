@@ -4,7 +4,7 @@ import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 /**
@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = {"com.hrms.support.manager"})
 @EnableDubbo(scanBasePackages = "com.hrms.support.service.impl")
 @MapperScan(value = "com.hrms.support.dao")
+@EnableScheduling
 public class MainApplication {
 
     public static void main(String[] args) {
