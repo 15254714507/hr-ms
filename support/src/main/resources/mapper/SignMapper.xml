@@ -8,6 +8,8 @@
         <result column="work_time" property="workTime" jdbcType="TIMESTAMP"/>
         <result column="get_off_work" property="getOffWork" jdbcType="TIMESTAMP"/>
         <result column="work_overtime" property="workOvertime" jdbcType="DECIMAL"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
         <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
         <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -21,6 +23,8 @@
             work_time,
             get_off_work,
             work_overtime,
+            status,
+            description,
             create_user,
             update_user,
             create_time,
@@ -73,6 +77,12 @@
                 <if test="workOvertime !=null">
                     work_overtime= #{workOvertime,jdbcType=DECIMAL},
                 </if>
+                <if test="status !=null">
+                    status= #{status,jdbcType=TINYINT},
+                </if>
+                <if test="description !=null and description !=''">
+                    description= #{description,jdbcType=VARCHAR},
+                </if>
                 update_user=#{updateUser,jdbcType=VARCHAR},
                 update_time=#{updateTime,jdbcType=TIMESTAMP},
             </trim>
@@ -92,6 +102,9 @@
         where is_delete=0
         <if test="username!=null and username!=''">
             and username=#{username,jdbcType=VARCHAR}
+        </if>
+        <if test="status !=null">
+            and status= #{status,jdbcType=TINYINT}
         </if>
         <if test="year!=null">
             and year(create_time) =#{year,jdbcType=INTEGER}

@@ -32,6 +32,14 @@ public class SignCondition implements Serializable {
      */
     private Double workOvertime;
     /**
+     * 状态  0是正常 1是异常
+     */
+    private Boolean status;
+    /**
+     * 说明
+     */
+    private String description;
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;

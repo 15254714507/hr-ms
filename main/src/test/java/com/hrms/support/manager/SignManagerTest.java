@@ -83,6 +83,8 @@ public class SignManagerTest {
 
         sign.setGetOffWork(LocalDateTimeFactory.getLocalDateTime());
         sign.setWorkOvertime(5.5);
+        sign.setStatus(true);
+        sign.setDescription("111");
         Long isSuc = signManager.updateById(sign);
         Assert.assertEquals(1, isSuc.intValue());
 
