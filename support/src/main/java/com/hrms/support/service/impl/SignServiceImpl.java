@@ -24,6 +24,11 @@ public class SignServiceImpl implements SignService {
     SignManager signManager;
 
     @Override
+    public Sign getById(Long id) throws DaoException {
+        return signManager.getById(id);
+    }
+
+    @Override
     public Result insert(Sign sign) throws DaoException {
         Long isSuc = signManager.insert(sign);
         if (isSuc != 1) {
@@ -35,6 +40,11 @@ public class SignServiceImpl implements SignService {
     @Override
     public Long updateById(Sign sign) throws DaoException {
         return signManager.updateById(sign);
+    }
+
+    @Override
+    public List<Sign> list(SignCondition signCondition) throws DaoException {
+        return signManager.list(signCondition);
     }
 
     @Override

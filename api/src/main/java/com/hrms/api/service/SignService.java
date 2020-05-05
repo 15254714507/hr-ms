@@ -13,6 +13,15 @@ import java.util.List;
  */
 public interface SignService {
     /**
+     * 根据id获取签到信息
+     *
+     * @param id 用户id
+     * @return 返回签到对象
+     * @throws DaoException
+     */
+    public Sign getById(Long id) throws DaoException;
+
+    /**
      * 添加新的签到记录
      *
      * @param sign
@@ -20,6 +29,7 @@ public interface SignService {
      * @throws DaoException
      */
     public Result insert(Sign sign) throws DaoException;
+
     /**
      * 修改签到信息
      *
@@ -28,6 +38,15 @@ public interface SignService {
      * @throws DaoException
      */
     public Long updateById(Sign sign) throws DaoException;
+
+    /**
+     * 获得签到对象的集合
+     *
+     * @param signCondition
+     * @return
+     * @throws DaoException
+     */
+    public List<Sign> list(SignCondition signCondition) throws DaoException;
 
     /**
      * 指定哪年哪月那日的签到信息
