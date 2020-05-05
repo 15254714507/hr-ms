@@ -221,9 +221,10 @@ public class AttendanceController {
         try {
             Long isSuc = signService.updateById(sign);
             if (isSuc != 1) {
-                result = new Result(1, "此异常考勤通过");
-            } else {
                 result = new Result(0, "没有此考勤异常记录");
+            } else {
+                result = new Result(1, "此异常考勤通过");
+
             }
         } catch (Exception e) {
             log.error("考勤异常确认正确时发生系统异常 id{}", id, e);

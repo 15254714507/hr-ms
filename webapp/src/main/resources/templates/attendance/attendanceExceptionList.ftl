@@ -154,7 +154,7 @@
     //确认考勤异常
     function passSign(id) {
         $.ajax({
-            url: "/deleteRequestVacation.do",
+            url: "/passSign.do",
             type: "POST",
             cache: false,
             data: {

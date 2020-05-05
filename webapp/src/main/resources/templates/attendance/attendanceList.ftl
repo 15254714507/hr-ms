@@ -128,17 +128,6 @@
                     field: 'createTime',
                     visible: false
                 },
-                {
-                    title: '操作',
-                    field: 'opr',
-                    width: 180,
-                    align: 'center',
-                    formatter: function (cellval, row) {
-                        var d = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="updateSign(\'' + row.id + '\')">修改</button> ';
-                        var c = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="passSign(\'' + row.id + '\')">确认</button> ';
-                        return d + c;
-                    }
-                }
             ]
         });
     }
