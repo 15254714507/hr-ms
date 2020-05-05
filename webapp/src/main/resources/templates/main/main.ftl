@@ -85,7 +85,7 @@
                     <ul class="dropdown-menu">
                         <li class=""><a href="/gotoRequestVacationList.do" target="fraName">申请假期列表</a></li>
                         <li class=""><a href="/gotoAttendanceExceptionList.do" target="fraName">考勤异常列表</a></li>
-                        <li class=""><a href="/gotoPerformanceKpi.do" target="fraName">考勤列表</a></li>
+                        <li class=""><a href="/gotoAttendanceList.do" target="fraName">考勤列表</a></li>
                     </ul>
                 </li>
                 <li role="presentation" class="dropdown">

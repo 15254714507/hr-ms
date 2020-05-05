@@ -295,4 +295,23 @@ public class AttendanceController {
         return sign;
     }
 
+    @RequestMapping("/gotoAttendanceList.do")
+    public String gotoAttendanceList() {
+        return "attendance/attendanceList";
+    }
+
+    @RequestMapping("/getAttendanceList.do")
+    @ResponseBody
+    public List<Sign> getAttendanceList() {
+        List<Sign> signList = null;
+        SignCondition signCondition = new SignCondition();
+        signCondition.setStatus(false);
+        try {
+            signList = signService.list(signCondition);
+        } catch (Exception e) {
+            log.error("获得考勤记录列表时发生系统异常", e);
+        }
+        return signList;
+    }
+
 }
