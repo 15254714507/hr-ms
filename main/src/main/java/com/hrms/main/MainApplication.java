@@ -12,10 +12,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @date 2020/4/2 19:07
  */
 
-@SpringBootApplication(scanBasePackages = {"com.hrms.support.manager"})
+@SpringBootApplication(scanBasePackages = {"com.hrms.support.manager", "com.hrms.support.scheduleTask"})
 @EnableDubbo(scanBasePackages = "com.hrms.support.service.impl")
 @MapperScan(value = "com.hrms.support.dao")
-@EnableScheduling
 public class MainApplication {
 
     public static void main(String[] args) {
