@@ -1,4 +1,4 @@
-package com.hrms.support.scheduletask;
+package com.hrms.support.scheduleTask;
 
 import com.alibaba.fastjson.JSON;
 import com.hrms.api.domain.condition.RequestForLeaveCondition;
@@ -44,28 +44,22 @@ public class SignScheduleTask {
     @Resource
     RequestForLeaveService requestForLeaveService;
 
-    //每隔2秒执行一次
-    @Scheduled(fixedRate = 2000)
-    public void testTasks() {
-        System.out.println("定时任务执行时间：" + LocalDateTimeFactory.getLocalDateTime());
+    /**
+     * 考勤表的定时任务，每天晚上11点半执行，把当天的考勤整理完
+     * [秒] [分] [小时] [日] [月] [周] [年]
+     */
+    @Scheduled(cron = "0 30 23 * * ?")
+    public void signScheduleTaskLogin() {
+        //如果是星期6或者星期7就不用整理考勤
+        if (LocalDateTimeFactory.getLocalDate().getDayOfWeek().getValue() > 5) {
+            return;
+        }
+        UserCondition userCondition = new UserCondition();
+        List<User> userList = userService.list(userCondition);
+        for (User user : userList) {
+            finishSign(user);
+        }
     }
-
-//    /**
-//     * 考勤表的定时任务，每天晚上11点半执行，把当天的考勤整理完
-//     * [秒] [分] [小时] [日] [月] [周] [年]
-//     */
-//    @Scheduled(cron = "10 * * * * ?")
-//    public void signScheduleTaskLogin() {
-//        //如果是星期6或者星期7就不用整理考勤
-//        if (LocalDateTimeFactory.getLocalDate().getDayOfWeek().getValue() > 5) {
-//            return;
-//        }
-//        UserCondition userCondition = new UserCondition();
-//        List<User> userList = userService.list(userCondition);
-//        for (User user : userList) {
-//            finishSign(user);
-//        }
-//    }
 
     /**
      * 签到记录整理
@@ -198,7 +192,7 @@ public class SignScheduleTask {
         //说明是早上9点以后上班的，迟到了
         if (sign.getWorkTime().isAfter(startTime)) {
             sign.setStatus(true);
-            if (sign.getDescription() == null) {
+            if (sign.getDescription() == null || "".equals(sign.getDescription())) {
                 sign.setDescription("迟到");
             } else {
                 sign.setDescription(sign.getDescription() + "、迟到");
@@ -213,15 +207,15 @@ public class SignScheduleTask {
             //早退
             if (sign.getGetOffWork().isBefore(endTime)) {
                 sign.setStatus(true);
-                if (sign.getDescription() == null) {
+                if (sign.getDescription() == null || "".equals(sign.getDescription())) {
                     sign.setDescription("早退");
                 } else {
                     sign.setDescription(sign.getDescription() + "、早退");
                 }
             } else {
-                //计算加班时长
-                Duration duration = Duration.between(sign.getWorkTime(), sign.getGetOffWork());
-                int workOvertime = ((int) duration.toMinutes() - 9 * 60) / 60;
+                //计算加班时长，只要大于下午6点就算加班 但是只按小时来算
+                Duration duration = Duration.between(endTime, sign.getGetOffWork());
+                int workOvertime = (int) duration.toMinutes() / 60;
                 sign.setWorkOvertime((double) workOvertime);
             }
         }

@@ -1,4 +1,4 @@
-package com.hrms.support.scheduletask;
+package com.hrms.support.scheduleTask;
 
 import com.alibaba.fastjson.JSON;
 import com.hrms.api.domain.condition.UserCondition;

@@ -1,4 +1,4 @@
-package com.hrms.support.scheduletask;
+package com.hrms.support.scheduleTask;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
