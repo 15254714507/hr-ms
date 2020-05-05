@@ -94,9 +94,6 @@
             search: false, //显示搜索框
             contentType: "application/x-www-form-urlencoded",
             queryParams: null,
-            sortName: "createTime",
-            sortStable: true,
-            sortOrder: "desc",
             columns: [
                 {
                     title: "id",
