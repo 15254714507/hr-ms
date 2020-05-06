@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrms.support.dao.WagesDao">
+    <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.Wages">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="base_salary" property="baseSalary" jdbcType="DECIMAL"/>
+        <result column="performance_salary" property="performanceSalary" jdbcType="DECIMAL"/>
+        <result column="pension_insurance" property="pensionInsurance" jdbcType="DECIMAL"/>
+        <result column="medical_insurance" property="medicalInsurance" jdbcType="DECIMAL"/>
+        <result column="unemployment_insurance" property="unemploymentInsurance" jdbcType="DECIMAL"/>
+        <result column="injury_insurance" property="injuryInsurance" jdbcType="DECIMAL"/>
+        <result column="fertility_insurance" property="fertilityInsurance" jdbcType="DECIMAL"/>
+        <result column="housing_provident_fund" property="housingProvidentFund" jdbcType="DECIMAL"/>
+        <result column="personal_income_tax" property="personalIncomeTax" jdbcType="DECIMAL"/>
+        <result column="days_of_recess" property="daysOfRecess" jdbcType="DECIMAL"/>
+        <result column="days_of_leave" property="daysOfLeave" jdbcType="DECIMAL"/>
+        <result column="days_of_sick_leave" property="daysOfSickLeave" jdbcType="DECIMAL"/>
+        <result column="days_of_absenteeism" property="daysOfAbsenteeism" jdbcType="DECIMAL"/>
+        <result column="paid_wages" property="paidWages" jdbcType="DECIMAL"/>
+        <result column="wages_date" property="wagesDate" jdbcType="DATE"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="delete" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            username,
+            name,
+            base_salary,
+            performance_salary,
+            pension_insurance,
+            medical_insurance,
+            unemployment_insurance,
+            injury_insurance,
+            fertility_insurance,
+            housing_provident_fund,
+            personal_income_tax,
+            days_of_recess,
+            days_of_leave,
+            days_of_sick_leave,
+            days_of_absenteeism,
+            paid_wages,
+            wages_date,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+            is_delete,
+        </trim>
+    </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from wages
+        where is_delete = 0
+        and id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.hrms.api.domain.entity.Wages">
+        insert
+        into wages
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            username,
+            name,
+            base_salary,
+            performance_salary,
+            pension_insurance,
+            medical_insurance,
+            unemployment_insurance,
+            injury_insurance,
+            fertility_insurance,
+            housing_provident_fund,
+            personal_income_tax,
+            days_of_recess,
+            days_of_leave,
+            days_of_sick_leave,
+            days_of_absenteeism,
+            paid_wages,
+            wages_date,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{username,jdbcType=VARCHAR},
+            #{name,jdbcType=VARCHAR},
+            #{baseSalary,jdbcType=DECIMAL},
+            #{performanceSalary,jdbcType=DECIMAL},
+            #{pensionInsurance,jdbcType=DECIMAL},
+            #{medicalInsurance,jdbcType=DECIMAL},
+            #{unemploymentInsurance,jdbcType=DECIMAL},
+            #{injuryInsurance,jdbcType=DECIMAL},
+            #{fertilityInsurance,jdbcType=DECIMAL},
+            #{housingProvidentFund,jdbcType=DECIMAL},
+            #{personalIncomeTax,jdbcType=DECIMAL},
+            #{daysOfRecess,jdbcType=DECIMAL},
+            #{daysOfLeave,jdbcType=DECIMAL},
+            #{daysOfSickLeave,jdbcType=DECIMAL},
+            #{daysOfAbsenteeism,jdbcType=DECIMAL},
+            #{paidWages,jdbcType=DECIMAL},
+            #{wagesDate,jdbcType=DATE},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.hrms.api.domain.entity.Wages">
+        update wages
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="baseSalary !=null">
+                    base_salary= #{baseSalary,jdbcType=DECIMAL},
+                </if>
+                <if test="performanceSalary !=null">
+                    performance_salary= #{performanceSalary,jdbcType=DECIMAL},
+                </if>
+                <if test="pensionInsurance !=null">
+                    pension_insurance= #{pensionInsurance,jdbcType=DECIMAL},
+                </if>
+                <if test="medicalInsurance !=null">
+                    medical_insurance= #{medicalInsurance,jdbcType=DECIMAL},
+                </if>
+                <if test="unemploymentInsurance !=null">
+                    unemployment_insurance= #{unemploymentInsurance,jdbcType=DECIMAL},
+                </if>
+                <if test="injuryInsurance !=null">
+                    injury_insurance= #{injuryInsurance,jdbcType=DECIMAL},
+                </if>
+                <if test="fertilityInsurance !=null">
+                    fertility_insurance= #{fertilityInsurance,jdbcType=DECIMAL},
+                </if>
+                <if test="housingProvidentFund !=null">
+                    housing_provident_fund= #{housingProvidentFund,jdbcType=DECIMAL},
+                </if>
+                <if test="personalIncomeTax !=null">
+                    personal_income_tax= #{personalIncomeTax,jdbcType=DECIMAL},
+                </if>
+                <if test="daysOfRecess !=null">
+                    days_of_recess= #{daysOfRecess,jdbcType=DECIMAL},
+                </if>
+                <if test="daysOfLeave !=null">
+                    days_of_leave= #{daysOfLeave,jdbcType=DECIMAL},
+                </if>
+                <if test="daysOfSickLeave !=null">
+                    days_of_sick_leave= #{daysOfSickLeave,jdbcType=DECIMAL},
+                </if>
+                <if test="daysOfAbsenteeism !=null">
+                    days_of_absenteeism= #{daysOfAbsenteeism,jdbcType=DECIMAL},
+                </if>
+                <if test="paidWages !=null">
+                    paid_wages= #{paidWages,jdbcType=DECIMAL},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and id = #{id,jdbcType=BIGINT};
+    </update>
+    <update id="deleteById" parameterType="Long">
+        update wages
+        <set>
+            is_delete=1,
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <select id="list" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.WagesCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from wages
+        where is_delete=0
+        <if test="username!=null and username!=''">
+            and username=#{username,jdbcType=VARCHAR}
+        </if>
+        <if test="year!=null">
+            and year(wages_date) =#{year,jdbcType=INTEGER}
+        </if>
+        <if test="month!=null">
+            and month(wages_date) =#{month,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>
