@@ -105,6 +105,10 @@ public class WagesCondition implements Serializable {
      */
     private Boolean delete;
     /**
+     * 状态 0是初始化  1是完成 2是异常
+     */
+    private Integer status;
+    /**
      * 哪年和wagesDate对应
      */
     private Integer year;

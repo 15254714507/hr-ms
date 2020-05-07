@@ -104,4 +104,8 @@ public class Wages implements Serializable {
      * 是否删除
      */
     private Boolean delete;
+    /**
+     * 状态 0是初始化  1是完成 2是异常
+     */
+    private Integer status;
 }

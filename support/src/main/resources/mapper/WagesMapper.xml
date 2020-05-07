@@ -21,6 +21,7 @@
         <result column="days_of_absenteeism" property="daysOfAbsenteeism" jdbcType="DECIMAL"/>
         <result column="paid_wages" property="paidWages" jdbcType="DECIMAL"/>
         <result column="wages_date" property="wagesDate" jdbcType="DATE"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
         <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
         <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -47,6 +48,7 @@
             days_of_absenteeism,
             paid_wages,
             wages_date,
+            status,
             create_user,
             update_user,
             create_time,
@@ -82,6 +84,7 @@
             days_of_absenteeism,
             paid_wages,
             wages_date,
+            status,
             create_user,
             update_user,
             create_time,
@@ -106,6 +109,7 @@
             #{daysOfAbsenteeism,jdbcType=DECIMAL},
             #{paidWages,jdbcType=DECIMAL},
             #{wagesDate,jdbcType=DATE},
+            #{status,jdbcType=INTEGER},
             #{createUser,jdbcType=VARCHAR},
             #{updateUser,jdbcType=VARCHAR},
             #{createTime,jdbcType=TIMESTAMP},
@@ -158,6 +162,9 @@
                 <if test="paidWages !=null">
                     paid_wages= #{paidWages,jdbcType=DECIMAL},
                 </if>
+                <if test="status !=null">
+                    status= #{status,jdbcType=INTEGER},
+                </if>
                 update_user=#{updateUser,jdbcType=VARCHAR},
                 update_time=#{updateTime,jdbcType=TIMESTAMP},
             </trim>
@@ -179,6 +186,9 @@
         where is_delete=0
         <if test="username!=null and username!=''">
             and username=#{username,jdbcType=VARCHAR}
+        </if>
+        <if test="status !=null">
+            and status= #{status,jdbcType=INTEGER}
         </if>
         <if test="year!=null">
             and year(wages_date) =#{year,jdbcType=INTEGER}

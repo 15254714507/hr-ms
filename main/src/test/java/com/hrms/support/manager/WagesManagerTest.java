@@ -44,6 +44,7 @@ public class WagesManagerTest {
         wages.setWagesDate(LocalDateTimeFactory.getLocalDate());
         wages.setCreateUser("kc");
         wages.setUpdateUser("kc");
+        wages.setStatus(0);
         Long isSuc = wagesManager.insert(wages);
         Assert.assertEquals(1, isSuc.intValue());
     }
@@ -56,6 +57,7 @@ public class WagesManagerTest {
         wagesCondition.setUsername("kc");
         wagesCondition.setYear(LocalDateTimeFactory.getLocalDate().getYear());
         wagesCondition.setMonth(LocalDateTimeFactory.getLocalDate().getMonthValue());
+        wagesCondition.setStatus(0);
         List<Wages> wagesList = wagesManager.list(wagesCondition);
         Assert.assertEquals(1, wagesList.size());
     }
@@ -73,24 +75,26 @@ public class WagesManagerTest {
         Assert.assertNotNull(wages);
 
     }
+
     @Test
     @Transactional
-    public void deleteById(){
+    public void deleteById() {
         insert();
         WagesCondition wagesCondition = new WagesCondition();
         wagesCondition.setUsername("kc");
         wagesCondition.setYear(LocalDateTimeFactory.getLocalDate().getYear());
         wagesCondition.setMonth(LocalDateTimeFactory.getLocalDate().getMonthValue());
         List<Wages> wagesList = wagesManager.list(wagesCondition);
-        Long isSuc=wagesManager.deleteById(wagesList.get(0).getId());
-        Assert.assertEquals(1,isSuc.intValue());
+        Long isSuc = wagesManager.deleteById(wagesList.get(0).getId());
+        Assert.assertEquals(1, isSuc.intValue());
         Wages wages = wagesManager.getById(wagesList.get(0).getId());
         Assert.assertNull(wages);
 
     }
+
     @Test
     @Transactional
-    public void updateById(){
+    public void updateById() {
         insert();
         WagesCondition wagesCondition = new WagesCondition();
         wagesCondition.setUsername("kc");
@@ -113,24 +117,26 @@ public class WagesManagerTest {
         wages.setDaysOfRecess(1.2);
         wages.setDaysOfSickLeave(1.2);
         wages.setPaidWages(1.2);
+        wages.setStatus(1);
         Long isSuc = wagesManager.updateById(wages);
-        Assert.assertEquals(1,isSuc.intValue());
+        Assert.assertEquals(1, isSuc.intValue());
 
         wages = wagesManager.getById(wagesList.get(0).getId());
-        Assert.assertEquals(1.2,wages.getPerformanceSalary(),1);
-        Assert.assertEquals(1.2, wages.getBaseSalary(),1);
-        Assert.assertEquals(1.2, wages.getPensionInsurance(),1);
-        Assert.assertEquals(1.2, wages.getMedicalInsurance(),1);
-        Assert.assertEquals(1.2, wages.getUnemploymentInsurance(),1);
-        Assert.assertEquals(1.2, wages.getInjuryInsurance(),1);
-        Assert.assertEquals(1.2, wages.getFertilityInsurance(),1);
-        Assert.assertEquals(1.2, wages.getHousingProvidentFund(),1);
-        Assert.assertEquals(1.2, wages.getPersonalIncomeTax(),1);
-        Assert.assertEquals(1.2, wages.getDaysOfAbsenteeism(),1);
-        Assert.assertEquals(1.2, wages.getDaysOfLeave(),1);
-        Assert.assertEquals(1.2, wages.getDaysOfRecess(),1);
-        Assert.assertEquals(1.2, wages.getDaysOfSickLeave(),1);
-        Assert.assertEquals(1.2, wages.getPaidWages(),1);
+        Assert.assertEquals(1.2, wages.getPerformanceSalary(), 1);
+        Assert.assertEquals(1.2, wages.getBaseSalary(), 1);
+        Assert.assertEquals(1.2, wages.getPensionInsurance(), 1);
+        Assert.assertEquals(1.2, wages.getMedicalInsurance(), 1);
+        Assert.assertEquals(1.2, wages.getUnemploymentInsurance(), 1);
+        Assert.assertEquals(1.2, wages.getInjuryInsurance(), 1);
+        Assert.assertEquals(1.2, wages.getFertilityInsurance(), 1);
+        Assert.assertEquals(1.2, wages.getHousingProvidentFund(), 1);
+        Assert.assertEquals(1.2, wages.getPersonalIncomeTax(), 1);
+        Assert.assertEquals(1.2, wages.getDaysOfAbsenteeism(), 1);
+        Assert.assertEquals(1.2, wages.getDaysOfLeave(), 1);
+        Assert.assertEquals(1.2, wages.getDaysOfRecess(), 1);
+        Assert.assertEquals(1.2, wages.getDaysOfSickLeave(), 1);
+        Assert.assertEquals(1.2, wages.getPaidWages(), 1);
+        Assert.assertEquals(1, wages.getStatus(), 1);
 
 
     }
