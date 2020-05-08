@@ -13,6 +13,14 @@ import java.util.List;
  */
 public interface UserJobService {
     /**
+     * 根据id获得用户和岗位的对应关系
+     *
+     * @param id
+     * @return
+     * @throws DaoException
+     */
+    public UserJob getById(Long id) throws DaoException;
+    /**
      * 添加新用户和岗位的对应关系
      *
      * @param userJob

@@ -37,4 +37,13 @@ public interface PerformanceService {
      * @return
      */
     public List<UserPerformance> listUserPerformance(PerformanceCondition performanceCondition);
+
+    /**
+     * 获得绩效信息的集合
+     *
+     * @param performanceCondition
+     * @return
+     * @throws DaoException
+     */
+    public List<Performance> list(PerformanceCondition performanceCondition) throws DaoException;
 }

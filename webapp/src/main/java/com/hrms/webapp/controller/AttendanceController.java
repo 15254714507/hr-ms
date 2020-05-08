@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -301,12 +302,37 @@ public class AttendanceController {
         return "attendance/attendanceList";
     }
 
-    @RequestMapping("/getAttendanceList.do")
+    @PostMapping("/getAttendanceList.do")
     @ResponseBody
     public List<Sign> getAttendanceList() {
         List<Sign> signList = null;
         SignCondition signCondition = new SignCondition();
         signCondition.setStatus(false);
+        try {
+            signList = signService.list(signCondition);
+        } catch (Exception e) {
+            log.error("获得考勤记录列表时发生系统异常", e);
+        }
+        return signList;
+    }
+
+    /**
+     * 获得上个月的完成的考勤信息
+     *
+     * @param username
+     * @return
+     */
+    @PostMapping("/getAttendanceLastMonthList.do")
+    @ResponseBody
+    public List<Sign> getAttendanceLastMonthList(String username) {
+        List<Sign> signList = null;
+        SignCondition signCondition = new SignCondition();
+        signCondition.setStatus(false);
+        signCondition.setUsername(username);
+        LocalDate date = LocalDate.now();
+        date = date.minusMonths(1);
+        signCondition.setYear(date.getYear());
+        signCondition.setMonth(date.getMonthValue());
         try {
             signList = signService.list(signCondition);
         } catch (Exception e) {

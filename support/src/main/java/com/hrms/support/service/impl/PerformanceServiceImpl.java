@@ -51,6 +51,11 @@ public class PerformanceServiceImpl implements PerformanceService {
         return userPerformanceList;
     }
 
+    @Override
+    public List<Performance> list(PerformanceCondition performanceCondition) throws DaoException {
+        return performanceManager.list(performanceCondition);
+    }
+
     /**
      * 根据performance得到user再拼装成UserPerformance
      *

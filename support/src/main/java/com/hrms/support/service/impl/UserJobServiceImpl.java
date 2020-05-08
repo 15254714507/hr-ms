@@ -26,6 +26,11 @@ public class UserJobServiceImpl implements UserJobService {
     JobService jobService;
 
     @Override
+    public UserJob getById(Long id) throws DaoException {
+        return userJobManager.getById(id);
+    }
+
+    @Override
     public Long insert(UserJob userJob) throws DaoException {
         return userJobManager.insert(userJob);
     }

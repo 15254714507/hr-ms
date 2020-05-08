@@ -91,19 +91,20 @@
                 <li role="presentation" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
-                        薪资管理 <span class="caret"></span>
+                        工资管理 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class=""><a href="/gotoAddAssessment.do" target="fraName">调整薪资</a></li>
-                        <li class=""><a href="/gotoPerformanceKpi.do" target="fraName">工资条列表</a></li>
+                        <li class=""><a href="/gotoCheckWagesList.do" target="fraName">核对月薪</a></li>
+                        <li class=""><a href="/gotoPerformanceKpi.do" target="fraName">工资列表</a></li>
                     </ul>
                 </li>
                 <li role="presentation" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
-                        岗位管理 <span class="caret"></span>
+                        人事管理 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li class=""><a href="/gotoAddAssessment.do" target="fraName">调整人员工资</a></li>
                         <li class=""><a href="/gotoAddAssessment.do" target="fraName">调整人员岗位</a></li>
                     </ul>
                 </li>
@@ -113,7 +114,7 @@
                         招聘管理 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class=""><a href="/gotoAddAssessment.do" target="fraName">招聘申请</a></li>
+                        <li class=""><a href="/gotoAddAssessment.do" target="fraName">招聘需求发布</a></li>
                     </ul>
                 </li>
             </ul>
