@@ -103,13 +103,23 @@
                     title: '上班时间',
                     field: 'workTime',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter: function (cellval, row) {
+                        if (cellval != null && cellval !== '') {
+                            return cellval.replace("T", " ");
+                        }
+                    }
                 },
                 {
                     title: '下班时间',
                     field: 'getOffWork',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter: function (cellval, row) {
+                        if (cellval != null && cellval !== '') {
+                            return cellval.replace("T", " ");
+                        }
+                    }
                 },
                 {
                     title: '加班时长',
