@@ -129,7 +129,7 @@
                         $("#departmentName").val(dimissionUser.departmentName);
                         $("#jobName").val(dimissionUser.jobName);
                         if (dimissionUser.steps !== 0) {
-                            if(dimissionUser.steps!==3){
+                            if(dimissionUser.steps!==2){
                                 $("#btn_down").hide();
                             }else{
                                 $("#btn_down").show();
