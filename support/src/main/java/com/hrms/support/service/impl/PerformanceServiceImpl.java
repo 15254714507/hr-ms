@@ -65,8 +65,8 @@ public class PerformanceServiceImpl implements PerformanceService {
     private UserPerformance getUserPerformance(Performance performance) {
         UserPerformance userPerformance = new UserPerformance();
         fillPerformance(userPerformance, performance);
-        fillUser(userPerformance, performance.getId());
-        fillUserJob(userPerformance, performance.getId());
+        fillUser(userPerformance, performance.getUserId());
+        fillUserJob(userPerformance, performance.getUserId());
         return userPerformance;
     }
 
