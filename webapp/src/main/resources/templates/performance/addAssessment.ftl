@@ -223,7 +223,7 @@
                     valign: 'middle',
                     formatter: function (cellval, row) {
                         let status = null;
-                        if (row.status) {
+                        if (!row.status) {
                             status = "考核项未添加";
                         } else {
                             status = "考核项已添加";
