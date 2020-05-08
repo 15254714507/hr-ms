@@ -64,4 +64,11 @@ public interface WagesService {
      * @return
      */
     public Result submitCheckWages(Wages wages);
+    /**
+     * 重新编辑后的工资信息
+     *
+     * @param wages
+     * @return
+     */
+    public Result reedCheckWages(Wages wages);
 }

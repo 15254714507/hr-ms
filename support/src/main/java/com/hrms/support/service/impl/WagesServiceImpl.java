@@ -71,6 +71,20 @@ public class WagesServiceImpl implements WagesService {
 
     }
 
+    @Override
+    public Result reedCheckWages(Wages wages) {
+        Wages oldWages = wagesManager.getById(wages.getId());
+        wages.setWagesDate(oldWages.getWagesDate());
+        double totalWages = wages.getBaseSalary() + wages.getPerformanceSalary();
+        double vacationWages = calculationVacation(wages, totalWages);
+        fillWages(totalWages - vacationWages, wages);
+        Long isSuc = updateById(wages);
+        if (isSuc != 1) {
+            return new Result(0, "重新编辑提交的工资信息不存在");
+        }
+        return new Result(1, "修改成功");
+    }
+
     /**
      * 填充工资信息
      *

@@ -18,6 +18,14 @@ public class CheckWagesForm {
     @NotNull
     private Long id;
     /**
+     * 基础工资
+     */
+    private Double baseSalary;
+    /**
+     * 绩效工资
+     */
+    private Double performanceSalary;
+    /**
      * 调休
      */
     @NotNull

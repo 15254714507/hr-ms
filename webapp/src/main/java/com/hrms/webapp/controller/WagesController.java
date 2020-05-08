@@ -127,7 +127,47 @@ public class WagesController {
     }
 
     @RequestMapping("/gotoReedWages.do")
-    public String gotoReedWages() {
-        return "";
+    public String gotoReedWages(Long id, Model model) {
+        try {
+            Wages wages = wagesService.getById(id);
+            if (wages == null) {
+                log.warn("没有此工资信息的 id{}", id);
+                return "error/404";
+            }
+            model.addAttribute("wages", wages);
+        } catch (Exception e) {
+            log.error("获得需要重新编辑的工资信息出现系统异常 id{}", id, e);
+            return "error/404";
+        }
+        return "wages/reedWages";
     }
+
+    /**
+     * 提交核对完成后的工资信息
+     *
+     * @param checkWagesForm
+     * @param bindingResult
+     * @param session
+     * @return
+     */
+    @PostMapping("/reedWages.do")
+    @ResponseBody
+    public Result reedWages(@Valid CheckWagesForm checkWagesForm, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors() || checkWagesForm.getBaseSalary() == null || checkWagesForm.getPerformanceSalary() == null) {
+            return new Result(0, "信息不完整");
+        }
+        Employees employees = (Employees) session.getAttribute("employees");
+        Wages wages = tansCheckWagesForm(checkWagesForm, employees.getUsername());
+        wages.setBaseSalary(checkWagesForm.getBaseSalary());
+        wages.setPerformanceSalary(checkWagesForm.getPerformanceSalary());
+        Result result = null;
+        try {
+            result = wagesService.reedCheckWages(wages);
+        } catch (Exception e) {
+            log.error("提交重新编辑后的工资信息发生系统异常，wages{}", wages, e);
+            result = new Result(-1, "系统异常，请刷新后重试");
+        }
+        return result;
+    }
+
 }
