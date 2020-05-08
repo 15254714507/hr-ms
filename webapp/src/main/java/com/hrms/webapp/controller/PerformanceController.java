@@ -48,7 +48,7 @@ public class PerformanceController {
         List<UserPerformance> userPerformanceList = null;
         PerformanceCondition performanceCondition = new PerformanceCondition();
         performanceCondition.setYear(LocalDateTimeFactory.getLocalDate().getYear());
-        performanceCondition.setMonth(LocalDateTimeFactory.getLocalDate().getMonth().getValue());
+        performanceCondition.setMonth(LocalDateTimeFactory.getLocalDate().getMonthValue());
         performanceCondition.setStatus(false);
         try {
             userPerformanceList = performanceService.listUserPerformance(performanceCondition);
