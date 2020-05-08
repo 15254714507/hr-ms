@@ -61,9 +61,6 @@
 <body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 1000px;overflow: auto">
 <div class="notice_main">
     <div class="home-tab"><i class="tab-i"></i> 所在位置：<span>考勤异常列表</span></div>
-    <div style=>
-        <button class="add-but btn-lg" onclick="addNewVacation()"><i class="glyphicon glyphicon-edit"></i>申请假期</button>
-    </div>
     <div class="table-con">
         <table id="table" class="table-style"></table>
     </div>
@@ -110,13 +107,24 @@
                     title: '上班时间',
                     field: 'workTime',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter: function (cellval, row) {
+                        if (cellval != null && cellval !== '') {
+                            return cellval.replace("T", " ");
+                        }
+
+                    }
                 },
                 {
                     title: '下班时间',
                     field: 'getOffWork',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter: function (cellval, row) {
+                        if (cellval != null && cellval !== '') {
+                            return cellval.replace("T", " ");
+                        }
+                    }
                 },
                 {
                     title: '加班时长',
