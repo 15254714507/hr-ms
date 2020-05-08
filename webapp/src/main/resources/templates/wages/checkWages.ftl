@@ -29,15 +29,15 @@
                     <td class="top-table-label">绩效工资：</td>
                     <td><input type="text" value="${(wages.performanceSalary)!}"></td>
                     <td class="top-table-label">调休：</td>
-                    <td><input type="text" id="daysOfRecess" name="daysOfRecess"></td>
+                    <td><input type="text" id="daysOfRecess" name="daysOfRecess" value="0"></td>
                     <td class="top-table-label">事假：</td>
-                    <td><input type="text" id="daysOfLeave" name="daysOfLeave"></td>
+                    <td><input type="text" id="daysOfLeave" name="daysOfLeave" value="0"></td>
                 </tr>
                 <tr>
                     <td class="top-table-label">病假：</td>
-                    <td><input type="text" name="daysOfSickLeave"></td>
+                    <td><input type="text" name="daysOfSickLeave" value="0"></td>
                     <td class="top-table-label">旷工：</td>
-                    <td><input type="text" id="daysOfAbsenteeism" name="daysOfAbsenteeism"></td>
+                    <td><input type="text" id="daysOfAbsenteeism" name="daysOfAbsenteeism" value="0"></td>
                 </tr>
                 <tr>
                     <td colspan="6" style="text-align: center">

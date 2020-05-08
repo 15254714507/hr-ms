@@ -59,83 +59,116 @@ public class WagesServiceImpl implements WagesService {
         Wages oldWages = wagesManager.getById(wages.getId());
         wages.setBaseSalary(oldWages.getBaseSalary());
         wages.setPerformanceSalary(oldWages.getPerformanceSalary());
-        double totalWages = oldWages.getBaseSalary() + oldWages.getPerformanceSalary();
-        wages.setPensionInsurance(calculationPensionInsurance(totalWages));
-        wages.setMedicalInsurance(calculationMedicalInsurance(totalWages));
-        wages.setUnemploymentInsurance(calculationUnemploymentInsurance(totalWages));
-        wages.setInjuryInsurance(calculationInjuryInsurance(totalWages));
-        wages.setFertilityInsurance(calculationFertilityInsurance(totalWages));
-        wages.setHousingProvidentFund(calculationHousingProvidentFund(totalWages));
-        //时间
         wages.setWagesDate(oldWages.getWagesDate());
-        wages.setPersonalIncomeTax(calculationPersonalIncomeTax(wages));
-        wages.setPaidWages(calculationPaidWages(wages));
+        double totalWages = oldWages.getBaseSalary() + oldWages.getPerformanceSalary();
+        double vacationWages = calculationVacation(wages, totalWages);
+        fillWages(totalWages - vacationWages, wages);
         Long isSuc = updateById(wages);
         if (isSuc != 1) {
             return new Result(0, "核对提交的工资信息不存在");
         }
         return new Result(1, "核对成功");
+
     }
 
+    /**
+     * 填充工资信息
+     *
+     * @param beforeAmount
+     * @param wages
+     */
+    private void fillWages(double beforeAmount, Wages wages) {
+        wages.setPensionInsurance(calculationPensionInsurance(beforeAmount));
+        wages.setMedicalInsurance(calculationMedicalInsurance(beforeAmount));
+        wages.setUnemploymentInsurance(calculationUnemploymentInsurance(beforeAmount));
+        wages.setInjuryInsurance(calculationInjuryInsurance(beforeAmount));
+        wages.setFertilityInsurance(calculationFertilityInsurance(beforeAmount));
+        wages.setHousingProvidentFund(calculationHousingProvidentFund(beforeAmount));
+        wages.setPersonalIncomeTax(calculationPersonalIncomeTax(wages, beforeAmount));
+        wages.setPaidWages(calculationPaidWages(wages, beforeAmount));
+
+    }
+
+    /**
+     * 核算假期扣的钱  21.75是平均月上班时间
+     *
+     * @param wages
+     * @return
+     */
+    private double calculationVacation(Wages wages, double totalWages) {
+        double dayWages = totalWages / 21.75;
+        double sumVacationWages = 0;
+        if (wages.getDaysOfAbsenteeism() > 0) {
+            sumVacationWages = dayWages * wages.getDaysOfAbsenteeism();
+        }
+        if (wages.getDaysOfLeave() > 0) {
+            sumVacationWages += dayWages * wages.getDaysOfLeave();
+        }
+        if (wages.getDaysOfSickLeave() > 0) {
+            //病假是当前月工资的70% ，那扣的工资是30%
+            sumVacationWages += dayWages * wages.getDaysOfSickLeave() * 0.3;
+        }
+        return sumVacationWages;
+    }
 
     /**
      * 核算养老保险
      *
-     * @param totalWages
+     * @param beforeAmount 征五险一金和个人所得税前实得的工资
      * @return
      */
-    private double calculationPensionInsurance(double totalWages) {
-        return totalWages * 0.08;
+    private double calculationPensionInsurance(double beforeAmount) {
+        return beforeAmount * 0.08;
     }
 
     /**
      * 核算医疗保险
      *
-     * @param totalWages
+     * @param beforeAmount 征五险一金和个人所得税前实得的工资
      * @return
      */
-    private double calculationMedicalInsurance(double totalWages) {
-        return totalWages * 0.02 + 3;
+    private double calculationMedicalInsurance(double beforeAmount) {
+        return beforeAmount * 0.02 + 3;
     }
 
     /**
      * 核算失业保险
      *
-     * @param totalWages
+     * @param beforeAmount 征五险一金和个人所得税前实得的工资
      * @return
      */
-    private double calculationUnemploymentInsurance(double totalWages) {
-        return totalWages * 0.002;
+    private double calculationUnemploymentInsurance(double beforeAmount) {
+        return beforeAmount * 0.002;
     }
 
     /**
      * 核算工伤
      *
-     * @param totalWages
+     * @param beforeAmount 征五险一金和个人所得税前实得的工资
      * @return
      */
-    private double calculationInjuryInsurance(double totalWages) {
+    private double calculationInjuryInsurance(double beforeAmount) {
         return 0;
     }
 
     /**
      * 核算生育
      *
-     * @param totalWages
+     * @param beforeAmount 征五险一金和个人所得税前实得的工资
      * @return
      */
-    private double calculationFertilityInsurance(double totalWages) {
+    private double calculationFertilityInsurance(double beforeAmount) {
         return 0;
     }
 
     /**
      * 核算公积金
      *
-     * @param totalWages
+     * @param beforeAmount 征五险一金和个人所得税前实得的工资
      * @return
      */
-    private double calculationHousingProvidentFund(double totalWages) {
-        return totalWages * 0.12;
+    private double calculationHousingProvidentFund(double beforeAmount) {
+        return beforeAmount * 0.12;
     }
 
     /**
@@ -144,34 +177,33 @@ public class WagesServiceImpl implements WagesService {
      * 北京的起征点是5000
      *
      * @param wages
+     * @param beforeAmount 征五险一金和个人所得税前实得的工资
      * @return
      */
-    private double calculationPersonalIncomeTax(Wages wages) {
-        double totalWages = wages.getBaseSalary() + wages.getPerformanceSalary();
+    private double calculationPersonalIncomeTax(Wages wages, double beforeAmount) {
         //如果扣完五险一金后小于5000就不用扣个人所得税
-        if (totalWages <= 5000) {
+        if (beforeAmount <= 5000) {
             return 0;
         }
-        //五险一金总数
+        //五险一金总金额
         double fiveRisksAndOneGold = wages.getFertilityInsurance() + wages.getPensionInsurance() +
                 wages.getMedicalInsurance() + wages.getUnemploymentInsurance() + wages.getInjuryInsurance() +
                 wages.getHousingProvidentFund();
-        return CalcRate.getPersonalIncomeTax(totalWages - fiveRisksAndOneGold, wages.getWagesDate().getMonthValue(), 0);
+        return CalcRate.getPersonalIncomeTax(beforeAmount - fiveRisksAndOneGold, wages.getWagesDate().getMonthValue(), 0);
     }
 
     /**
      * 核算实际工资
      *
      * @param wages
+     * @param beforeAmount 征五险一金和个人所得税前实得的工资
      * @return
      */
-    private double calculationPaidWages(Wages wages) {
-        double totalWages = wages.getBaseSalary() + wages.getPerformanceSalary();
+    private double calculationPaidWages(Wages wages, double beforeAmount) {
         double fiveRisksAndOneGold = wages.getFertilityInsurance() + wages.getPensionInsurance() +
                 wages.getMedicalInsurance() + wages.getUnemploymentInsurance() + wages.getInjuryInsurance() +
                 wages.getHousingProvidentFund();
-
-        return totalWages - fiveRisksAndOneGold - wages.getPersonalIncomeTax();
+        return beforeAmount - fiveRisksAndOneGold - wages.getPersonalIncomeTax();
     }
 
 }
