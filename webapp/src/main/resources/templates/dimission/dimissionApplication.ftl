@@ -129,9 +129,16 @@
                         $("#departmentName").val(dimissionUser.departmentName);
                         $("#jobName").val(dimissionUser.jobName);
                         if (dimissionUser.steps !== 0) {
+                            if(dimissionUser.steps!==3){
+                                $("#btn_down").hide();
+                            }else{
+                                $("#btn_down").show();
+                            }
                             $("#reasonsForSeparation").val(dimissionUser.reasonsForSeparation).prop("readonly", true);
                             $("#btn").hide();
-                        } else {
+                        }
+                        else {
+
                             $("#reasonsForSeparation").val("").prop("readonly", false);
                             $("#btn").show();
                         }
