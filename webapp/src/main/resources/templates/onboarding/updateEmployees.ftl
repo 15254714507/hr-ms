@@ -221,10 +221,9 @@
             dataType: "json",
             success: function (result) {
                 if (result.code === 1) {
-                    alert(result.msg);
-                } else {
-                    alert(result.msg)
+                    location.reload();
                 }
+                alert(result.msg);
             },
             error: function () {
                 alert("连接服务器异常，请刷新后重试")
