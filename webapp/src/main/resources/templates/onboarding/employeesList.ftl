@@ -34,7 +34,7 @@
 
     function table() {
         $('#table').bootstrapTable({
-            method: "get",
+            method: "POST",
             striped: false,
             singleSelect: false,
             url: "/getRegisterNewEmployeeList.do",
