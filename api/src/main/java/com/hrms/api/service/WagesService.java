@@ -47,6 +47,14 @@ public interface WagesService {
      * @throws DaoException
      */
     public List<Wages> listByYearMonth(WagesCondition wagesCondition) throws DaoException;
+    /**
+     * 获得工资对象的集合
+     *
+     * @param wagesCondition
+     * @return
+     * @throws DaoException
+     */
+    public List<Wages> list(WagesCondition wagesCondition) throws DaoException;
 
     /**
      * 获得待核对的工资信息

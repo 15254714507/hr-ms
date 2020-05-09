@@ -44,6 +44,11 @@ public class WagesServiceImpl implements WagesService {
     }
 
     @Override
+    public List<Wages> list(WagesCondition wagesCondition) throws DaoException {
+        return wagesManager.list(wagesCondition);
+    }
+
+    @Override
     public List<Wages> listCheckWages(WagesCondition wagesCondition) throws DaoException {
         //初始的工资信息
         wagesCondition.setStatus(0);

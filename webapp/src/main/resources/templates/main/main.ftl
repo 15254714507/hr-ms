@@ -95,7 +95,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class=""><a href="/gotoCheckWagesList.do" target="fraName">核对月薪</a></li>
-                        <li class=""><a href="/gotoPerformanceKpi.do" target="fraName">工资列表</a></li>
+                        <li class=""><a href="/gotoWagesList.do" target="fraName">工资列表</a></li>
                     </ul>
                 </li>
                 <li role="presentation" class="dropdown">

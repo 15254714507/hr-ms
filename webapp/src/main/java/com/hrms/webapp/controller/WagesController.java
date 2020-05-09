@@ -170,4 +170,23 @@ public class WagesController {
         return result;
     }
 
+    @RequestMapping("/gotoWagesList.do")
+    public String gotoWagesList() {
+        return "wages/wagesList";
+    }
+
+    @PostMapping("/getWagesList.do")
+    @ResponseBody
+    public List<Wages> getWagesList() {
+        List<Wages> wagesList = null;
+        WagesCondition wagesCondition = new WagesCondition();
+        wagesCondition.setStatus(1);
+        try {
+            wagesList = wagesService.list(wagesCondition);
+        } catch (Exception e) {
+            log.error("获得所有工资信息状态为1的集合出现系统异常",e);
+        }
+        return wagesList;
+    }
+
 }
