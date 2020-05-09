@@ -104,7 +104,7 @@
                         人事管理 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class=""><a href="/gotoAddAssessment.do" target="fraName">调整岗位薪资</a></li>
+                        <li class=""><a href="/gotoEmployeesJobWages.do" target="fraName">调整岗位薪资</a></li>
                         <li class=""><a href="/gotoEmployeesList.do" target="fraName">人员列表</a></li>
                     </ul>
                 </li>

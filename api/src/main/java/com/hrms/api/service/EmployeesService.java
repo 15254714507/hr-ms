@@ -1,6 +1,7 @@
 package com.hrms.api.service;
 
 import com.hrms.api.domain.dto.Employees;
+import com.hrms.api.domain.dto.EmployeesWages;
 import com.hrms.api.domain.entity.User;
 
 import java.util.List;
@@ -24,4 +25,11 @@ public interface EmployeesService {
      * @return
      */
     public List<Employees> listEmployees();
+
+    /**
+     * 获得职员岗位薪酬对应关系
+     *
+     * @return
+     */
+    public List<EmployeesWages> listEmployeesWages();
 }

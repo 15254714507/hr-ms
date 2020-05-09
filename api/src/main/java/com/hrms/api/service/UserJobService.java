@@ -2,6 +2,7 @@ package com.hrms.api.service;
 
 import com.hrms.api.domain.condition.UserJobCondition;
 import com.hrms.api.domain.dto.Employees;
+import com.hrms.api.domain.dto.EmployeesWages;
 import com.hrms.api.domain.entity.UserJob;
 import com.hrms.api.exception.DaoException;
 
@@ -20,6 +21,7 @@ public interface UserJobService {
      * @throws DaoException
      */
     public UserJob getById(Long id) throws DaoException;
+
     /**
      * 添加新用户和岗位的对应关系
      *
@@ -30,12 +32,31 @@ public interface UserJobService {
     public Long insert(UserJob userJob) throws DaoException;
 
     /**
+     * 修改岗位信息
+     *
+     * @param userJob
+     * @return
+     * @throws DaoException
+     */
+    public Long updateById(UserJob userJob) throws DaoException;
+
+
+    /**
      * 获得职员部门岗位信息
      *
      * @param userId
      * @return
      */
     public Employees getEmployees(Long userId);
+
+    /**
+     * 获得职员岗位薪酬对应
+     *
+     * @param userId
+     * @return
+     */
+    public EmployeesWages getEmployeesWages(Long userId);
+
     /**
      * 获得岗位信息的集合
      *
