@@ -33,9 +33,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUserNamePassword(UserCondition userCondition) {
-        User user = userManager.getByUsername(userCondition.getUsername());
-        if (user.getPassword().equals(userCondition.getPassword())) {
-            return user;
+        List<User> userList = userManager.list(userCondition);
+        if (userList == null || userList.size() < 1) {
+            return null;
+        }
+        if (userList.get(0).getPassword().equals(userCondition.getPassword())) {
+            return userList.get(0);
         }
         return null;
     }
