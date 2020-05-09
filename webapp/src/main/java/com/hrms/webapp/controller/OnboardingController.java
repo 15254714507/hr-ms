@@ -245,7 +245,7 @@ public class OnboardingController {
         return "onboarding/employeesList";
     }
 
-    @RequestMapping("/getRegisterNewEmployeeList.do")
+    @PostMapping("/getRegisterNewEmployeeList.do")
     @ResponseBody
     public List<RegisterNewEmployeeVO> getRegisterNewEmployeeList(HttpSession session) {
         List<RegisterNewEmployeeVO> registerNewEmployeeVOList = null;
