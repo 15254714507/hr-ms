@@ -7,7 +7,11 @@ import com.hrms.api.domain.entity.Wages;
 import com.hrms.api.service.WagesService;
 import com.hrms.api.until.Result;
 import com.hrms.webapp.sumbit.CheckWagesForm;
+import com.hrms.webapp.until.WordUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,8 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.net.URLEncoder;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 孔超
@@ -184,9 +191,45 @@ public class WagesController {
         try {
             wagesList = wagesService.list(wagesCondition);
         } catch (Exception e) {
-            log.error("获得所有工资信息状态为1的集合出现系统异常",e);
+            log.error("获得所有工资信息状态为1的集合出现系统异常", e);
         }
         return wagesList;
     }
 
+    /**
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/downWages.do")
+    @ResponseBody
+    public ResponseEntity<byte[]> downWages(Long id) {
+        byte[] fileByte = null;
+        HttpHeaders headers = new HttpHeaders();
+        try {
+            Map<String, Object> dataMap = getDataMap(id);
+            fileByte = WordUtil.createWordByte(dataMap, "payBar.ftl", "工资条.doc");
+            headers.setContentDispositionFormData("attachment", URLEncoder.encode("工资条.doc", "utf-8"));
+        } catch (Exception e) {
+            log.error("下载离职证明失败 id:{}", id, e);
+        }
+        return new ResponseEntity<byte[]>(fileByte, headers, HttpStatus.CREATED);
+    }
+
+    /**
+     * 获得打印数据
+     *
+     * @param id
+     * @return
+     */
+    private Map<String, Object> getDataMap(Long id) {
+        Map<String, Object> dataMap = new HashMap<String, Object>(3);
+        Wages wages = wagesService.getById(id);
+        if (wages == null) {
+            return dataMap;
+        }
+        String wagesDate = wages.getWagesDate().getYear() + "年" + wages.getWagesDate().getMonthValue() + "月";
+        dataMap.put("wagesDate", wagesDate);
+        dataMap.put("wages", wages);
+        return dataMap;
+    }
 }

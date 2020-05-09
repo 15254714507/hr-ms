@@ -151,12 +151,17 @@
                     width: 180,
                     align: 'center',
                     formatter: function (cellval, row) {
-                        return '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="checkWages(\'' + row.id + '\')">打印工资条</button> ';
+                        return '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="downWages(\'' + row.id + '\')">打印工资条</button> ';
                     }
                 }
             ]
         });
     }
+    //打印工资条
+    function downWages(id) {
+        window.location.href = "/downWages.do?id=" + id;
+    }
+
 </script>
 <script src="js/jquery.js"></script>
 <script src="js/bstable/js/bootstrap.min.js"></script>
