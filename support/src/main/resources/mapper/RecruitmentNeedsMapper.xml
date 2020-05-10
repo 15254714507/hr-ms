@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrms.support.dao.RecruitmentNeedsDao">
+    <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.RecruitmentNeeds">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="department_name" property="departmentName" jdbcType="VARCHAR"/>
+        <result column="job_name" property="jobName" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+        <result column="type_of_employees" property="typeOfEmployees" jdbcType="VARCHAR"/>
+        <result column="job_responsibilities" property="jobResponsibilities" jdbcType="VARCHAR"/>
+        <result column="job_requirements" property="jobRequirements" jdbcType="VARCHAR"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            department_name,
+            job_name,
+            num,
+            type_of_employees,
+            job_responsibilities,
+            job_requirements,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+    </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from recruitment_needs
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.hrms.api.domain.entity.RecruitmentNeeds">
+        insert
+        into recruitment_needs
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            department_name,
+            job_name,
+            num,
+            type_of_employees,
+            job_responsibilities,
+            job_requirements,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{departmentName,jdbcType=BIGINT},
+            #{jobName,jdbcType=VARCHAR},
+            #{num,jdbcType=INTEGER},
+            #{typeOfEmployees,jdbcType=VARCHAR},
+            #{jobResponsibilities,jdbcType=VARCHAR},
+            #{jobRequirements,jdbcType=VARCHAR},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.hrms.api.domain.entity.RecruitmentNeeds">
+        update recruitment_needs
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="departmentName !=null and departmentName!=''">
+                    department_name= #{departmentName,jdbcType=VARCHAR},
+                </if>
+                <if test="jobName !=null and jobName != '' ">
+                    job_name=#{jobName,jdbcType=VARCHAR},
+                </if>
+                <if test="num !=null">
+                    num=#{num,jdbcType=INTEGER},
+                </if>
+                <if test="typeOfEmployees !=null and typeOfEmployees != '' ">
+                    type_of_employees=#{typeOfEmployees,jdbcType=VARCHAR},
+                </if>
+                <if test="jobResponsibilities !=null and jobResponsibilities != '' ">
+                    job_responsibilities=#{jobResponsibilities,jdbcType=VARCHAR},
+                </if>
+                <if test="jobRequirements !=null and jobRequirements != '' ">
+                    job_requirements=#{jobRequirements,jdbcType=VARCHAR},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+            </trim>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from recruitment_needs
+        where id = #{id,jdbcType=BIGINT};
+    </delete>
+    <select id="list" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.RecruitmentNeedsCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from recruitment_needs
+        where is_delete=0
+    </select>
+</mapper>
