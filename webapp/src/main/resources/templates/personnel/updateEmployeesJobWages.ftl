@@ -19,17 +19,13 @@
                 <tr>
                     <td class="top-table-label">新部门：</td>
                     <td><select onChange="department_job(this)">
+                            <option value="">选择部门</option>
                             <#list departmentJobList as departmentJob>
                                 <option value="${departmentJob.departmentId}">${departmentJob.departmentName}</option>
                             </#list>
                         </select></td>
                     <td class="top-table-label">新岗位：</td>
                     <td><select name="jobId" id="jobs">
-                            <#list departmentJobList as departmentJob>
-                                <#list departmentJob.jobList as job>
-                                    <option value="${job.id}">${job.getJobName()}</option>
-                                </#list>
-                            </#list>
                         </select></td>
                 </tr>
                 <tr>
@@ -59,7 +55,7 @@
     <#list departmentJobList as departmentJob>
     jobs['${departmentJob.departmentId}'] = [
         <#list departmentJob.jobList as job>
-        ['${job.jobName}',${job.id}],
+        ['${job.jobName}', ${job.id}],
         </#list>
     ];
     </#list>

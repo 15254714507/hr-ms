@@ -16,17 +16,13 @@
                 <tr>
                     <td class="top-table-label">部门：</td>
                     <td><select name="departmentName" onChange="department_job(this)">
+                            <option value="">选择部门</option>
                             <#list departmentJobList as departmentJob>
                                 <option value="${departmentJob.departmentName}">${departmentJob.departmentName}</option>
                             </#list>
                         </select></td>
                     <td class="top-table-label">岗位：</td>
                     <td><select name="jobName" id="jobs">
-                            <#list departmentJobList as departmentJob>
-                                <#list departmentJob.jobList as job>
-                                    <option value="${job.jobName}">${job.getJobName()}</option>
-                                </#list>
-                            </#list>
                         </select></td>
                     <td class="top-table-label">招聘员工类型：</td>
                     <td><select name="typeOfEmployees" id="jobs">
