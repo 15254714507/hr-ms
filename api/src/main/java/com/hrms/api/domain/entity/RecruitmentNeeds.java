@@ -2,6 +2,7 @@ package com.hrms.api.domain.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
  * @date 2020/5/10 15:59
  */
 @Data
-public class RecruitmentNeeds {
+public class RecruitmentNeeds implements Serializable {
     /**
      * id
      */
