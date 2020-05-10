@@ -40,6 +40,10 @@ public class RecruitmentNeeds implements Serializable {
      */
     private String jobRequirements;
     /**
+     * 薪资范围
+     */
+    private String wages;
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;

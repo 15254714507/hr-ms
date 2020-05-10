@@ -10,6 +10,7 @@
         <result column="type_of_employees" property="typeOfEmployees" jdbcType="VARCHAR"/>
         <result column="job_responsibilities" property="jobResponsibilities" jdbcType="VARCHAR"/>
         <result column="job_requirements" property="jobRequirements" jdbcType="VARCHAR"/>
+        <result column="wages" property="wages" jdbcType="VARCHAR"/>
         <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
         <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -24,6 +25,7 @@
             type_of_employees,
             job_responsibilities,
             job_requirements,
+            wages,
             create_user,
             update_user,
             create_time,
@@ -46,6 +48,7 @@
             type_of_employees,
             job_responsibilities,
             job_requirements,
+            wages,
             create_user,
             update_user,
             create_time,
@@ -59,6 +62,7 @@
             #{typeOfEmployees,jdbcType=VARCHAR},
             #{jobResponsibilities,jdbcType=VARCHAR},
             #{jobRequirements,jdbcType=VARCHAR},
+            #{wages,jdbcType=VARCHAR},
             #{createUser,jdbcType=VARCHAR},
             #{updateUser,jdbcType=VARCHAR},
             #{createTime,jdbcType=TIMESTAMP},
@@ -86,6 +90,9 @@
                 </if>
                 <if test="jobRequirements !=null and jobRequirements != '' ">
                     job_requirements=#{jobRequirements,jdbcType=VARCHAR},
+                </if>
+                <if test="wages !=null and wages != '' ">
+                    wages=#{wages,jdbcType=VARCHAR},
                 </if>
                 update_user=#{updateUser,jdbcType=VARCHAR},
                 update_time=#{updateTime,jdbcType=TIMESTAMP},

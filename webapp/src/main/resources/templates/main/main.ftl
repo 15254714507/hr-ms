@@ -114,7 +114,7 @@
                         招聘管理 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class=""><a href="/gotoAddAssessment.do" target="fraName">招聘需求发布</a></li>
+                        <li class=""><a href="/gotoRecruitmentNeedsList.do" target="fraName">招聘需求发布</a></li>
                     </ul>
                 </li>
             </ul>
