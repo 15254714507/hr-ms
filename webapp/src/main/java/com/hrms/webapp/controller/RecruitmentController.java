@@ -4,10 +4,12 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.hrms.api.domain.condition.RecruitmentNeedsCondition;
 import com.hrms.api.domain.dto.DepartmentJob;
 import com.hrms.api.domain.dto.Employees;
+import com.hrms.api.domain.dto.FileDocument;
 import com.hrms.api.domain.entity.RecruitmentNeeds;
 import com.hrms.api.service.JobService;
 import com.hrms.api.service.RecruitmentNeedsService;
 import com.hrms.api.until.Result;
+import com.hrms.webapp.mongoDBService.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -32,6 +35,8 @@ public class RecruitmentController {
     RecruitmentNeedsService recruitmentNeedsService;
     @Reference
     JobService jobService;
+    @Resource
+    FileService fileService;
 
     @RequestMapping("/gotoRecruitmentNeedsList.do")
     public String gotoRecruitmentNeedsList() {
@@ -134,6 +139,18 @@ public class RecruitmentController {
             return "error/404";
         }
         return "recruitment/recruitmentNeedsDetails";
+    }
+
+    @RequestMapping("/gotoTest.do")
+    public String gotoTest(Model model) {
+        List<FileDocument> fileDocumentList = fileService.listFilesByPage(1, 10);
+        model.addAttribute("fileDocumentList", fileDocumentList);
+        return "recruitment/text";
+    }
+
+    @RequestMapping("/upload")
+    public String upload() {
+        return "recruitment/upload";
     }
 
 }
