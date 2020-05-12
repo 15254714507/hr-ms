@@ -48,7 +48,7 @@ public class FileController {
     }
 
     /**
-     * 在线显示文件
+     * 在线显示文件：目前不能实现在线预览，需要前端进行处理，这个简单例子是不行
      *
      * @param id 文件id
      * @return

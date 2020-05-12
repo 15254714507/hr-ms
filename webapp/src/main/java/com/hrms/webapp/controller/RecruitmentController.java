@@ -1,6 +1,7 @@
 package com.hrms.webapp.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.hrms.api.domain.condition.RecruitersCondition;
 import com.hrms.api.domain.condition.RecruitmentNeedsCondition;
 import com.hrms.api.domain.dto.DepartmentJob;
@@ -223,7 +224,8 @@ public class RecruitmentController {
                 result = new Result(1, "添加成功");
             }
         } catch (Exception e) {
-
+            log.error("保存应聘者信息出现系统异常recruiters{}", JSON.toJSONString(recruiters), e);
+            result = new Result(1,"出现系统异常");
         }
         return result;
     }
@@ -245,18 +247,6 @@ public class RecruitmentController {
             log.error("上传文件系统异常，", e);
         }
         return null;
-    }
-
-    @RequestMapping("/gotoTest.do")
-    public String gotoTest(Model model) {
-        List<FileDocument> fileDocumentList = fileService.listFilesByPage(1, 10);
-        model.addAttribute("fileDocumentList", fileDocumentList);
-        return "recruitment/text";
-    }
-
-    @RequestMapping("/upload")
-    public String upload() {
-        return "recruitment/upload";
     }
 
     /**
