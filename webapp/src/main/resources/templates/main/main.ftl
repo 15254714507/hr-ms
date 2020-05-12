@@ -115,6 +115,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class=""><a href="/gotoRecruitmentNeedsList.do" target="fraName">招聘需求发布</a></li>
+                        <li class=""><a href="/gotoRecruitersList.do" target="fraName">应聘者列表</a></li>
                     </ul>
                 </li>
             </ul>
