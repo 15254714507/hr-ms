@@ -62,7 +62,7 @@
                     <ul class="dropdown-menu">
                         <li class=""><a href="/gotoDimissionApplication.do" target="fraName">离职申请</a></li>
                         <li class=""><a href="/gotoAuditDimission.do" target="fraName">审核离职申请</a></li>
-                        <li class=""><a href="/gotoAuditDeleteUser.do" target="fraName">删除离职员工</a></li>
+                        <li class=""><a href="/gotoAuditDeleteUser.do" target="fraName">注销离职员工</a></li>
                         <li class=""><a href="/gotoDimissionUserList.do" target="fraName">离职员工列表</a></li>
                     </ul>
                 </li>
@@ -114,7 +114,7 @@
                         招聘管理 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class=""><a href="/gotoRecruitmentNeedsList.do" target="fraName">招聘需求发布</a></li>
+                        <li class=""><a href="/gotoRecruitmentNeedsList.do" target="fraName">招聘需求</a></li>
                         <li class=""><a href="/gotoRecruitersList.do" target="fraName">应聘者列表</a></li>
                     </ul>
                 </li>
