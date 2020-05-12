@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrms.support.dao.RecruitersDao">
+    <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.Recruiters">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="positions" property="positions" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="resume_id" property="resumeId" jdbcType="VARCHAR"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            name,
+            positions,
+            type,
+            resume_id,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+    </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from recruiters
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.hrms.api.domain.entity.Recruiters">
+        insert
+        into recruiters
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            name,
+            positions,
+            type,
+            resume_id,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{name,jdbcType=VARCHAR},
+            #{positions,jdbcType=VARCHAR},
+            #{type,jdbcType=VARCHAR},
+            #{resumeId,jdbcType=VARCHAR},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.hrms.api.domain.entity.Recruiters">
+        update recruiters
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="name !=null and name!=''">
+                    name= #{name,jdbcType=BIGINT},
+                </if>
+                <if test="positions !=null and positions != '' ">
+                    positions=#{positions,jdbcType=VARCHAR},
+                </if>
+                <if test="type !=null and type != '' ">
+                    type=#{type,jdbcType=VARCHAR},
+                </if>
+                <if test="resumeId !=null and resumeId != '' ">
+                    resume_id=#{resumeId,jdbcType=VARCHAR},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+            </trim>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from recruiters
+        where id = #{id,jdbcType=BIGINT};
+    </delete>
+    <select id="list" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.RecruitersCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from recruiters
+        where is_delete=0
+        <if test="name !=null and name != ''">
+            and name=#{name,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>
