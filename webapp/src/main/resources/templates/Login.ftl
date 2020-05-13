@@ -10,7 +10,7 @@
 <body>
 
 <div class="login-container">
-    <h1>单点登录页面</h1>
+    <h1>人力资源管理系统登录页面</h1>
 
     <div class="connect">
         <p>版权归孔超所有</p>

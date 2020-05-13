@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>离职删除用户</title>
+    <title>离职注销用户</title>
     <link rel="stylesheet" href="js/bstable/css/bootstrap.min.css">
     <link rel="stylesheet" href="js/bstable/css/bootstrap-table.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.step.css"/>
@@ -43,7 +43,7 @@
 
 <body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 1000px;overflow: auto">
 <div class="notice_main">
-    <div class="home-tab"><i class="tab-i"></i> 所在位置：<span>删除已离职员工账号信息</span></div>
+    <div class="home-tab"><i class="tab-i"></i> 所在位置：<span>注销已离职员工账号信息</span></div>
 
     <div class="table-con">
         <table id="table" class="table-style"></table>
@@ -109,7 +109,7 @@
                     width: 180,
                     align: 'center',
                     formatter: function (cellval, row) {
-                        var d = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="deleteUser(\'' + row.id + '\')">删除账号</button> ';
+                        var d = '<button  id="add" data-id="98" class="btn btn-xs btn-primary" onclick="deleteUser(\'' + row.id + '\')">注销账号</button> ';
                         return d;
                     }
                 }
