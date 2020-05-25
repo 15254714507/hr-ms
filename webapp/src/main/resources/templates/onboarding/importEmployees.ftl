@@ -15,7 +15,7 @@
         <p style="line-height: 24px;font-size: 14px;padding: 4px 0 0 36px ;color:#bb8940;background-repeat: no-repeat;background-position: 10px 8px;font-weight: bold">
             温馨提示</p>
         <ul class="ts">
-            <li><span>*</span>上传的excel需要符合要求，如没有请<a href="#">下载模板</a></li>
+            <li><span>*</span>上传的excel需要符合要求，如没有请<a href="/downEmployeesTemplates.do">下载模板</a></li>
         </ul>
     </div>
     <div class="find-top1">

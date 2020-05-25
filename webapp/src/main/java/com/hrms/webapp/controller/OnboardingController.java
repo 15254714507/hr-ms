@@ -10,13 +10,16 @@ import com.hrms.api.domain.vo.RegisterNewEmployeeVO;
 import com.hrms.api.service.JobService;
 import com.hrms.api.service.RegisterNewEmployeeService;
 import com.hrms.api.until.Result;
+import com.hrms.webapp.until.WordUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,13 +31,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 孔超
@@ -105,31 +110,28 @@ public class OnboardingController {
         return "onboarding/importEmployees";
     }
 
+    /**
+     * 上传新员工的excel列表
+     *
+     * @param file
+     * @param session
+     * @return
+     */
     @PostMapping("/importEmployees.do")
     @ResponseBody
     public Result importEmployees(@RequestParam("file") MultipartFile file, HttpSession session) {
         Result result = null;
         List<RegisterNewEmployee> registerNewEmployeeList = new ArrayList<>();
         Employees employees = (Employees) session.getAttribute("employees");
-        //每一行的第一列不要
-        int index = 0;
         try {
-            // @RequestParam("file") MultipartFile file 是用来接收前端传递过来的文件
             // 1.创建workbook对象，读取整个文档
             InputStream inputStream = file.getInputStream();
-//            POIFSFileSystem poifsFileSystem = new POIFSFileSystem(inputStream);
-//            HSSFWorkbook wb = new HSSFWorkbook(poifsFileSystem);
-            XSSFWorkbook wb = new XSSFWorkbook(inputStream);
-            // 2.读取页脚sheet，只需要读取第一个
-            XSSFSheet sheetAt = wb.getSheetAt(0);
-            // 3.循环读取某一行
-            for (Row row : sheetAt) {
-                //第一行不要
-                if (index == 0) {
-                    index++;
-                    continue;
-                }
-                registerNewEmployeeList.add(getRegisterNewEmployee(row, employees.getUsername()));
+            //区分是2003还是2007+的excel版本
+            String fileSuffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            if (".xlsx".equals(fileSuffix)) {
+                excelVersion2007(registerNewEmployeeList, inputStream, employees.getUsername());
+            } else {
+                excelVersion2003(registerNewEmployeeList, inputStream, employees.getUsername());
             }
             result = registerNewEmployeeService.insertImportExcelList(registerNewEmployeeList);
         } catch (Exception e) {
@@ -137,6 +139,53 @@ public class OnboardingController {
             result = new Result(-1, "系统发生异常，请刷新后重试");
         }
         return result;
+    }
+
+    /**
+     * 2003版本的excel处理流程
+     *
+     * @param registerNewEmployeeList
+     * @param inputStream
+     * @param createUser
+     * @throws IOException
+     */
+    private void excelVersion2003(List<RegisterNewEmployee> registerNewEmployeeList, InputStream inputStream, String createUser) throws IOException {
+        //每一行的第一列不要
+        int index = 0;
+        HSSFWorkbook wb = new HSSFWorkbook(inputStream);
+        // 读取页脚sheet，只需要读取第一个
+        HSSFSheet sheetAt = wb.getSheetAt(0);
+        for (Row row : sheetAt) {
+            //第一行不要
+            if (index == 0) {
+                index++;
+                continue;
+            }
+            registerNewEmployeeList.add(getRegisterNewEmployee(row, createUser));
+        }
+    }
+
+    /**
+     * excel 2007+的处理流程
+     *
+     * @param registerNewEmployeeList
+     * @param inputStream
+     * @param createUser
+     * @throws IOException
+     */
+    private void excelVersion2007(List<RegisterNewEmployee> registerNewEmployeeList, InputStream inputStream, String createUser) throws IOException {
+        int index = 0;
+        XSSFWorkbook wb = new XSSFWorkbook(inputStream);
+        // 读取页脚sheet，只需要读取第一个
+        XSSFSheet sheetAt = wb.getSheetAt(0);
+        for (Row row : sheetAt) {
+            //第一行不要
+            if (index == 0) {
+                index++;
+                continue;
+            }
+            registerNewEmployeeList.add(getRegisterNewEmployee(row, createUser));
+        }
     }
 
     /**
@@ -154,9 +203,7 @@ public class OnboardingController {
         registerNewEmployee.setUsername(row.getCell(2).getStringCellValue());
         registerNewEmployee.setIdentityType(row.getCell(3).getStringCellValue());
         registerNewEmployee.setIdentityCard(row.getCell(4).getStringCellValue());
-        registerNewEmployee.setGender((int)row.getCell(5).getNumericCellValue());
-        //日期字符串格式转换
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        registerNewEmployee.setGender((int) row.getCell(5).getNumericCellValue());
         registerNewEmployee.setDateOfBirth(Instant.ofEpochMilli(row.getCell(6).getDateCellValue().getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
         registerNewEmployee.setNativePlace(row.getCell(7).getStringCellValue());
         registerNewEmployee.setEmail(row.getCell(8).getStringCellValue());
@@ -176,11 +223,26 @@ public class OnboardingController {
         registerNewEmployee.setEmploymentDate(Instant.ofEpochMilli(row.getCell(22).getDateCellValue().getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
         registerNewEmployee.setInternshipDate(Instant.ofEpochMilli(row.getCell(23).getDateCellValue().getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
         registerNewEmployee.setTypesOfEmployees(row.getCell(24).getStringCellValue());
-        registerNewEmployee.setBaseSalary((int)row.getCell(25).getNumericCellValue());
-        registerNewEmployee.setPerformanceSalary((int)row.getCell(26).getNumericCellValue());
+        registerNewEmployee.setBaseSalary((int) row.getCell(25).getNumericCellValue());
+        registerNewEmployee.setPerformanceSalary((int) row.getCell(26).getNumericCellValue());
         registerNewEmployee.setCreateUser(createUser);
         registerNewEmployee.setUpdateUser(createUser);
         return registerNewEmployee;
+    }
+
+    @RequestMapping(value = "/downEmployeesTemplates.do")
+    @ResponseBody
+    public ResponseEntity<byte[]> downEmployeesTemplates() {
+        byte[] fileByte = null;
+        HttpHeaders headers = new HttpHeaders();
+        Map<String, Object> dataMap = new HashMap<>(0);
+        try {
+            fileByte = WordUtil.createWordByte(dataMap, "employeesTemplates.ftl", "新入职模板.xls");
+            headers.setContentDispositionFormData("attachment", URLEncoder.encode("新入职模板.xls", "utf-8"));
+        } catch (Exception e) {
+            log.error("下载新员工excel模板失败", e);
+        }
+        return new ResponseEntity<byte[]>(fileByte, headers, HttpStatus.CREATED);
     }
 
     /**
