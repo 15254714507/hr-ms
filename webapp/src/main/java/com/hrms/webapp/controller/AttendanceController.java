@@ -289,8 +289,8 @@ public class AttendanceController {
         Sign sign = new Sign();
         sign.setId(attendanceExceptionForm.getId());
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        sign.setWorkTime(LocalDateTime.parse(attendanceExceptionForm.getWorkTime().replaceAll("T", " ") + ":00", df));
-        sign.setGetOffWork(LocalDateTime.parse(attendanceExceptionForm.getGetOffWork().replaceAll("T", " ") + ":00", df));
+        sign.setWorkTime(LocalDateTime.parse(attendanceExceptionForm.getWorkTime().replaceAll("T", " "), df));
+        sign.setGetOffWork(LocalDateTime.parse(attendanceExceptionForm.getGetOffWork().replaceAll("T", " "), df));
         sign.setDescription(attendanceExceptionForm.getReason());
         sign.setUpdateUser(updateUser);
         sign.setStatus(false);
