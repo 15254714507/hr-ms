@@ -42,7 +42,7 @@
     <article class="artlce">
         <header class="aside-head">
             <ul class="nav-ul">
-                <li class="active-li"><a href="home.html" target="fraName">首页</a></li>
+                <li class="active-li"><a href="/home.do" target="fraName">首页</a></li>
                 <li role="presentation" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">

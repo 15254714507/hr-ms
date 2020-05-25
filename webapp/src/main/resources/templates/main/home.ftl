@@ -10,10 +10,6 @@
 <body>
 <main>
     <div class="home-tab"><i class="tab-i"></i>所在位置：<span>首页</span></div>
-    <p class="home-p">xxxx,你好！</p>
-    <p class="home-p">你有<a href="#" class="a-orgen">5条</a>待办信息,<a href="#" class="a-blue">2条</a>考勤异常,<a href="#"
-                                                                                                        class="a-red">3条</a>
-        未读通知</p>
     <div class="home-top">
         <a href="#"></a>
         <a href="#"></a>
@@ -21,8 +17,7 @@
         <a href="#"></a>
     </div>
     <div class="home-box">
-        <h4 class="h-style"><span class="note-span">通知<i class="note-i">3</i></span><span class="more-style"><a
-                        href="#">更多+</a> </span></h4>
+        <h4 class="h-style"><span class="note-span">通知</span><span class="more-style"></span></h4>
         <ul class="note-ul">
             <li><a href="#">公司准备在星期一召开培训会议通知</a><span>6月12 10:12</span></li>
             <li><a href="#">2019年端午节放假通知</a><span>6月12 09:33</span></li>
@@ -33,20 +28,6 @@
         <h4 class="h-style"><span class="note-span">信息统计</span></h4>
         <div class="home-static" id="chart01"></div>
         <div class="home-static" id="chart02"></div>
-        <h4 class="h-style"><span class="note-span">待办事项</span></h4>
-        <div class="wait-tab"><span class="tab-active">绩效考核</span><span>入职申请</span><span>离职申请</span></div>
-        <div class="tab-all">
-            <div class="tab-con" style="display: block">
-                <table id="table1" class="table-style"></table>
-            </div>
-            <div class="tab-con">
-                <table id="table2" class="table-style"></table>
-            </div>
-            <div class="tab-con">
-                <table id="table3" class="table-style"></table>
-            </div>
-
-        </div>
     </div>
 
 </main>
