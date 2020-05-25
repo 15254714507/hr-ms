@@ -52,7 +52,7 @@ public class LoginController {
      * @param model
      * @return
      */
-    @PostMapping("login.do")
+    @PostMapping("/login.do")
     public String login(@Valid LoginForm loginForm, BindingResult bindingResult, HttpSession session, Model model) {
         if (bindingResult.hasErrors()) {
             return "Login";
@@ -60,11 +60,11 @@ public class LoginController {
         User user = getUser(loginForm);
         try {
             Employees employees = employeesService.login(user);
-            session.setAttribute("employees", employees);
-            model.addAttribute("employees", employees);
-            if (employees == null) {
+            if (employees == null||!"人力资源部".equals(employees.getDepartmentName())) {
                 return "Login";
             }
+            session.setAttribute("employees", employees);
+            model.addAttribute("employees", employees);
         } catch (Exception e) {
             log.error("发生系统异常", e);
             return "Login";
