@@ -22,7 +22,7 @@
         <form name="form_employees">
             <table class="top-table">
                 <tr>
-                    <td class="top-table-label">上传简历</td>
+                    <td class="top-table-label">上传excel</td>
                     <td colspan="5"><input type="file" name="file"></td>
                 </tr>
                 <tr>
@@ -52,9 +52,6 @@
             processData: false, //必须
             cache: false,
             success: function (result) {
-                if (result.code === 1) {
-                    location.reload();
-                }
                 alert(result.msg);
             },
             error: function () {
