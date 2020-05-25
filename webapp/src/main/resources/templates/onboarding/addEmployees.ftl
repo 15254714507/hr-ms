@@ -10,6 +10,9 @@
 <body>
 <main>
     <div class="home-tab"><i class="tab-i"></i> 所在位置：<span>入职管理</span></div>
+    <div style=>
+        <button class="add-but btn-lg" onclick="bulkImport()"><i class="glyphicon glyphicon-edit"></i>批量导入</button>
+    </div>
     <div class="find-top1">
         <form action="" id="form_new_employees">
             <table class="top-table">
@@ -118,10 +121,13 @@
             </table>
         </form>
     </div>
-    <div class="table-con">
-        <table id="table1" class="table-style"></table>
+    <div id="modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div id="iframe" class="modal-content">
+            </div>
+        </div>
     </div>
-
 </main>
 <script src="js/jquery.js"></script>
 <script src="js/bstable/js/bootstrap.min.js"></script>
@@ -155,6 +161,7 @@
             ii = i + 1;
         }
     };
+
     function saveClick() {
         $.ajax({
             url: "/saveNewEmployees.do",
@@ -163,9 +170,9 @@
             data: $("#form_new_employees").serialize(),
             dataType: "json",
             success: function (result) {
-                if(result.code===1){
+                if (result.code === 1) {
                     alert(result.msg);
-                }else{
+                } else {
                     alert(result.msg)
                 }
             },
@@ -173,6 +180,12 @@
                 alert("连接服务器异常，请刷新后重试")
             }
         });
+    }
+
+    //打开导入excal页面
+    function bulkImport() {
+        $("#iframe").load("/gotoImportNewEmployees.do");
+        $("#modal").modal('show')
     }
 </script>
 </body>

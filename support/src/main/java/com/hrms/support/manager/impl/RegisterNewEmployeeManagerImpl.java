@@ -107,6 +107,7 @@ public class RegisterNewEmployeeManagerImpl implements RegisterNewEmployeeManage
      */
     private RegisterNewEmployeeCondition getRegisterNewEmployeeCondition(RegisterNewEmployee registerNewEmployee) {
         RegisterNewEmployeeCondition registerNewEmployeeCondition = new RegisterNewEmployeeCondition();
+        registerNewEmployeeCondition.setLead(false);
         registerNewEmployeeCondition.setUsername(registerNewEmployee.getUsername());
         return registerNewEmployeeCondition;
     }

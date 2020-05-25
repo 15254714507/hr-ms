@@ -65,4 +65,13 @@ public interface RegisterNewEmployeeService {
      * @throws ServiceException
      */
     public Result pass(RegisterNewEmployee registerNewEmployee) throws ServiceException, DaoException;
+
+    /**
+     * 插入导入的excel中的新员工的信息
+     *
+     * @param registerNewEmployeeList
+     * @return
+     * @throws DaoException
+     */
+    public Result insertImportExcelList(List<RegisterNewEmployee> registerNewEmployeeList) throws DaoException;
 }

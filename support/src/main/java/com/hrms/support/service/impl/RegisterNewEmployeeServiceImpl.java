@@ -2,6 +2,7 @@ package com.hrms.support.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
+import com.hrms.api.domain.condition.DepartmentCondition;
 import com.hrms.api.domain.condition.JobCondition;
 import com.hrms.api.domain.condition.RegisterNewEmployeeCondition;
 import com.hrms.api.domain.entity.*;
@@ -49,7 +50,7 @@ public class RegisterNewEmployeeServiceImpl implements RegisterNewEmployeeServic
         }
         Long isSuc = registerNewEmployeeManager.insert(registerNewEmployee);
         if (isSuc.intValue() == 0) {
-            return new Result(0, "此职工编码也存在");
+            return new Result(0, "此职工编码已存在");
         }
         return new Result(1, "添加成功");
     }
@@ -103,6 +104,54 @@ public class RegisterNewEmployeeServiceImpl implements RegisterNewEmployeeServic
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return result;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result insertImportExcelList(List<RegisterNewEmployee> registerNewEmployeeList) throws DaoException {
+        for (RegisterNewEmployee registerNewEmployee : registerNewEmployeeList) {
+            Result result = insertImportExcel(registerNewEmployee);
+            if (result != null) {
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                return result;
+            }
+        }
+        return new Result(1, "导入新员工信息成功");
+    }
+
+    /**
+     * 插入导入的excel中的新员工的信息
+     *
+     * @param registerNewEmployee
+     * @return 如果为空表示没问题，如果不为空说明出现问题了
+     */
+    private Result insertImportExcel(RegisterNewEmployee registerNewEmployee) {
+        DepartmentCondition departmentCondition = new DepartmentCondition();
+        departmentCondition.setDepartmentName(registerNewEmployee.getDepartmentName());
+        List<Department> departmentList = departmentService.list(departmentCondition);
+        if (departmentList == null || departmentList.size() < 1) {
+            return new Result(0, "没有" + registerNewEmployee.getName() + "的所属的部门名称：" + registerNewEmployee.getDepartmentName());
+        }
+        JobCondition jobCondition = new JobCondition();
+        jobCondition.setDepartmentId(departmentList.get(0).getId());
+        jobCondition.setJobName(registerNewEmployee.getJobName());
+        List<Job> jobList = jobService.list(jobCondition);
+        if (jobList == null || jobList.size() < 1) {
+            return new Result(0, registerNewEmployee.getName() + "的所属的部门没有此岗位：" + registerNewEmployee.getJobName());
+        }
+        registerNewEmployee.setDepartmentId(departmentList.get(0).getId());
+        registerNewEmployee.setJobId(jobList.get(0).getId());
+        for (int i = 1; i <= registerNewEmployee.getPhone().length(); i++) {
+            //员工账号默认是姓名拼音加手机号的后几位，最后一位，最后两位逐渐增加
+            String phone = registerNewEmployee.getPhone();
+            registerNewEmployee.setUsername(registerNewEmployee.getUsername() + phone.substring(phone.length() - i));
+            Result result = insert(registerNewEmployee);
+            if (result.getCode() == 1) {
+                return null;
+            }
+        }
+        //一般不会出现这种情况，每个人的手机号肯定是不一样的
+        return new Result(0, registerNewEmployee.getName() + "的姓名拼音和手机号码都已经存在");
     }
 
     /**
