@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrms.support.dao.NoticeDao">
+    <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.Notice">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="deadline" property="deadline" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            title,
+            content,
+            deadline,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+    </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from notice
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.hrms.api.domain.entity.Notice">
+        insert
+        into notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            title,
+            content,
+            deadline,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{title,jdbcType=VARCHAR},
+            #{content,jdbcType=VARCHAR},
+            #{deadline,jdbcType=TIMESTAMP},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.hrms.api.domain.entity.Notice">
+        update notice
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="title !=null and title!=''">
+                    title= #{title,jdbcType=VARCHAR},
+                </if>
+                <if test="content !=null and content != '' ">
+                    content=#{content,jdbcType=VARCHAR},
+                </if>
+                <if test="deadline !=null">
+                    deadline=#{deadline,jdbcType=TIMESTAMP},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+            </trim>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from notice
+        where id = #{id,jdbcType=BIGINT};
+    </delete>
+    <select id="list" resultMap="BaseResultMap" parameterType="com.hrms.api.domain.condition.NoticeCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from notice
+        where is_delete=0
+        <if test="deadline !=null">
+            and deadline  &gt;= #{deadline,jdbcType=TIMESTAMP}
+        </if>
+        order by create_time DESC
+    </select>
+</mapper>
