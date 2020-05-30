@@ -51,10 +51,10 @@ public class UserController {
             //组成一个新的图片名称，用uuid这样避免重复
             String newFileName = UUID.randomUUID() + originalName.substring(index);
             //获取应用所在的服务的文件路径
-            ServletContext application = session.getServletContext();
-            String path = application.getRealPath("/");
+//            ServletContext application = session.getServletContext();
+//            String path = application.getRealPath("/");
+            //这里是绝对路径，一般应该存在图片数据库的，这个只是临时的
             File imagFile = new File("D:\\IDEAworkspace\\hr-ms\\webapp\\src\\main\\resources\\static\\head_shot/" + newFileName);
-            System.out.println(path + "static/head_shot/" + newFileName);
             //写到指定路径了
             file.transferTo(imagFile);
             Result result = null;
