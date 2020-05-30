@@ -32,6 +32,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Long updateById(User user) throws DaoException {
+        return userManager.updateById(user);
+    }
+
+    @Override
     public User getUserByUserNamePassword(UserCondition userCondition) {
         List<User> userList = userManager.list(userCondition);
         if (userList == null || userList.size() < 1) {

@@ -27,7 +27,14 @@ public interface UserService {
      * @throws DaoException 包装的异常
      */
     public Long insert(User user) throws DaoException;
-
+    /**
+     * 修改用户信息
+     *
+     * @param user 要修改的用户信息，id存在
+     * @return 返回是否成功 1是成功 0是没有此用户信息(可能不存在或者 被逻辑删除了)
+     * @throws DaoException 包装了一层异常
+     */
+    public Long updateById(User user) throws DaoException;
     /**
      * 通过账号密码获得账号信息
      *

@@ -17,7 +17,7 @@
     <aside class="aside">
         <header class="aside-head"><img src="images/logo.jpg"></header>
         <div class="aside-per">
-            <div style="text-align: center;"><img src="${(employees.headShot)!}" style="width: 100px;height: 100px"
+            <div style="text-align: center;"><img id="personal" src="${(employees.headShot)!}" style="width: 100px;height: 100px"
                                                   class="per-img"/>
                 <br>
                 <br>
@@ -129,8 +129,18 @@
 
     </article>
 </main>
+<div id="personalModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div id="personalIframe" class="modal-content">
+        </div>
+    </div>
+</div>
 <script src="js/jquery.js"></script>
 <script src="js/jQueryCalendar/js/calendar.js"></script>
+<script src="js/bstable/js/bootstrap.min.js"></script>
+<script src="js/bstable/js/bootstrap-table.js"></script>
+<script src="js/bstable/js/bootstrap-table-zh-CN.min.js"></script>
 <script>
     $('#ca').calendar({
         width: 240,
@@ -163,7 +173,11 @@
         });
         //首先先确认是否签到了
         querySign();
-
+        //点击头像就要弹出个人信息的弹出框
+        $("#personal").click(function(){
+            $("#personalIframe").load("/gotoPersonalInformation.do");
+            $("#personalModal").modal('show')
+        });
     });
 
     //查询是否已签到
@@ -257,6 +271,7 @@
             }
         });
     }
+
 </script>
 </body>
 </html>
