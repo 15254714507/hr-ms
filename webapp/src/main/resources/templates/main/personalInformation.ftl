@@ -17,9 +17,9 @@
 <body>
 <main>
     <div class="find-top1">
-
+        <form action="" id="form_user" name="form_user">
         <table class="top-table">
-            <form action="" id="form_user" name="form_user">
+
                 <tr>
                     <td class="top-table-label">头像：</td>
                     <td>
@@ -28,7 +28,7 @@
                                                class="per-img"/></div>
                         <input name="img" type="file" onchange="preview(this)"></td>
                 </tr>
-            </form>
+
             <tr>
                 <td class="top-table-label">职员编号：</td>
                 <td><input type="text" value="${(employees.username)!}"
@@ -65,7 +65,7 @@
                 </td>
             </tr>
         </table>
-
+        </form>
     </div>
     <div class="table-con">
         <table id="table1" class="table-style"></table>
@@ -105,6 +105,7 @@
             cache: false,
             success: function (result) {
                 alert(result.msg);
+                location.reload();
             },
             error: function () {
                 alert("连接服务器异常，请刷新后重试")
