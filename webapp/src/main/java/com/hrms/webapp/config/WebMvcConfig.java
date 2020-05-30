@@ -6,6 +6,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 静态资源映射
+ * @author 孔超
+ * @date 2020/5/30 21:11
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
