@@ -27,7 +27,7 @@ public class NoticeManagerImpl {
         Notice notice = new Notice();
         notice.setTitle("111");
         notice.setContent("111");
-        notice.setDeadline(LocalDateTimeFactory.getLocalDateTime());
+        notice.setDeadline(LocalDateTimeFactory.getLocalDate());
         notice.setCreateUser("kc");
         notice.setUpdateUser("kc");
         Long isSuc = noticeManager.insert(notice);
@@ -39,7 +39,7 @@ public class NoticeManagerImpl {
     public void listByTest() {
         insert();
         NoticeCondition noticeCondition = new NoticeCondition();
-        noticeCondition.setDeadline(LocalDateTimeFactory.getLocalDateTime());
+        noticeCondition.setDeadline(LocalDateTimeFactory.getLocalDate());
         List<Notice> noticeList = noticeManager.list(noticeCondition);
         Assert.assertTrue(noticeList.size() > 0);
     }
@@ -49,7 +49,7 @@ public class NoticeManagerImpl {
     public void getByIdTest() {
         insert();
         NoticeCondition noticeCondition = new NoticeCondition();
-        noticeCondition.setDeadline(LocalDateTimeFactory.getLocalDateTime());
+        noticeCondition.setDeadline(LocalDateTimeFactory.getLocalDate());
         List<Notice> noticeList = noticeManager.list(noticeCondition);
 
         Notice notice = noticeManager.getById(noticeList.get(0).getId());
@@ -61,12 +61,12 @@ public class NoticeManagerImpl {
     public void updateByIdTest() {
         insert();
         NoticeCondition noticeCondition = new NoticeCondition();
-        noticeCondition.setDeadline(LocalDateTimeFactory.getLocalDateTime());
+        noticeCondition.setDeadline(LocalDateTimeFactory.getLocalDate());
         List<Notice> noticeList = noticeManager.list(noticeCondition);
         Notice notice = noticeManager.getById(noticeList.get(0).getId());
         notice.setTitle("222");
         notice.setContent("222");
-        notice.setDeadline(LocalDateTimeFactory.getLocalDateTime());
+        notice.setDeadline(LocalDateTimeFactory.getLocalDate());
         Long isSuc = noticeManager.updateById(notice);
         Assert.assertEquals(1,isSuc.intValue());
 
@@ -81,7 +81,7 @@ public class NoticeManagerImpl {
     public void deleteByIdTest() {
         insert();
         NoticeCondition noticeCondition = new NoticeCondition();
-        noticeCondition.setDeadline(LocalDateTimeFactory.getLocalDateTime());
+        noticeCondition.setDeadline(LocalDateTimeFactory.getLocalDate());
         List<Notice> noticeList = noticeManager.list(noticeCondition);
         Notice notice = noticeList.get(0);
         Long isSuc = noticeManager.deleteById(notice.getId());

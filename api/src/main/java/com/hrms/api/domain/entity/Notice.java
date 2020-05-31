@@ -1,8 +1,10 @@
 package com.hrms.api.domain.entity;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -26,9 +28,9 @@ public class Notice implements Serializable {
      */
     private String content;
     /**
-     * 截止时间
+     * 截止日期
      */
-    private LocalDateTime deadline;
+    private LocalDate deadline;
     /**
      * 创建时间
      */

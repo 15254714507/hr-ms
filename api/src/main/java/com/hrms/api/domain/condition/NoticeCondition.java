@@ -3,6 +3,7 @@ package com.hrms.api.domain.condition;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -24,9 +25,9 @@ public class NoticeCondition implements Serializable {
      */
     private String content;
     /**
-     * 截止时间
+     * 截止日期
      */
-    private LocalDateTime deadline;
+    private LocalDate deadline;
     /**
      * 创建时间
      */
