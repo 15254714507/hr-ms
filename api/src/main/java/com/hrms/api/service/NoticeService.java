@@ -19,6 +19,7 @@ public interface NoticeService {
      * @throws DaoException
      */
     public Notice getById(Long id) throws DaoException;
+
     /**
      * 添加新的通知
      *
@@ -27,6 +28,16 @@ public interface NoticeService {
      * @throws DaoException
      */
     public Long insert(Notice notice) throws DaoException;
+
+    /**
+     * 删除通知
+     *
+     * @param id
+     * @return
+     * @throws DaoException
+     */
+    public Long deleteById(Long id) throws DaoException;
+
     /**
      * 获得通知的集合
      *

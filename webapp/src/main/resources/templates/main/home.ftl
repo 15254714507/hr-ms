@@ -12,7 +12,7 @@
     <div class="home-tab"><i class="tab-i"></i>所在位置：<span>首页</span></div>
     <div class="home-top">
         <a href="#"></a>
-        <a href="#" onclick=""></a>
+        <a href="#" onclick="NoticeList()"></a>
         <a href="#" onclick="addNewNotice()"></a>
         <a href="#"></a>
     </div>
@@ -51,6 +51,11 @@
     //添加新的通知
     function addNewNotice() {
         $("#noticeIframe").load("/gotoAddNotice.do");
+        $("#noticeModal").modal('show')
+    }
+    //前往历史通知列表
+    function NoticeList() {
+        $("#noticeIframe").load("/gotoNoticeList.do");
         $("#noticeModal").modal('show')
     }
     $(function () {

@@ -140,4 +140,41 @@ public class MainController {
         }
     }
 
+    @RequestMapping("/gotoNoticeList.do")
+    public String gotoNoticeList() {
+        return "main/noticeList";
+    }
+
+    @PostMapping("/getNoticeList.do")
+    @ResponseBody
+    public List<Notice> getNoticeList() {
+        NoticeCondition noticeCondition = new NoticeCondition();
+        List<Notice> noticeList = null;
+        try {
+            noticeList = noticeService.list(noticeCondition);
+        } catch (Exception e) {
+            log.error("获得通知历史列表出现系统异常", e);
+        }
+        return noticeList;
+    }
+
+    @PostMapping("/deleteNotice.do")
+    @ResponseBody
+    public Result deleteNotice(Long id) {
+        if (id == null || id < 1) {
+            return new Result(0, "删除的id不存在");
+        }
+        Result result = null;
+        try {
+            Long isSuc = noticeService.deleteById(id);
+            if (isSuc != 1) {
+                result = new Result(0, "没有此通知记录");
+            } else {
+                result = new Result(1, "删除成功");
+            }
+        } catch (Exception e) {
+            log.error("删除通知出现系统异常 id{}", id);
+        }
+        return result;
+    }
 }

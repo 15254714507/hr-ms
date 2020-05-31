@@ -32,6 +32,11 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
+    public Long deleteById(Long id) throws DaoException {
+        return noticeManager.deleteById(id);
+    }
+
+    @Override
     public List<Notice> list(NoticeCondition noticeCondition) throws DaoException {
         return noticeManager.list(noticeCondition);
     }
