@@ -19,11 +19,11 @@
     <div class="home-box">
         <h4 class="h-style"><span class="note-span">通知</span><span class="more-style"></span></h4>
         <ul class="note-ul">
-            <li><a href="#">公司准备在星期一召开培训会议通知</a><span>6月12 10:12</span></li>
-            <li><a href="#">2019年端午节放假通知</a><span>6月12 09:33</span></li>
-            <li><a href="#">公司准备在星期一召开培训会议通知</a><span>6月12 10:12</span></li>
-            <li><a href="#">2019年端午节放假通知</a><span>6月12 09:33</span></li>
-            <li><a href="#">2019年端午节放假通知</a><span>6月12 09:33</span></li>
+            <#list noticeList as notice>
+                <li><a href="#"
+                       onclick="seeNotice(${(notice.getId())!})">${(notice.title)!}</a><span>${(notice.deadline.toString()?date("yyyy-MM-dd"))!}</span>
+                </li>
+            </#list>
         </ul>
         <h4 class="h-style"><span class="note-span">信息统计</span></h4>
         <div class="home-static" id="chart01"></div>
@@ -31,12 +31,24 @@
     </div>
 
 </main>
+<div id="noticeModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div id="noticeIframe" class="modal-content">
+        </div>
+    </div>
+</div>
 <script src="js/jquery.js"></script>
 <script src="js/echarts-all.js"></script>
 <script src="js/bstable/js/bootstrap.min.js"></script>
 <script src="js/bstable/js/bootstrap-table.js"></script>
 <script src="js/bstable/js/bootstrap-table-zh-CN.min.js"></script>
 <script>
+    function seeNotice(id) {
+        $("#noticeIframe").load("/gotoNoticeContent.do?id=" + id);
+        $("#noticeModal").modal('show')
+    }
+
     $(function () {
         char1();
         char2();
@@ -142,6 +154,7 @@
         })
 
     }
+
     function change() {
         $(".wait-tab span").click(function () {
             var ins = $(this).index();

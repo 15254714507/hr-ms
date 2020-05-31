@@ -2,9 +2,12 @@ package com.hrms.webapp.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.hrms.api.domain.condition.NoticeCondition;
 import com.hrms.api.domain.condition.SignCondition;
 import com.hrms.api.domain.dto.Employees;
+import com.hrms.api.domain.entity.Notice;
 import com.hrms.api.domain.entity.Sign;
+import com.hrms.api.service.NoticeService;
 import com.hrms.api.service.SignService;
 import com.hrms.api.until.LocalDateTimeFactory;
 import com.hrms.api.until.Result;
@@ -13,16 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author 孔超
@@ -34,6 +31,8 @@ import java.util.UUID;
 public class MainController {
     @Reference
     SignService signService;
+    @Reference
+    NoticeService noticeService;
 
     /**
      * 前往首页
@@ -41,8 +40,16 @@ public class MainController {
      * @return
      */
     @RequestMapping("/home.do")
-    public String gotoHome() {
-
+    public String gotoHome(Model model) {
+        NoticeCondition noticeCondition = new NoticeCondition();
+        noticeCondition.setDeadline(LocalDateTimeFactory.getLocalDate());
+        try {
+            List<Notice> noticeList = noticeService.list(noticeCondition);
+            model.addAttribute("noticeList", noticeList);
+        } catch (Exception e) {
+            log.error("获得首页的通知列表出现系统异常");
+            return "error/404";
+        }
         return "main/home";
 
     }
@@ -89,5 +96,22 @@ public class MainController {
         } else {
             return 1;
         }
+    }
+    @RequestMapping("/gotoNoticeContent.do")
+    public String gotoNoticeContent(Long id,Model model){
+        if(id==null||id<1){
+            return "error/404";
+        }
+        try{
+            Notice notice = noticeService.getById(id);
+            if(notice == null){
+                return "error/404";
+            }
+            model.addAttribute("notice",notice);
+        }catch (Exception e){
+            log.error("根据id获得notice对象发生系统异常 id{}",id,e);
+            return "error/404";
+        }
+        return "main/noticeContent";
     }
 }
