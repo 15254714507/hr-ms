@@ -27,6 +27,11 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
+    public Long insert(Notice notice) throws DaoException {
+        return noticeManager.insert(notice);
+    }
+
+    @Override
     public List<Notice> list(NoticeCondition noticeCondition) throws DaoException {
         return noticeManager.list(noticeCondition);
     }

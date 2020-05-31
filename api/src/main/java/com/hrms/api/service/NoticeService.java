@@ -20,6 +20,14 @@ public interface NoticeService {
      */
     public Notice getById(Long id) throws DaoException;
     /**
+     * 添加新的通知
+     *
+     * @param notice
+     * @return
+     * @throws DaoException
+     */
+    public Long insert(Notice notice) throws DaoException;
+    /**
      * 获得通知的集合
      *
      * @param noticeCondition

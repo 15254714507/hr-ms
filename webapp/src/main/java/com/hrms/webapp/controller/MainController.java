@@ -97,21 +97,47 @@ public class MainController {
             return 1;
         }
     }
+
     @RequestMapping("/gotoNoticeContent.do")
-    public String gotoNoticeContent(Long id,Model model){
-        if(id==null||id<1){
+    public String gotoNoticeContent(Long id, Model model) {
+        if (id == null || id < 1) {
             return "error/404";
         }
-        try{
+        try {
             Notice notice = noticeService.getById(id);
-            if(notice == null){
+            if (notice == null) {
                 return "error/404";
             }
-            model.addAttribute("notice",notice);
-        }catch (Exception e){
-            log.error("根据id获得notice对象发生系统异常 id{}",id,e);
+            model.addAttribute("notice", notice);
+        } catch (Exception e) {
+            log.error("根据id获得notice对象发生系统异常 id{}", id, e);
             return "error/404";
         }
         return "main/noticeContent";
     }
+
+    @RequestMapping("/gotoAddNotice.do")
+    public String gotoAddNotice() {
+        return "main/addNotice";
+    }
+
+    @PostMapping("/saveNotice.do")
+    @ResponseBody
+    public Result saveNotice(Notice notice, HttpSession session) {
+        if (notice == null || notice.getTitle() == null || notice.getContent() == null || notice.getDeadline() == null) {
+            return new Result(0, "信息不全，请重新填写");
+        }
+        Employees employees = (Employees) session.getAttribute("employees");
+        notice.setCreateUser(employees.getUsername());
+        notice.setUpdateUser(employees.getUsername());
+        try {
+            //插入不成功就会抛异常的
+            noticeService.insert(notice);
+            return new Result(1, "添加成功");
+        } catch (Exception e) {
+            log.error("添加新的通知失败 notice{}", notice, e);
+            return new Result(-1, "系统异常，请刷新后重试");
+        }
+    }
+
 }

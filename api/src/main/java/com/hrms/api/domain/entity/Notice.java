@@ -1,5 +1,6 @@
 package com.hrms.api.domain.entity;
 
+
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,6 +31,7 @@ public class Notice implements Serializable {
     /**
      * 截止日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
     /**
      * 创建时间
