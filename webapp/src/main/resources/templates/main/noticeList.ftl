@@ -48,6 +48,12 @@
             queryParams: null,
             columns: [
                 {
+                    title: '序号',//标题  可不加
+                    formatter: function (value, row, index) {
+                        return index+1;
+                    }
+                },
+                {
                     title: "id",
                     field: 'id',
                     visible: false
