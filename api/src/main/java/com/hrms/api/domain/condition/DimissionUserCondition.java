@@ -68,6 +68,11 @@ public class DimissionUserCondition implements Serializable {
      * 实习还是全职
      */
     private String typesOfEmployees;
+
+    /**
+     * 开始日期 , 创建时间要大于等于开始时间
+     */
+    private LocalDate startDate;
     /**
      * 创建时间
      */

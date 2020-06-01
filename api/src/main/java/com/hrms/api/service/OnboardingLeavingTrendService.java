@@ -11,6 +11,15 @@ import java.util.List;
  */
 public interface OnboardingLeavingTrendService {
     /**
+     * 添加新的月份的入职离职人数统计
+     *
+     * @param onboardingLeavingTrend
+     * @return
+     * @throws DaoException
+     */
+    public Long insert(OnboardingLeavingTrend onboardingLeavingTrend) throws DaoException;
+
+    /**
      * 获得最新的1年12个月的入职离职记录
      *
      * @return

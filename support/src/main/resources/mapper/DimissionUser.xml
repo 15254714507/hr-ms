@@ -122,5 +122,8 @@
         <if test="steps !=null">
             and steps= #{steps,jdbcType=INTEGER}
         </if>
+        <if test="startDate!=null ">
+            and create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+        </if>
     </select>
 </mapper>

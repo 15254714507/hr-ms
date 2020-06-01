@@ -242,5 +242,8 @@
         <if test="username!=null and username!=''">
           and  username=#{username,jdbcType=VARCHAR}
         </if>
+        <if test="startDate!=null ">
+            and create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+        </if>
     </select>
 </mapper>

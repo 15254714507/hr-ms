@@ -22,6 +22,11 @@ public class OnboardingLeavingTrendServiceImpl implements OnboardingLeavingTrend
     OnboardingLeavingTrendManager onboardingLeavingTrendManager;
 
     @Override
+    public Long insert(OnboardingLeavingTrend onboardingLeavingTrend) throws DaoException {
+        return onboardingLeavingTrendManager.insert(onboardingLeavingTrend);
+    }
+
+    @Override
     public List<OnboardingLeavingTrend> listNewOneYear() throws DaoException {
         OnboardingLeavingTrendCondition onboardingLeavingTrendCondition = new OnboardingLeavingTrendCondition();
         //这是12个月的记录

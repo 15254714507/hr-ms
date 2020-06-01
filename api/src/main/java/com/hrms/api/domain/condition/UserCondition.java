@@ -5,7 +5,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 /**
  * @author 孔超
@@ -113,6 +112,10 @@ public class UserCondition implements Serializable {
      * 实习时间
      */
     private LocalDate internshipDate;
+    /**
+     * 开始时间，用于搜索创建时间大于此时间的用户的集合
+     */
+    private LocalDate startDate;
 
     /**
      * 创建时间
