@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrms.support.dao.OnboardingLeavingTrendDao">
+    <resultMap id="BaseResultMap" type="com.hrms.api.domain.entity.OnboardingLeavingTrend">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="number_of_separations" property="numberOfSeparations" jdbcType="INTEGER"/>
+        <result column="number_of_employees" property="numberOfEmployees" jdbcType="INTEGER"/>
+        <result column="month" property="month" jdbcType="INTEGER"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            number_of_separations,
+            number_of_employees,
+            month,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+    </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from onboarding_leaving_trend
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.hrms.api.domain.entity.OnboardingLeavingTrend">
+        insert
+        into onboarding_leaving_trend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            number_of_separations,
+            number_of_employees,
+            month,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{numberOfSeparations,jdbcType=INTEGER},
+            #{numberOfEmployees,jdbcType=INTEGER},
+            #{month,jdbcType=INTEGER},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.hrms.api.domain.entity.OnboardingLeavingTrend">
+        update onboarding_leaving_trend
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="numberOfSeparations !=null">
+                    number_of_separations= #{numberOfSeparations,jdbcType=INTEGER},
+                </if>
+                <if test="numberOfEmployees !=null">
+                    number_of_employees=#{numberOfEmployees,jdbcType=INTEGER},
+                </if>
+                <if test="month !=null">
+                    month=#{month,jdbcType=INTEGER},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+            </trim>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from onboarding_leaving_trend
+        where id = #{id,jdbcType=BIGINT};
+    </delete>
+    <select id="list" resultMap="BaseResultMap"
+            parameterType="com.hrms.api.domain.condition.OnboardingLeavingTrendCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from onboarding_leaving_trend
+        where is_delete=0
+        order by create_time DESC
+        <if test="rows!=null">
+            LIMIT #{rows,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>
