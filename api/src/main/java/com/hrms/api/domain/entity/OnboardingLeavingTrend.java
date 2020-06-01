@@ -3,6 +3,7 @@ package com.hrms.api.domain.entity;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
  * @date 2020/6/1 23:13
  */
 @Data
-public class OnboardingLeavingTrend {
+public class OnboardingLeavingTrend implements Serializable {
     /**
      * 主键
      */

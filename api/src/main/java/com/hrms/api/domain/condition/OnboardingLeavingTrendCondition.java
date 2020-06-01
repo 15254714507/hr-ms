@@ -3,6 +3,7 @@ package com.hrms.api.domain.condition;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
  * @date 2020/6/1 23:17
  */
 @Data
-public class OnboardingLeavingTrendCondition {
+public class OnboardingLeavingTrendCondition implements Serializable {
     /**
      * 主键
      */
