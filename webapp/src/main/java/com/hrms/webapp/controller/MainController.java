@@ -6,8 +6,10 @@ import com.hrms.api.domain.condition.NoticeCondition;
 import com.hrms.api.domain.condition.SignCondition;
 import com.hrms.api.domain.dto.Employees;
 import com.hrms.api.domain.entity.Notice;
+import com.hrms.api.domain.entity.OnboardingLeavingTrend;
 import com.hrms.api.domain.entity.Sign;
 import com.hrms.api.service.NoticeService;
+import com.hrms.api.service.OnboardingLeavingTrendService;
 import com.hrms.api.service.SignService;
 import com.hrms.api.until.LocalDateTimeFactory;
 import com.hrms.api.until.Result;
@@ -33,6 +35,8 @@ public class MainController {
     SignService signService;
     @Reference
     NoticeService noticeService;
+    @Reference
+    OnboardingLeavingTrendService onboardingLeavingTrendService;
 
     /**
      * 前往首页
@@ -46,8 +50,10 @@ public class MainController {
         try {
             List<Notice> noticeList = noticeService.list(noticeCondition);
             model.addAttribute("noticeList", noticeList);
+            List<OnboardingLeavingTrend> onboardingLeavingTrendList = onboardingLeavingTrendService.listNewOneYear();
+            model.addAttribute("onboardingLeavingTrendList",onboardingLeavingTrendList);
         } catch (Exception e) {
-            log.error("获得首页的通知列表出现系统异常");
+            log.error("获得首页出现系统异常",e);
             return "error/404";
         }
         return "main/home";

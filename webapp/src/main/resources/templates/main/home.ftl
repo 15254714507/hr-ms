@@ -26,7 +26,6 @@
             </#list>
         </ul>
         <h4 class="h-style"><span class="note-span">信息统计</span></h4>
-        <div class="home-static" id="chart01"></div>
         <div class="home-static" id="chart02"></div>
     </div>
 
@@ -59,56 +58,9 @@
         $("#noticeModal").modal('show')
     }
     $(function () {
-        char1();
         char2();
-        change();
-
     })
 
-    function char1() {
-
-        var myChart = echarts.init($("#chart01")[0]);
-//app.title = '堆叠柱状图';
-
-
-        option = {
-            title: {
-                text: '人员薪酬占比'
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            legend: {
-                x: 'center',
-                y: 'bottom',
-                data: ['指标一', '指标二', '指标三']
-            },
-
-            calculable: false,
-            series: [
-                {
-                    name: '指标一',
-                    type: 'pie',
-                    radius: '50%',
-                    center: ['50%', '50%'],
-                    data: [
-                        {value: 335, name: '指标一'},
-                        {value: 310, name: '指标二'},
-                        {value: 234, name: '指标三'}
-
-                    ]
-                }
-
-
-            ]
-        };
-        myChart.setOption(option);
-        window.addEventListener('resize', function () {
-            myChart.resize();
-        })
-
-    }
 
     function char2() {
 
@@ -132,7 +84,12 @@
                 {
                     type: 'category',
                     boundaryGap: false,
-                    data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                    data: [
+                        '#{onboardingLeavingTrendList[11].month}月','#{onboardingLeavingTrendList[10].month}月','#{onboardingLeavingTrendList[9].month}月',
+                        '#{onboardingLeavingTrendList[8].month}月','#{onboardingLeavingTrendList[7].month}月','#{onboardingLeavingTrendList[6].month}月',
+                        '#{onboardingLeavingTrendList[5].month}月','#{onboardingLeavingTrendList[4].month}月','#{onboardingLeavingTrendList[3].month}月',
+                        '#{onboardingLeavingTrendList[2].month}月','#{onboardingLeavingTrendList[1].month}月','#{onboardingLeavingTrendList[0].month}月'
+                    ]
 
                 }
             ],
@@ -145,14 +102,26 @@
                 {
                     name: '入职',
                     type: 'line',
-                    stack: '总量',
-                    data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90]
+                    data: [
+                        #{onboardingLeavingTrendList[11].numberOfEmployees}, #{onboardingLeavingTrendList[10].numberOfEmployees},
+                        #{onboardingLeavingTrendList[9].numberOfEmployees}, #{onboardingLeavingTrendList[8].numberOfEmployees},
+                        #{onboardingLeavingTrendList[7].numberOfEmployees}, #{onboardingLeavingTrendList[6].numberOfEmployees},
+                        #{onboardingLeavingTrendList[5].numberOfEmployees}, #{onboardingLeavingTrendList[4].numberOfEmployees},
+                        #{onboardingLeavingTrendList[3].numberOfEmployees}, #{onboardingLeavingTrendList[2].numberOfEmployees},
+                        #{onboardingLeavingTrendList[1].numberOfEmployees}, #{onboardingLeavingTrendList[0].numberOfEmployees}
+                    ]
                 },
                 {
                     name: '离职',
                     type: 'line',
-                    stack: '总量',
-                    data: [20, 12, 19, 34, 29, 30, 10, 20, 32, 10, 13, 9]
+                    data: [
+                        #{onboardingLeavingTrendList[11].numberOfSeparations}, #{onboardingLeavingTrendList[10].numberOfSeparations},
+                        #{onboardingLeavingTrendList[9].numberOfSeparations}, #{onboardingLeavingTrendList[8].numberOfSeparations},
+                        #{onboardingLeavingTrendList[7].numberOfSeparations}, #{onboardingLeavingTrendList[6].numberOfSeparations},
+                        #{onboardingLeavingTrendList[5].numberOfSeparations}, #{onboardingLeavingTrendList[4].numberOfSeparations},
+                        #{onboardingLeavingTrendList[3].numberOfSeparations}, #{onboardingLeavingTrendList[2].numberOfSeparations},
+                        #{onboardingLeavingTrendList[1].numberOfSeparations}, #{onboardingLeavingTrendList[0].numberOfSeparations}
+                    ]
                 }
 
             ]
@@ -162,14 +131,6 @@
             myChart.resize();
         })
 
-    }
-
-    function change() {
-        $(".wait-tab span").click(function () {
-            var ins = $(this).index();
-            $(this).addClass("tab-active").siblings().removeClass('tab-active');
-            $(".tab-all .tab-con").eq(ins).show().siblings().hide();
-        })
     }
 </script>
 </body>
