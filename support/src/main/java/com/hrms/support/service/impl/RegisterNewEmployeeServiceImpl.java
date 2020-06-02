@@ -185,7 +185,7 @@ public class RegisterNewEmployeeServiceImpl implements RegisterNewEmployeeServic
         User user = new User();
         user.setUsername(registerNewEmployee.getUsername());
         //初试密码
-        user.setPassword("admin");
+        user.setPassword("123456");
         user.setName(registerNewEmployee.getName());
         user.setAddress(registerNewEmployee.getAddress());
         user.setCensusRegister(registerNewEmployee.getCensusRegister());
