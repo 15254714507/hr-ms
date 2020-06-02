@@ -76,7 +76,7 @@ public class WagesScheduleTask {
         List<UserJob> userJobList = userJobService.list(userJobCondition);
         Performance performance = getPerformance(user.getId(), date);
         //说明上个月没有此人的绩效，是异常的
-        if (performance == null) {
+        if (performance == null || !performance.getStatus()) {
             wages.setStatus(2);
         } else {
             UserJob userJob = userJobList.get(0);
