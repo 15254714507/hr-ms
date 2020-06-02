@@ -36,12 +36,13 @@ public class OnboardingLeavingTrendScheduleTask {
     OnboardingLeavingTrendService onboardingLeavingTrendService;
 
     /**
-     * 计算每个月的入职人数和离职人数
+     * 计算每个月1号凌晨0点10分计算上个月的的入职人数和离职人数
      * [秒] [分] [小时] [日] [月] [周] [年]
      */
-    @Scheduled(cron = "0 30 23 L * ?")
+    @Scheduled(cron = "0 10 0 1 * ?")
     public void performanceScheduleTaskLogin() {
-        LocalDate monthEarly = LocalDate.now().withDayOfMonth(1);
+        //上个月的月初 ，也就是上个月的一号
+        LocalDate monthEarly = LocalDate.now().minusMonths(1).withDayOfMonth(1);
         OnboardingLeavingTrend onboardingLeavingTrend = new OnboardingLeavingTrend();
         onboardingLeavingTrend.setMonth(monthEarly.getMonthValue());
         DimissionUserCondition dimissionUserCondition = new DimissionUserCondition();
