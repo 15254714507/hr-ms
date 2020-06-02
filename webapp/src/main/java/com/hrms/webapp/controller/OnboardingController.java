@@ -413,6 +413,7 @@ public class OnboardingController {
         RegisterNewEmployeeCondition registerNewEmployeeCondition = new RegisterNewEmployeeCondition();
         Employees employees = (Employees) session.getAttribute("employees");
         registerNewEmployeeCondition.setCreateUser(employees.getUsername());
+        registerNewEmployeeCondition.setLead(employees.getLead());
         try {
             List<RegisterNewEmployee> registerNewEmployeesList = registerNewEmployeeService.list(registerNewEmployeeCondition);
             registerNewEmployeeVOList = getRegisterNewEmployeeVOList(registerNewEmployeesList);
