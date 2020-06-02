@@ -62,7 +62,7 @@ public class RegisterNewEmployeeManagerImpl implements RegisterNewEmployeeManage
         }
         RegisterNewEmployeeCondition registerNewEmployeeCondition = getRegisterNewEmployeeCondition(registerNewEmployee);
         List<RegisterNewEmployee> registerNewEmployeeList = list(registerNewEmployeeCondition);
-        if (registerNewEmployeeList != null && registerNewEmployeeList.size() > 0) {
+        if (registerNewEmployee.getUsername() != null && registerNewEmployeeList != null && registerNewEmployeeList.size() > 0) {
             log.warn("要修改后的员工编码也已存在，registerNewEmployee：{}", JSON.toJSONString(registerNewEmployee));
             return 0L;
         }
