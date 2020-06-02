@@ -44,8 +44,8 @@
                 <td><input id="password" name="password" type="text"  value="*************"
                            readonly/>
                     <div>
-                        <input type="button"  id="updatePassword" onclick="updatePassword()" value="修改密码"/>
-                        <input type="button" style="display: none" id="savePassword" onclick="savePassword()" value="确认新密码"/>
+                        <input type="button"  id="updatePasswordBtn" onclick="updatePassword()" value="修改密码"/>
+                        <input type="button" style="display: none" id="savePasswordBtn" onclick="savePassword()" value="确认新密码"/>
                     </div>
                 </td>
             </tr>
@@ -117,8 +117,8 @@
     function updatePassword() {
         $("#password").attr("readOnly", false);
         $("#password").val("");
-        document.getElementById("savePassword").style.display = "block";
-        document.getElementById("updatePassword").style.display = "none";
+        document.getElementById("savePasswordBtn").style.display = "block";
+        document.getElementById("updatePasswordBtn").style.display = "none";
     }
     function savePassword() {
         $.ajax({
@@ -131,8 +131,8 @@
             cache: false,
             success: function (result) {
                 if(result.code === 1){
-                    document.getElementById("savePassword").style.display = "none";
-                    document.getElementById("updatePassword").style.display = "block";
+                    document.getElementById("savePasswordBtn").style.display = "none";
+                    document.getElementById("updatePasswordBtn").style.display = "block";
                     $("#password").val("*************");
                 }
                 alert(result.msg);
